@@ -8,6 +8,7 @@ const subFraudsRoute = require("./src/routes/subFrauditRoute");
 const SERVER_PORT = process.env.DEV_SERVER_PORT;
 console.log(SERVER_PORT);
 
+server.use(bodyParser.json());
 server.use(
   bodyParser.urlencoded({
     extended: false,
