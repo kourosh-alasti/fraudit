@@ -17,8 +17,6 @@ mongoose.connect.then(() => {
 const __dirname = path.resolve()
 const server = express()
 
-
-const { server, listener } = require("./server");
 const testingRoute = require("./src/routes/testingRoute.js");
 const subFraudsRoute = require("./src/routes/subFrauditRoute");
 
