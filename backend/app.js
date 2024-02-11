@@ -1,4 +1,5 @@
 const dotenv = require('dotenv');
+const dotenvExpand = require('dotenv-expand');
 const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
@@ -6,9 +7,10 @@ const multer = require("multer");
 const cookieParser = require("cookie-parser");
 const mongoose = require('mongoose')
 
-dotenv.config()
+var devEnv = dotenv.config({processEnv: {}})
+dotenvExpand.expand(devEnv)
 
-mongoose.connect.then(() => {
+mongoose.connect(process.env.MONGOOSE_URL).then(() => {
   console.log('Connected To MongoDB')
 }).catch((err) => {
   console.log(err);
