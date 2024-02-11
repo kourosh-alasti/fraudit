@@ -8,4 +8,5 @@ const frauditSchema = mongoose.Schema({
   member_count: Number,
 });
 
-export const Fraudit = mongoose.model("Fraudit", frauditSchema);
+const Fraudit = mongoose.model("Fraudit", frauditSchema);
+export default Fraudit;
