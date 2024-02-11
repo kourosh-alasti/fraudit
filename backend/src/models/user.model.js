@@ -1,27 +1,39 @@
 const { default: mongoose } = require("mongoose");
 
-// var userSchema = mongoose.Schema({
-//   id: String,
-//   first_name: String,
-//   last_name: String,
-//   username: String,
-//   email: String,
-//   password: String,
-//   permission: String,
-// });
-
-var userSchema = mongoose.Schema({
-  id: {
-    type: String,
-    required: true,
-    unique: true,
+var userSchema = mongoose.Schema(
+  {
+    id: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    first_name: {
+      type: String,
+      required: true,
+      unique: false,
+    },
+    last_name: {
+      type: String,
+      required: false,
+      unique: false,
+    },
+    email: {
+      type: String,
+      required: true,
+      uniqure: true,
+    },
+    password: {
+      type: String,
+      require: true,
+    },
+    profile_picture: {
+      type: String,
+      default:
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    },
   },
-  first_name: {
-    type: String,
-    required: true,
-    unique: false,
-  },
-});
+  { timestamps: true }
+);
 
 const User = mongoose.model("User", userSchema);
 export default User;
