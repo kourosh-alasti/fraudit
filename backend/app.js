@@ -4,17 +4,18 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const multer = require("multer");
 const cookieParser = require("cookie-parser");
+const mongoose = require('mongoose')
 
 dotenv.config()
 
+mongoose.connect.then(() => {
+  console.log('Connected To MongoDB')
+}).catch((err) => {
+  console.log(err);
+})
+
 const __dirname = path.resolve()
 const server = express()
-
-module.exports.listener = listener = (server, port) => {
-  server.listen(port, () => {
-    console.log(`Server is listening on port: ${port}`);
-  });
-};
 
 
 const { server, listener } = require("./server");
