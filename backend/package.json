@@ -19,8 +19,10 @@
     "nodemon": "^3.0.3"
   },
   "dependencies": {
+    "@sapphire/time-utilities": "^1.7.12",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
+    "colorette": "^2.0.20",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.1",
     "dotenv-expand": "^11.0.2",
