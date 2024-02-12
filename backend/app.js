@@ -7,14 +7,15 @@ const multer = require("multer");
 const cookieParser = require("cookie-parser");
 const mongoose = require('mongoose')
 const path = require('path')
+const { ready, error, debug } = require('./src/utils/consoler')
 
 var devEnv = dotenv.config({processEnv: {}})
 dotenvExpand.expand(devEnv)
 
 mongoose.connect(process.env.MONGOOSE_URL).then(() => {
-  console.log('Connected To MongoDB')
+  debug('Connection to MongoDB Established')
 }).catch((err) => {
-  console.log(err);
+  error(err)
 })
 
 const dirname = path.resolve()
@@ -41,7 +42,7 @@ server.use(express.static("public"));
  * START SERVER
  */
 server.listen(process.env.DEV_SERVER_PORT, () => {
-  console.log(`Server is running on port: ${process.env.DEV_SERVER_PORT}`)
+  ready(`Server is running on port: ${process.env.DEV_SERVER_PORT}`)
 })
 
 /*
