@@ -1,11 +1,6 @@
 const { default: mongoose } = require('mongoose');
 
 const threadSchema = new mongoose.Schema({
-    id: {
-        type: String,
-        required: true, 
-        unique: true,
-    }, 
     user_id: {
         type: String,
         required: true,
