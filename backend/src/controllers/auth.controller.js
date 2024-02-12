@@ -36,8 +36,8 @@ const register = async (req, res, next) => {
   const newUser = new User({
     username,
     email,
-    fname,
-    lname: lname === "" ? "" : lname,
+    first_name: fname,
+    last_name: lname === "" ? "" : lname,
     password: hashedPassword,
   });
 
