@@ -1,4 +1,4 @@
-const { default: mongoose } = 'mongoose';
+const { default: mongoose } = require('mongoose');
 
 const threadSchema = new mongoose.Schema({
     id: {
