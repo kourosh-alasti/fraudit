@@ -3,6 +3,15 @@ const Logger = require("../utils/logger");
 const router = express.Router();
 const logger = new Logger("app");
 
+router.get('/test', (req, res) => {
+  return res.send(
+    {
+      success: true,
+      message: "Hello World"
+    }
+  )
+})
+
 router.post("/test", (req, res) => {
   let error = {};
 
