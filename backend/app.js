@@ -21,7 +21,6 @@ const dirname = path.resolve()
 const server = express()
 
 const testingRoute = require("./src/routes/test.route.js");
-const subFraudsRoute = require("./src/routes/fraudit.route.js");
 const authRoutes = require('./src/routes/auth.route');
 const userRoutes = require('./src/routes/user.route.js')
 const threadRoutes = require('./src/routes/thread.route.js')
@@ -48,8 +47,7 @@ server.listen(process.env.DEV_SERVER_PORT, () => {
 /*
  * SERVER AND API ROUTES AND CONTROLLERS
  */
-server.use(subFraudsRoute);
-server.use(testingRoute);
+server.use('/api', testingRoute);
 server.use('/api/auth', authRoutes);
 server.use('/api/user', userRoutes);
 server.use('/api/thread', threadRoutes);
