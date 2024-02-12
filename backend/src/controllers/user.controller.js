@@ -1,7 +1,7 @@
-import bcryptjs from 'bcryptjs';
-import User from '../models/user.model';
+const bcryptjs = require('bcryptjs')
+const User = require('../models/user.model')
 
-export const logout = (req, res, next) => {
+const logout = (req, res, next) => {
     try {
         /*
          * Clear Browser Cookie with stored JWT Auth TOKEN 
@@ -13,7 +13,7 @@ export const logout = (req, res, next) => {
     }
 }
 
-export const getUser = async (req, res, next) => {
+const getUser = async (req, res, next) => {
     try {
         /*
          * PULLS USER FROM BUCKET BY ID FROM REQUEST
@@ -43,7 +43,7 @@ export const getUser = async (req, res, next) => {
     }
 }
 
-export const getUsers = async (req, res, next) => {
+const getUsers = async (req, res, next) => {
     /*
      * CHECKS IF USER HAS ADMIN PRIVILEGES
      */
@@ -79,7 +79,7 @@ export const getUsers = async (req, res, next) => {
     }
 }
 
-export const deleteUser = async (req, res, next) => {
+const deleteUser = async (req, res, next) => {
     if(!req.user.id !== req.params.userId) {
         // TODO: ERROR HANDLER
         return next()
@@ -93,7 +93,7 @@ export const deleteUser = async (req, res, next) => {
     }
 }
 
-export const updateUser = async (req, res, next) => {
+const updateUser = async (req, res, next) => {
     if(req.user.id !== req.params.userId) {
         // TODO: ERROR HANDLER
         return next()
@@ -146,3 +146,9 @@ export const updateUser = async (req, res, next) => {
         next(err)
     }
 }
+
+module.exports.logout = logout;
+module.exports.getUser = getUser;
+module.exports.getUsers = getUsers; 
+module.exports.deleteUser = deleteUser;
+module.exports.updateUser = updateUser;

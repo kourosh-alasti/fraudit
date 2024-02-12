@@ -1,8 +1,8 @@
-import User from "../models/user.model";
-import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
+const User = require('../models/user.model');
+const bcryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-export const register = async (req, res, next) => {
+const register = async (req, res, next) => {
   /*
    * GRABS USER INFORMATION FROM FORM
    */
@@ -53,7 +53,7 @@ export const register = async (req, res, next) => {
   }
 };
 
-export const login = async (req, res, next) => {
+const login = async (req, res, next) => {
   /*
    * PULLS USERNAME AND PASSWORD FROM FORM
    */
@@ -112,3 +112,6 @@ export const login = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports.register = register;
+module.exports.login = login;
