@@ -20,8 +20,10 @@ mongoose.connect(process.env.MONGOOSE_URL).then(() => {
 const dirname = path.resolve()
 const server = express()
 
-const testingRoute = require("./src/routes/testingRoute.js");
-const subFraudsRoute = require("./src/routes/subFrauditRoute");
+const testingRoute = require("./src/routes/test.route.js");
+const subFraudsRoute = require("./src/routes/fraudit.route.js");
+const authRoutes = require('./src/routes/auth.route');
+const userRoutes = require('./src/routes/user.route.js')
 
 const SERVER_PORT = process.env.DEV_SERVER_PORT;
 const FORM_HANDLER = multer();
@@ -49,6 +51,9 @@ server.listen(process.env.DEV_SERVER_PORT, () => {
  */
 server.use(subFraudsRoute);
 server.use(testingRoute);
+server.use('/api/auth', authRoutes)
+server.use('/api/user', userRoutes);
+
 
 
 // server.use(express.static(path.join(dirname, '/frontend/dist')))
