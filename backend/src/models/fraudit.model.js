@@ -30,4 +30,4 @@ const frauditSchema = mongoose.Schema(
 );
 
 const Fraudit = mongoose.model("Fraudit", frauditSchema);
-export default Fraudit;
+module.exports = Fraudit;

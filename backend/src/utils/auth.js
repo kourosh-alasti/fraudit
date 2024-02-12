@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken')
 
-export const verifyToken = (req, res, next) => {
+const verifyToken = (req, res, next) => {
     /*
      *  PULLS JWT TOKEN FROM COOKIES
      */
@@ -27,3 +27,5 @@ export const verifyToken = (req, res, next) => {
         next();
     })
 }
+
+module.exports.verifyToken = verifyToken;
