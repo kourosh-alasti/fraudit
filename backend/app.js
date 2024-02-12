@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const multer = require("multer");
 const cookieParser = require("cookie-parser");
 const mongoose = require('mongoose')
+const path = require('path')
 
 var devEnv = dotenv.config({processEnv: {}})
 dotenvExpand.expand(devEnv)
@@ -16,7 +17,7 @@ mongoose.connect(process.env.MONGOOSE_URL).then(() => {
   console.log(err);
 })
 
-const __dirname = path.resolve()
+const dirname = path.resolve()
 const server = express()
 
 const testingRoute = require("./src/routes/testingRoute.js");
@@ -32,7 +33,7 @@ console.log(SERVER_PORT);
  */
 server.use( bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
-server.use(upload.array());
+server.use(FORM_HANDLER.array());
 server.use(cookieParser());
 server.use(express.static("public"));
 
@@ -50,10 +51,10 @@ server.use(subFraudsRoute);
 server.use(testingRoute);
 
 
-server.use(express.static(path.join(__dirname, '/frontend/dist')))
+server.use(express.static(path.join(dirname, '/frontend/dist')))
 
 server.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'))
+  res.sendFile(path.join(dirname, '..', 'frontend', 'dist', 'index.html'))
 })
 
 
