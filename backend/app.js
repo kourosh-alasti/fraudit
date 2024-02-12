@@ -24,11 +24,10 @@ const testingRoute = require("./src/routes/test.route.js");
 const subFraudsRoute = require("./src/routes/fraudit.route.js");
 const authRoutes = require('./src/routes/auth.route');
 const userRoutes = require('./src/routes/user.route.js')
+const threadRoutes = require('./src/routes/thread.route.js')
 
 const SERVER_PORT = process.env.DEV_SERVER_PORT;
 const FORM_HANDLER = multer();
-
-console.log(SERVER_PORT);
 
 /* 
  * MIDDLEWARES
@@ -51,8 +50,9 @@ server.listen(process.env.DEV_SERVER_PORT, () => {
  */
 server.use(subFraudsRoute);
 server.use(testingRoute);
-server.use('/api/auth', authRoutes)
+server.use('/api/auth', authRoutes);
 server.use('/api/user', userRoutes);
+server.use('/api/thread', threadRoutes);
 
 
 
