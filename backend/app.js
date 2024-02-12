@@ -51,11 +51,11 @@ server.use(subFraudsRoute);
 server.use(testingRoute);
 
 
-server.use(express.static(path.join(dirname, '/frontend/dist')))
+// server.use(express.static(path.join(dirname, '/frontend/dist')))
 
-server.get('*', (req, res) => {
-  res.sendFile(path.join(dirname, '..', 'frontend', 'dist', 'index.html'))
-})
+// server.get('*', (req, res) => {
+//   res.sendFile(path.join(dirname, '..', 'frontend', 'dist', 'index.html'))
+// })
 
 
 server.use((err, req, res, next) => {
