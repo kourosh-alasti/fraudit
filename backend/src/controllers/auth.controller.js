@@ -97,12 +97,12 @@ const login = async (req, res, next) => {
     const jwToken = jwt.sign({ id: user._id }, process.env.DEV_JWT_SECRET);
 
     /*
-     * PULLS PASSWORD AND REST OF OBJ
+     * PULLS PASSWORD OUT OF REST OF USER DATA
      */
     const { password: pass, ...rest } = user._doc;
 
     /*
-     * RETURNS 200 STATUS FOR OK and ADDS JWT TOKEN TO COOKIE AND RETURNS USER OBJECT
+     * RETURNS 200 STATUS FOR OK and ADDS JWT TOKEN TO COOKIE AND RETURNS USER OBJECT W/O PASSWORD
      */
     res
       .status(200)
