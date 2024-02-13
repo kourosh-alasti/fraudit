@@ -1,6 +1,6 @@
-const User = require('../models/user.model');
-const bcryptjs = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const User = require("../models/user.model");
+const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const register = async (req, res, next) => {
   /*
@@ -70,7 +70,7 @@ const login = async (req, res, next) => {
   try {
     /*
      * PULL USER INFORMATION FROM DB BY USERNAME
-     * CHECKS IF ENTERED PASSWORD MATCHES HASHED PASSWORD  
+     * CHECKS IF ENTERED PASSWORD MATCHES HASHED PASSWORD
      */
     const user = await User.findOne({ username });
     const isValidPassword = bcryptjs.compareSync(password, user.password);
@@ -94,7 +94,7 @@ const login = async (req, res, next) => {
     /*
      * CREATES JWT TOKEN FOR COOKIES
      */
-    const jwToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+    const jwToken = jwt.sign({ id: user._id }, process.env.DEV_JWT_SECRET);
 
     /*
      * PULLS PASSWORD AND REST OF OBJ
