@@ -5,7 +5,12 @@ const { getUserInformation } = require(".");
 const getUserFraudits = async (id) => {
   const user = await getUserInformation(id);
 
-  Member.find().where({ userId: id });
+  if (!user) {
+    //TODO: Error Handling
+    throw new Error("User does not exist");
+  }
+
+  const members = await Member.find({ userId: id });
 
   // TODO: NEED REST
 };
