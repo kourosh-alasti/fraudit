@@ -44,7 +44,21 @@ const getCourse = async (req, res, next) => {
     next(err);
   }
 };
-const deleteCourse = async (req, res, next) => {};
+const deleteCourse = async (req, res, next) => {
+  // TODO: HANDLE USER PERMISSIONS TO ALLOW ADMIN ACCOUNTS TO ONLY DELETE COURSES
+  if (!req.course.id !== req.params.courseId) {
+    // TODO: ERROR HANDLER
+    return next();
+  }
+
+  try {
+    await Course.findByIdAndDelete(req.params.courseId);
+    res.status(200).json("Course has been deleted");
+  } catch (err) {
+    next(err);
+  }
+};
+
 const updateCourse = async (req, res, next) => {};
 
 module.exports.getCourses = getCourses;
