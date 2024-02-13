@@ -16,13 +16,18 @@ var universitySchema = mongoose.Schema(
       default: 5,
     },
     address: {
-      type: Object,
+      type: {
+        street: String,
+        city: String,
+        state: String,
+        zipCode: String,
+      },
       required: true,
       default: {
         street: null,
         city: null,
         state: null,
-        zup: null,
+        zipCode: null,
       },
     },
   },
