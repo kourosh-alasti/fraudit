@@ -56,19 +56,35 @@ const getUsers = async (req, res, next) => {
   }
 
   try {
+    /*
+     * Grab Start Index if given as a request
+     * Grab Limit to number of users given
+     * Grab Sort Direction from request
+     */
     const startIndex = parseInt(req.query.startIndex) || 0;
     const limit = parseInt(req.query.limit) || 9;
     const sortDirection = req.query.slot === "asc" ? 1 : -1;
 
+    /*
+     * Pull users from start index -> limit with sorted by sorthDirection var
+     *
+     */
     const users = await User.find()
       .sort({ createdAt: sortDirection })
       .skip(startIndex)
       .limit(limit);
+
+    /*
+     * Creates array of users and removes passwords from user objects
+     */
     const usersWithoutPassword = users.map((user) => {
       const { password, ...rest } = user._doc;
       return rest;
     });
 
+    /*
+     * Takes Count of all Users in collections
+     */
     const totalUsers = await User.countDocuments();
     const now = new Date();
 
@@ -77,10 +93,18 @@ const getUsers = async (req, res, next) => {
       now.getMonth() - 1,
       now.getDate()
     );
+
+    /*
+     * Array of users that created their account in the last month
+     */
     const lastMonthUsers = await User.countDocuments({
       createdAt: { $gte: oneMonthAgo },
     });
 
+    /*
+     * Returns status 200 for success
+     * Returns users as JSON object
+     */
     res.status(200).json({
       users: usersWithoutPassword,
       totalUsers,
