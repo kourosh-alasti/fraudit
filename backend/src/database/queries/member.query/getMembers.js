@@ -1,7 +1,7 @@
 const Member = require("../../../models/member.model");
 
 const getMembers = async (id) => {
-  const members = Member.find().where(frauditId, id);
+  const members = await Member.find({ frauditId: id });
 
   if (!members) {
     //TODO: ERROR HANDLING
