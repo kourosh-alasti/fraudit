@@ -39,6 +39,7 @@ const register = async (req, res, next) => {
     first_name: fname,
     last_name: lname === "" ? "" : lname,
     password: hashedPassword,
+    idAdmin: false,
   });
 
   try {
