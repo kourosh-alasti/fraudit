@@ -1,6 +1,7 @@
 const User = require("../models/user.model");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { error, debug } = require("../utils/consoler");
 
 const register = async (req, res, next) => {
   /*
@@ -63,7 +64,7 @@ const login = async (req, res, next) => {
   /*
    * VALIDATES ACCOUNT INFORMATION
    */
-  if (!email || !password || email === "" || password === "") {
+  if (!username || !password || username === "" || password === "") {
     // ERROR HANDLER
     next();
   }
@@ -73,7 +74,7 @@ const login = async (req, res, next) => {
      * PULL USER INFORMATION FROM DB BY USERNAME
      * CHECKS IF ENTERED PASSWORD MATCHES HASHED PASSWORD
      */
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username: username }).exec();
     const isValidPassword = bcryptjs.compareSync(password, user.password);
 
     /*
@@ -110,6 +111,7 @@ const login = async (req, res, next) => {
       .cookie("access_token", jwToken, { httpOnly: true })
       .json(rest);
   } catch (err) {
+    error(err);
     next(err);
   }
 };
