@@ -11,8 +11,13 @@ const frauditSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    created_at: {
-      type: Date,
+    slug: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    ownerId: {
+      type: String,
       required: true,
     },
     member_count: {
