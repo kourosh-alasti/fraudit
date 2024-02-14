@@ -12,14 +12,19 @@ var userSchema = mongoose.Schema(
       required: false,
       unique: false,
     },
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     email: {
       type: String,
       required: true,
-      uniqure: true,
+      unique: true,
     },
     password: {
       type: String,
-      require: true,
+      required: true,
     },
     profile_picture: {
       type: String,
