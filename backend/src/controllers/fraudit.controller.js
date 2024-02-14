@@ -1,4 +1,5 @@
 const Fraudit = require("../models/fraudit.model");
+const { getFrauditOwnerStatus } = require("../database/queries/fraudit.query");
 
 const createFraudit = async (req, res, next) => {
   const { title, description, slug, userId } = req.body;
