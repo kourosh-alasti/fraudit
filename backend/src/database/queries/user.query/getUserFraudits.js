@@ -1,6 +1,6 @@
 const User = require("../../../models/user.model");
 const Member = require("../../../models/member.model");
-const { getUserInformation } = require(".");
+const { getUserInformation } = require("./getUserInformation");
 
 const getUserFraudits = async (id) => {
   const user = await getUserInformation(id);
