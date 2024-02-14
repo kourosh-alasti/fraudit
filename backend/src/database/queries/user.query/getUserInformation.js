@@ -1,4 +1,4 @@
-import User from "../../../models/user.model";
+const User = require("../../../models/user.model");
 
 const getUserInformation = async (id) => {
   const user = await User.findById(id);
