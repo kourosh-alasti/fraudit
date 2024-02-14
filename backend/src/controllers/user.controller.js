@@ -116,7 +116,7 @@ const getUsers = async (req, res, next) => {
 };
 
 const deleteUser = async (req, res, next) => {
-  if (!req.user.id !== req.params.userId) {
+  if (req.user.id !== req.params.userId) {
     // TODO: ERROR HANDLER
     return next();
   }
