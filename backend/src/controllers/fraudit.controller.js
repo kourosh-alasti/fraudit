@@ -52,4 +52,5 @@ const deleteFraudit = async (req, res, next) => {
   }
 };
 
-module.exports.createFraudit === createFraudit;
+module.exports.createFraudit = createFraudit;
+module.exports.deleteFraudit = deleteFraudit;
