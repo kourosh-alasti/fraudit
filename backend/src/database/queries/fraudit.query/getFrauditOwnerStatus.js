@@ -1,4 +1,4 @@
-const { getFrauditInformation } = require(".");
+const { getFrauditInformation } = require("./getFrauditInformation");
 const { getAdminStatus } = require("../user.query");
 
 const getFrauditOwnerStatus = async (frauditId, userId) => {
