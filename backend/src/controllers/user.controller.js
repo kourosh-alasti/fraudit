@@ -1,5 +1,6 @@
 const bcryptjs = require("bcryptjs");
 const User = require("../models/user.model");
+const { getUserInformation } = require("../database/queries/user.query");
 
 //* WORKS
 const logout = (req, res, next) => {
@@ -53,7 +54,7 @@ const getUsers = async (req, res, next) => {
   /*
    * CHECKS IF USER HAS ADMIN PRIVILEGES
    */
-  if (!res.user.isAdmin) {
+  if (!req.isAdmin) {
     // TODO: ERROR HANDLER
     return next();
   }
@@ -89,20 +90,20 @@ const getUsers = async (req, res, next) => {
      * Takes Count of all Users in collections
      */
     const totalUsers = await User.countDocuments();
-    const now = new Date();
+    // const now = new Date();
 
-    const oneMonthAgo = new Date(
-      now.getFullYear(),
-      now.getMonth() - 1,
-      now.getDate()
-    );
+    // const oneMonthAgo = new Date(
+    //   now.getFullYear(),
+    //   now.getMonth() - 1,
+    //   now.getDate()
+    // );
 
     /*
      * Array of users that created their account in the last month
      */
-    const lastMonthUsers = await User.countDocuments({
-      createdAt: { $gte: oneMonthAgo },
-    });
+    // const lastMonthUsers = await User.countDocuments({
+    //   createdAt: { $gte: oneMonthAgo },
+    // });
 
     /*
      * Returns status 200 for success
@@ -111,7 +112,7 @@ const getUsers = async (req, res, next) => {
     res.status(200).json({
       users: usersWithoutPassword,
       totalUsers,
-      lastMonthUsers,
+      // lastMonthUsers,
     });
   } catch (err) {
     next(err);
@@ -192,8 +193,41 @@ const updateUser = async (req, res, next) => {
   }
 };
 
+//* WORKS
+const updateUserAdmin = async (req, res, next) => {
+  if (!req.isAdmin) {
+    // TODO: ERROR HANDLER
+    return next();
+  }
+
+  const user = await getUserInformation(req.params.userId);
+
+  if (!user) {
+    //TODO: ERROR HANDLER
+    return next();
+  }
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.userId,
+      {
+        $set: {
+          isAdmin: !user.isAdmin,
+        },
+      },
+      { new: true }
+    );
+
+    const { password, ...rest } = updatedUser._doc;
+    res.status(200).json(rest);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports.logout = logout;
 module.exports.getUser = getUser;
 module.exports.getUsers = getUsers;
 module.exports.deleteUser = deleteUser;
 module.exports.updateUser = updateUser;
+module.exports.updateUserAdmin = updateUserAdmin;
