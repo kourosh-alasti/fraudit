@@ -28,6 +28,7 @@ const testingRoute = require("./routes/test.route.js");
 const authRoutes = require("./routes/auth.route.js");
 const userRoutes = require("./routes/user.route.js");
 const threadRoutes = require("./routes/thread.route.js");
+const frauditRoutes = require("./routes/fraudit.route.js");
 
 const SERVER_PORT = process.env.DEV_SERVER_PORT;
 const FORM_HANDLER = multer();
@@ -55,6 +56,7 @@ server.use("/api", testingRoute);
 server.use("/api/auth", authRoutes);
 server.use("/api/user", userRoutes);
 server.use("/api/thread", threadRoutes);
+server.use("/api/fraudit", frauditRoutes);
 
 // server.use(express.static(path.join(dirname, '/frontend/dist')))
 
