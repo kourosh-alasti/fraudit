@@ -100,41 +100,6 @@
 
 _More Coming_
 
-### Controllers
-
-#### Auth
-
-- func login
-- func register
-
-#### Course
-
-- func getCourses
-- func getCourse
-- func deleteCourse
-- func updateCourse (IP)
-
-#### Fraudit
-
-- func createFraudit
-- func deleteFraudit
-
-#### Thread
-
-- createThread (IP)
-- getThreads (IP)
-- deleteThread (IP)
-- updateThread (IP)
-
-#### User
-
-- logout
-- getUser
-- getUsers
-- deleteUser
-- updateUser
-- updateUserAdmin
-
 ### Middlewares
 
 #### Auth Middlewares
