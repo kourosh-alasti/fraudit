@@ -97,7 +97,10 @@
 - /logout
 - /getusers
 - /:userId
-  _More Coming_
+
+_More Coming_
+
+### Controllers
 
 ### Middlewares
 
