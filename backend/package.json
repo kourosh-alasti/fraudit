@@ -2,8 +2,7 @@
   "name": "backend",
   "version": "0.1.0",
   "description": "FraudIt Backend",
-  "exports": "./app.js",
-  "type": "module",
+  "main": "app.js",
   "scripts": {
     "start": "nodemon ./src/app.js"
   },

@@ -1,4 +1,4 @@
-import winston from 'winston'
+const winston = require('winston')
 
 const dateFormatter = () => {
   return new Date(Date.now()).toUTCString()
@@ -62,4 +62,4 @@ class Logger {
   }
 }
 
-export default Logger
+module.exports = Logger

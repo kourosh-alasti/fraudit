@@ -7,7 +7,6 @@
   },
   "extends": "standard",
   "parserOptions": {
-    "sourceType": "module",
     "ecmaVersion": "latest"
   },
   "rules": {

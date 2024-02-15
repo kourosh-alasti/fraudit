@@ -1,13 +1,13 @@
-import Logger from '../utils/logger'
+const Logger = require('../utils/logger')
 const logger = new Logger('app')
 
-export const test = (req, res) => {
+const test = (req, res) => {
   res.json({
     message: 'FraudIt API is functional!'
   })
 }
 
-export const testLogger = (req, res) => {
+const testLogger = (req, res) => {
   const error = {}
 
   const body = req.body
@@ -39,3 +39,6 @@ export const testLogger = (req, res) => {
     res.send('No Error')
   }
 }
+
+module.exports.test = test
+module.exports.testLogger = testLogger

@@ -1,11 +1,11 @@
-import express from 'express'
-import { verifyToken } from '../utils/auth'
-import {
+const express = require('express')
+const { verifyToken } = require('../utils/auth')
+const {
   createThread,
   getThreads,
   deleteThread,
   updateThread
-} from '../controllers/thread.controller'
+} = require('../controllers/thread.controller')
 
 const router = express.Router()
 
@@ -14,4 +14,4 @@ router.get('/:threadId', getThreads)
 router.delete('/delete/:threadId', verifyToken, deleteThread)
 router.put('/update/:threadId', verifyToken, updateThread)
 
-export default router
+module.exports = router

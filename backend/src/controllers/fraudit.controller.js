@@ -1,7 +1,7 @@
-import Fraudit from '../models/fraudit.model'
-import { getFrauditOwnerStatus } from '../database/queries/fraudit.query'
+const Fraudit = require('../models/fraudit.model')
+const { getFrauditOwnerStatus } = require('../database/queries/fraudit.query')
 
-export const createFraudit = async (req, res, next) => {
+const createFraudit = async (req, res, next) => {
   const { title, description, slug, userId } = req.body
 
   if (
@@ -34,7 +34,7 @@ export const createFraudit = async (req, res, next) => {
   }
 }
 
-export const deleteFraudit = async (req, res, next) => {
+const deleteFraudit = async (req, res, next) => {
   const { frauditId, userId } = req.body
 
   const { isOwner } = getFrauditOwnerStatus(frauditId, userId)
@@ -51,3 +51,6 @@ export const deleteFraudit = async (req, res, next) => {
     next(err)
   }
 }
+
+module.exports.createFraudit = createFraudit
+module.exports.deleteFraudit = deleteFraudit

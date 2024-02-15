@@ -1,4 +1,4 @@
-import { mongoose } from 'mongoose'
+const { default: mongoose } = require('mongoose')
 
 const memberSchema = mongoose.Schema(
   {
@@ -11,4 +11,4 @@ const memberSchema = mongoose.Schema(
 )
 
 const Member = mongoose.model('Member', memberSchema)
-export default Member
+module.exports = Member

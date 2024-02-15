@@ -1,1 +1,3 @@
-export * from './getMembers'
+const getMembers = require('./getMembers')
+
+module.exports.getMembers = getMembers

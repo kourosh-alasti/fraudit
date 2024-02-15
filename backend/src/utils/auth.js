@@ -1,7 +1,7 @@
-import jwt from 'jsonwebtoken'
-import { getUserInformation } from '../database/queries/user.query'
+const jwt = require('jsonwebtoken')
+const { getUserInformation } = require('../database/queries/user.query/')
 
-export const verifyToken = (req, res, next) => {
+const verifyToken = (req, res, next) => {
   /*
    *  PULLS JWT TOKEN FROM COOKIES
    */
@@ -29,7 +29,7 @@ export const verifyToken = (req, res, next) => {
   })
 }
 
-export const verifyIsAdmin = async (req, res, next) => {
+const verifyIsAdmin = async (req, res, next) => {
   const userId = req.user.id
 
   const userInfo = await getUserInformation(userId)
@@ -42,3 +42,6 @@ export const verifyIsAdmin = async (req, res, next) => {
   req.isAdmin = true
   next()
 }
+
+module.exports.verifyToken = verifyToken
+module.exports.verifyIsAdmin = verifyIsAdmin

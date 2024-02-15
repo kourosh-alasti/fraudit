@@ -1,10 +1,10 @@
-import express from 'express'
-import {
+const express = require('express')
+const {
   deleteCourse,
   getCourse,
   updateCourse,
   getCourses
-} from '../controller/course.controller'
+} = require('../controller/course.controller')
 
 const router = express.Router()
 
@@ -13,4 +13,4 @@ router.delete('/delete/:courseId', deleteCourse)
 router.get('/getcourses', getCourses)
 router.get('/:courseId', getCourse)
 
-export default router
+module.exports = router

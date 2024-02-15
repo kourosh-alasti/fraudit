@@ -1,6 +1,6 @@
-import Course from '../models/course.model'
+const Course = require('../models/course.model')
 
-export const getCourses = async (req, res, next) => {
+const getCourses = async (req, res, next) => {
   if (!res.user.isAdmin) {
     // TODO: Error Handling
     return next()
@@ -27,7 +27,7 @@ export const getCourses = async (req, res, next) => {
   }
 }
 
-export const getCourse = async (req, res, next) => {
+const getCourse = async (req, res, next) => {
   try {
     const course = await Course.findById(req.params.userId)
 
@@ -44,7 +44,7 @@ export const getCourse = async (req, res, next) => {
     next(err)
   }
 }
-export const deleteCourse = async (req, res, next) => {
+const deleteCourse = async (req, res, next) => {
   // TODO: HANDLE USER PERMISSIONS TO ALLOW ADMIN ACCOUNTS TO ONLY DELETE COURSES
   if (!req.course.id !== req.params.courseId) {
     // TODO: ERROR HANDLER
@@ -59,4 +59,9 @@ export const deleteCourse = async (req, res, next) => {
   }
 }
 
-export const updateCourse = async (req, res, next) => {}
+const updateCourse = async (req, res, next) => {}
+
+module.exports.getCourses = getCourses
+module.exports.getCourse = getCourse
+module.exports.deleteCourse = deleteCourse
+module.exports.updateCourse = updateCourse

@@ -1,4 +1,4 @@
-import { mongoose } from 'mongoose'
+const { default: mongoose } = require('mongoose')
 
 const threadSchema = new mongoose.Schema(
   {
@@ -23,4 +23,4 @@ const threadSchema = new mongoose.Schema(
 )
 
 const Thread = mongoose.model('Thread', threadSchema)
-export default Thread
+module.exports = Thread
