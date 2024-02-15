@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 const dotenvExpand = require("dotenv-expand");
+const cors = require("cors");
 const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
@@ -38,6 +39,7 @@ const FORM_HANDLER = multer();
  */
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
+server.use(cors);
 server.use(FORM_HANDLER.array());
 server.use(cookieParser());
 server.use(express.static("public"));
