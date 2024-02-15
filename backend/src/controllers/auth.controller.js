@@ -1,14 +1,14 @@
-const User = require("../models/user.model");
-const bcryptjs = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const { error, debug } = require("../utils/consoler");
+const User = require('../models/user.model')
+const bcryptjs = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const { error } = require('../utils/consoler')
 
 //* WORKS
 const register = async (req, res, next) => {
   /*
    * GRABS USER INFORMATION FROM FORM
    */
-  const { username, email, password, fname, lname } = req.body;
+  const { username, email, password, fname, lname } = req.body
 
   /*
    * VALIDATES USER INFORMATION IN BACKEND POST-FRONTEND VALIDATION
@@ -18,19 +18,19 @@ const register = async (req, res, next) => {
     !email ||
     !password ||
     !fname ||
-    username === "" ||
-    email === "" ||
-    password === "" ||
-    fname === ""
+    username === '' ||
+    email === '' ||
+    password === '' ||
+    fname === ''
   ) {
     // ERROR HANDLER
-    next();
+    next()
   }
 
   /*
    * HASHES PASSWORD
    */
-  const hashedPassword = bcryptjs.hashSync(password, 10);
+  const hashedPassword = bcryptjs.hashSync(password, 10)
 
   /*
    * CREATES NEW USER
@@ -39,36 +39,36 @@ const register = async (req, res, next) => {
     username,
     email,
     first_name: fname,
-    last_name: lname === "" ? "" : lname,
+    last_name: lname === '' ? '' : lname,
     password: hashedPassword,
-    idAdmin: false,
-  });
+    idAdmin: false
+  })
 
   try {
     /*
      * SAVES NEW USER TO COLLECTION
      * RETURNS 201 STATUS CODE FOR SUCCESS and JSON MESSAGE
      */
-    await newUser.save();
-    res.status(201).json("Registration Successful!");
+    await newUser.save()
+    res.status(201).json('Registration Successful!')
   } catch (err) {
-    next(err);
+    next(err)
   }
-};
+}
 
 //* WORKS
 const login = async (req, res, next) => {
   /*
    * PULLS USERNAME AND PASSWORD FROM FORM
    */
-  const { username, password } = req.body;
+  const { username, password } = req.body
 
   /*
    * VALIDATES ACCOUNT INFORMATION
    */
-  if (!username || !password || username === "" || password === "") {
+  if (!username || !password || username === '' || password === '') {
     // ERROR HANDLER
-    next();
+    next()
   }
 
   try {
@@ -76,15 +76,15 @@ const login = async (req, res, next) => {
      * PULL USER INFORMATION FROM DB BY USERNAME
      * CHECKS IF ENTERED PASSWORD MATCHES HASHED PASSWORD
      */
-    const user = await User.findOne({ username: username }).exec();
-    const isValidPassword = bcryptjs.compareSync(password, user.password);
+    const user = await User.findOne({ username }).exec()
+    const isValidPassword = bcryptjs.compareSync(password, user.password)
 
     /*
      * CHECKS IF VALID USER
      */
     if (!user) {
       // ERROR HANDLER
-      return next();
+      return next()
     }
 
     /*
@@ -92,31 +92,31 @@ const login = async (req, res, next) => {
      */
     if (!isValidPassword) {
       // ERROR HANDLER
-      return next();
+      return next()
     }
 
     /*
      * CREATES JWT TOKEN FOR COOKIES
      */
-    const jwToken = jwt.sign({ id: user._id }, process.env.DEV_JWT_SECRET);
+    const jwToken = jwt.sign({ id: user._id }, process.env.DEV_JWT_SECRET)
 
     /*
      * PULLS PASSWORD OUT OF REST OF USER DATA
      */
-    const { password: pass, ...rest } = user._doc;
+    const { password: pass, ...rest } = user._doc
 
     /*
      * RETURNS 200 STATUS FOR OK and ADDS JWT TOKEN TO COOKIE AND RETURNS USER OBJECT W/O PASSWORD
      */
     res
       .status(200)
-      .cookie("access_token", jwToken, { httpOnly: true })
-      .json(rest);
+      .cookie('access_token', jwToken, { httpOnly: true })
+      .json(rest)
   } catch (err) {
-    error(err);
-    next(err);
+    error(err)
+    next(err)
   }
-};
+}
 
-module.exports.register = register;
-module.exports.login = login;
+module.exports.register = register
+module.exports.login = login
