@@ -2,10 +2,10 @@ const { default: mongoose } = require('mongoose')
 
 const memberSchema = mongoose.Schema(
   {
-    frauditId: { type: String, required: true },
-    userId: { type: String, required: true },
+    fraudit_id: { type: String, required: true },
+    user_id: { type: String, required: true },
     // "member", "admin", "owner"
-    permissionLevel: { type: String, required: true }
+    permission_lvl: { type: String, required: true }
   },
   { timestamps: true }
 )

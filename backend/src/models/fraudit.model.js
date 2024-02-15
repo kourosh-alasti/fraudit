@@ -16,7 +16,7 @@ const frauditSchema = mongoose.Schema(
       unique: true,
       required: true
     },
-    ownerId: {
+    owner_id: {
       type: String,
       required: true
     },
