@@ -1,6 +1,7 @@
 const bcryptjs = require("bcryptjs");
 const User = require("../models/user.model");
 
+//* WORKS
 const logout = (req, res, next) => {
   try {
     /*
@@ -16,6 +17,7 @@ const logout = (req, res, next) => {
   }
 };
 
+//* WORKS
 const getUser = async (req, res, next) => {
   try {
     /*
@@ -46,6 +48,7 @@ const getUser = async (req, res, next) => {
   }
 };
 
+//TODO: ADD ADMIN PRIVILEGES / OWNER PRIVILEGES
 const getUsers = async (req, res, next) => {
   /*
    * CHECKS IF USER HAS ADMIN PRIVILEGES
@@ -115,6 +118,7 @@ const getUsers = async (req, res, next) => {
   }
 };
 
+//* WORKS
 const deleteUser = async (req, res, next) => {
   if (req.user.id !== req.params.userId) {
     // TODO: ERROR HANDLER
@@ -129,6 +133,7 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
+//* WORKS
 const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.userId) {
     // TODO: ERROR HANDLER
@@ -180,7 +185,7 @@ const updateUser = async (req, res, next) => {
       { new: true }
     );
 
-    const { password, ...rest } = updateUser._doc;
+    const { password, ...rest } = updatedUser._doc;
     res.status(200).json(rest);
   } catch (err) {
     next(err);
