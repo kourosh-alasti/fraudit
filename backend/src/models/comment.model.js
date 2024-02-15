@@ -12,10 +12,6 @@ const commentSchema = mongoose.Schema({
   user_id: {
     type: String,
     required: true
-  },
-  posted_at: {
-    type: Date,
-    required: true
   }
 })
 
