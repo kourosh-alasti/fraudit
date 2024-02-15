@@ -10,13 +10,13 @@
 - fraudit_id : String
 - user_id : String
 
-##### Course Model
+#### Course Model
 
 - name : String
 - number : String
 - abbreviation : String
 
-##### Fraudit Model
+#### Fraudit Model
 
 - title : String
 - description : String
@@ -24,26 +24,26 @@
 - owner_id : String
 - member_count : Number
 
-##### Member Model
+#### Member Model
 
 - fraudit_id : String
 - user_id : String
 - permission_lvl : String
 
-##### Professor Model
+#### Professor Model
 
 - name : String
 - email : String
 - overallRating : Number
 
-##### Thread Model
+#### Thread Model
 
 - user_id : String
 - fraudit_id : String
 - content : String
 - title : String
 
-##### University Model
+#### University Model
 
 - name : String
 - abbreviation : String
@@ -55,7 +55,7 @@
   - zipCode : String
   - }
 
-##### User Model
+#### User Model
 
 - first_name : String
 - last_name : String
@@ -106,9 +106,11 @@
 - verifyToken
 - verifyIsAdmin
 
-Utils
-Loggers
-consoler
-Custom Console Logger
-logger
-Custom Execution Logs
+#### Utils
+
+##### Loggers
+
+- consoler
+  - Custom Console Logger
+- logger
+  - Custom Execution Logs
