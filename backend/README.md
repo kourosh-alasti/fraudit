@@ -106,9 +106,9 @@
 - verifyToken
 - verifyIsAdmin
 
-#### Utils
+### Utils
 
-##### Loggers
+#### Loggers
 
 - consoler
   - Custom Console Logger
