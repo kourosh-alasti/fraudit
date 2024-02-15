@@ -1,23 +1,23 @@
-const { default: mongoose } = require("mongoose");
+const { default: mongoose } = require('mongoose')
 
 const commentSchema = mongoose.Schema({
   content: {
     type: String,
-    required: true,
+    required: true
   },
   fraudit_id: {
     type: String,
-    required: true,
+    required: true
   },
   user_id: {
     type: String,
-    required: true,
+    required: true
   },
   posted_at: {
     type: Date,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
-const Comment = mongoose.model("Comment", commentSchema);
-export default Comment;
+const Comment = mongoose.model('Comment', commentSchema)
+export default Comment

@@ -1,12 +1,12 @@
-const express = require("express");
+const express = require('express')
 const {
   createFraudit,
-  deleteFraudit,
-} = require("../controllers/fraudit.controller");
+  deleteFraudit
+} = require('../controllers/fraudit.controller')
 
-const router = express.Router();
+const router = express.Router()
 
-router.post("/create", createFraudit);
-router.delete("/delete/:id", deleteFraudit);
+router.post('/create', createFraudit)
+router.delete('/delete/:id', deleteFraudit)
 
-module.exports = router;
+module.exports = router

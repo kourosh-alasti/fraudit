@@ -1,45 +1,45 @@
-const { default: mongoose } = require("mongoose");
+const { default: mongoose } = require('mongoose')
 
-var userSchema = mongoose.Schema(
+const userSchema = mongoose.Schema(
   {
     first_name: {
       type: String,
       required: true,
-      unique: false,
+      unique: false
     },
     last_name: {
       type: String,
       required: false,
-      unique: false,
+      unique: false
     },
     username: {
       type: String,
       required: true,
-      unique: true,
+      unique: true
     },
     email: {
       type: String,
       required: true,
-      unique: true,
+      unique: true
     },
     password: {
       type: String,
-      required: true,
+      required: true
     },
     profile_picture: {
       type: String,
       default:
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
     },
     isAdmin: {
       type: Boolean,
       default: false,
-      required: true,
-    },
+      required: true
+    }
   },
   { timestamps: true }
-);
+)
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema)
 
-module.exports = User;
+module.exports = User

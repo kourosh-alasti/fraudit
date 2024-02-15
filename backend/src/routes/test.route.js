@@ -1,11 +1,9 @@
-const express = require("express");
-const Logger = require("../utils/logger");
-const { testLogger, test } = require("../controllers/test.controller");
+const express = require('express')
+const { testLogger, test } = require('../controllers/test.controller')
 
-const router = express.Router();
-const logger = new Logger("app");
+const router = express.Router()
 
 router.get('/test', test)
-router.post("/test", testLogger);
+router.post('/test', testLogger)
 
-module.exports = router;
+module.exports = router

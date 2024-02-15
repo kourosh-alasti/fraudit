@@ -1,24 +1,26 @@
-const { default: mongoose } = require('mongoose');
+const { default: mongoose } = require('mongoose')
 
-const threadSchema = new mongoose.Schema({
+const threadSchema = new mongoose.Schema(
+  {
     user_id: {
-        type: String,
-        required: true,
+      type: String,
+      required: true
     },
     fraudit_id: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     content: {
-        type: String,
-        required: true,
+      type: String,
+      required: true
     },
     title: {
-        type: String,
-        required: true,
-    }, 
-    
-}, {timestamps: true})
+      type: String,
+      required: true
+    }
+  },
+  { timestamps: true }
+)
 
-const Thread = mongoose.model('Thread', threadSchema);
-module.exports = Thread;
+const Thread = mongoose.model('Thread', threadSchema)
+module.exports = Thread

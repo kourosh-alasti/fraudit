@@ -1,18 +1,18 @@
-const Fraudit = require("../../../models/fraudit.model");
+const Fraudit = require('../../../models/fraudit.model')
 
 const getFrauditInformation = async (id) => {
-  const fraudit = await Fraudit.findById(id);
+  const fraudit = await Fraudit.findById(id)
 
   if (!fraudit) {
     // TODO: ERRO HANDLER
-    throw new Error("Fraudit Does not exist");
+    throw new Error('Fraudit Does not exist')
   }
 
-  const { ...info } = fraudit._doc;
+  const { ...info } = fraudit._doc
 
   return {
-    ...info,
-  };
-};
+    ...info
+  }
+}
 
-module.exports = getFrauditInformation;
+module.exports = getFrauditInformation

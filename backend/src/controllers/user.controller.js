@@ -1,6 +1,6 @@
-const bcryptjs = require("bcryptjs");
-const User = require("../models/user.model");
-const { getUserInformation } = require("../database/queries/user.query");
+const bcryptjs = require('bcryptjs')
+const User = require('../models/user.model')
+const { getUserInformation } = require('../database/queries/user.query')
 
 //* WORKS
 const logout = (req, res, next) => {
@@ -9,14 +9,11 @@ const logout = (req, res, next) => {
      * Clear Browser Cookie with stored JWT Auth TOKEN
      * Return JSON Message and 200 Status Code for Success
      */
-    res
-      .clearCookie("access_token")
-      .status(200)
-      .json("You have been logged out");
+    res.clearCookie('access_token').status(200).json('You have been logged out')
   } catch (err) {
-    next(err);
+    next(err)
   }
-};
+}
 
 //* WORKS
 const getUser = async (req, res, next) => {
@@ -24,39 +21,39 @@ const getUser = async (req, res, next) => {
     /*
      * PULLS USER FROM BUCKET BY ID FROM REQUEST
      */
-    const user = await User.findById(req.params.userId);
+    const user = await User.findById(req.params.userId)
 
     /*
      * RETURNS ERROR IF USER DOESNT EXIST
      */
     if (!user) {
       // TODO: ERROR HANDLING
-      return next();
+      return next()
     }
 
     /*
      * GRABS PASSWORD AND OBJECT DATA FROM USER
      */
-    const { password, ...rest } = user._doc;
+    const { password, ...rest } = user._doc
 
     /*
      * RETURN STATUS CODE 200 FOR OK AND USER DATA AS JSON
      */
-    res.status(200).json(rest);
+    res.status(200).json(rest)
   } catch (err) {
     // ERROR HANDLING
-    next(err);
+    next(err)
   }
-};
+}
 
-//TODO: ADD ADMIN PRIVILEGES / OWNER PRIVILEGES
+// TODO: ADD ADMIN PRIVILEGES / OWNER PRIVILEGES
 const getUsers = async (req, res, next) => {
   /*
    * CHECKS IF USER HAS ADMIN PRIVILEGES
    */
   if (!req.isAdmin) {
     // TODO: ERROR HANDLER
-    return next();
+    return next()
   }
 
   try {
@@ -65,9 +62,9 @@ const getUsers = async (req, res, next) => {
      * Grab Limit to number of users given
      * Grab Sort Direction from request
      */
-    const startIndex = parseInt(req.query.startIndex) || 0;
-    const limit = parseInt(req.query.limit) || 9;
-    const sortDirection = req.query.slot === "asc" ? 1 : -1;
+    const startIndex = parseInt(req.query.startIndex) || 0
+    const limit = parseInt(req.query.limit) || 9
+    const sortDirection = req.query.slot === 'asc' ? 1 : -1
 
     /*
      * Pull users from start index -> limit with sorted by sorthDirection var
@@ -76,20 +73,20 @@ const getUsers = async (req, res, next) => {
     const users = await User.find()
       .sort({ createdAt: sortDirection })
       .skip(startIndex)
-      .limit(limit);
+      .limit(limit)
 
     /*
      * Creates array of users and removes passwords from user objects
      */
     const usersWithoutPassword = users.map((user) => {
-      const { password, ...rest } = user._doc;
-      return rest;
-    });
+      const { password, ...rest } = user._doc
+      return rest
+    })
 
     /*
      * Takes Count of all Users in collections
      */
-    const totalUsers = await User.countDocuments();
+    const totalUsers = await User.countDocuments()
     // const now = new Date();
 
     // const oneMonthAgo = new Date(
@@ -111,64 +108,64 @@ const getUsers = async (req, res, next) => {
      */
     res.status(200).json({
       users: usersWithoutPassword,
-      totalUsers,
+      totalUsers
       // lastMonthUsers,
-    });
+    })
   } catch (err) {
-    next(err);
+    next(err)
   }
-};
+}
 
 //* WORKS
 const deleteUser = async (req, res, next) => {
   if (req.user.id !== req.params.userId) {
     // TODO: ERROR HANDLER
-    return next();
+    return next()
   }
 
   try {
-    await User.findByIdAndDelete(req.params.userId);
-    res.status(200).json("Your account has been deleted");
+    await User.findByIdAndDelete(req.params.userId)
+    res.status(200).json('Your account has been deleted')
   } catch (err) {
-    next(err);
+    next(err)
   }
-};
+}
 
 //* WORKS
 const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.userId) {
     // TODO: ERROR HANDLER
-    return next();
+    return next()
   }
 
   if (req.body.password) {
     if (req.body.password < 6) {
       // TODO: ERROR HANDLER
-      return next();
+      return next()
     }
 
-    req.body.password = bcryptjs.hashSync(req.body.password, 10);
+    req.body.password = bcryptjs.hashSync(req.body.password, 10)
   }
 
   if (req.body.username) {
     if (req.body.username.length < 7 || req.body.username.length > 20) {
       // TODO: ERROR HANDLER
-      return next();
+      return next()
     }
 
-    if (req.body.username.includes(" ")) {
+    if (req.body.username.includes(' ')) {
       // TODO: ERROR HANDLER
-      return next();
+      return next()
     }
 
     if (req.body.username !== req.body.username.toLowerCase()) {
       // TODO: ERROR HANDLER
-      return next();
+      return next()
     }
 
     if (!req.body.username.match(/^[a-zA-Z0-9]+$/)) {
       // TODO: ERROR HANDLER
-      return next();
+      return next()
     }
   }
 
@@ -180,31 +177,31 @@ const updateUser = async (req, res, next) => {
           username: req.body.username,
           email: req.body.email,
           profilePicture: req.body.profilePicture,
-          password: req.body.password,
-        },
+          password: req.body.password
+        }
       },
       { new: true }
-    );
+    )
 
-    const { password, ...rest } = updatedUser._doc;
-    res.status(200).json(rest);
+    const { password, ...rest } = updatedUser._doc
+    res.status(200).json(rest)
   } catch (err) {
-    next(err);
+    next(err)
   }
-};
+}
 
 //* WORKS
 const updateUserAdmin = async (req, res, next) => {
   if (!req.isAdmin) {
     // TODO: ERROR HANDLER
-    return next();
+    return next()
   }
 
-  const user = await getUserInformation(req.params.userId);
+  const user = await getUserInformation(req.params.userId)
 
   if (!user) {
-    //TODO: ERROR HANDLER
-    return next();
+    // TODO: ERROR HANDLER
+    return next()
   }
 
   try {
@@ -212,22 +209,22 @@ const updateUserAdmin = async (req, res, next) => {
       req.params.userId,
       {
         $set: {
-          isAdmin: !user.isAdmin,
-        },
+          isAdmin: !user.isAdmin
+        }
       },
       { new: true }
-    );
+    )
 
-    const { password, ...rest } = updatedUser._doc;
-    res.status(200).json(rest);
+    const { password, ...rest } = updatedUser._doc
+    res.status(200).json(rest)
   } catch (err) {
-    next(err);
+    next(err)
   }
-};
+}
 
-module.exports.logout = logout;
-module.exports.getUser = getUser;
-module.exports.getUsers = getUsers;
-module.exports.deleteUser = deleteUser;
-module.exports.updateUser = updateUser;
-module.exports.updateUserAdmin = updateUserAdmin;
+module.exports.logout = logout
+module.exports.getUser = getUser
+module.exports.getUsers = getUsers
+module.exports.deleteUser = deleteUser
+module.exports.updateUser = updateUser
+module.exports.updateUserAdmin = updateUserAdmin

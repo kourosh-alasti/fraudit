@@ -1,22 +1,22 @@
-const { default: mongoose } = require("mongoose");
+const { default: mongoose } = require('mongoose')
 
-var courseSchema = mongoose.Schema(
+const courseSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: true
     },
     number: {
       type: String,
-      required: true,
+      required: true
     },
     abbreviation: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   { timestamps: true }
-);
+)
 
-const Course = mongoose.model("Course", courseSchema);
-module.exports = Course;
+const Course = mongoose.model('Course', courseSchema)
+module.exports = Course

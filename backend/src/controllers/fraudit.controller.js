@@ -1,21 +1,21 @@
-const Fraudit = require("../models/fraudit.model");
-const { getFrauditOwnerStatus } = require("../database/queries/fraudit.query");
+const Fraudit = require('../models/fraudit.model')
+const { getFrauditOwnerStatus } = require('../database/queries/fraudit.query')
 
 const createFraudit = async (req, res, next) => {
-  const { title, description, slug, userId } = req.body;
+  const { title, description, slug, userId } = req.body
 
   if (
     !title ||
     !description ||
     !slug ||
     !userId ||
-    title === "" ||
-    description === "" ||
-    slug === "" ||
-    userId === ""
+    title === '' ||
+    description === '' ||
+    slug === '' ||
+    userId === ''
   ) {
     // TODO: ERROR HANDLER
-    next();
+    next()
   }
 
   const newFraudit = new Fraudit({
@@ -23,34 +23,34 @@ const createFraudit = async (req, res, next) => {
     description,
     slug,
     ownerId: userId,
-    memberCount: 1,
-  });
+    memberCount: 1
+  })
 
   try {
-    await newFraudit.save();
-    res.status(201).json("Created SubFraudit Successfully");
+    await newFraudit.save()
+    res.status(201).json('Created SubFraudit Successfully')
   } catch (err) {
-    next(err);
+    next(err)
   }
-};
+}
 
 const deleteFraudit = async (req, res, next) => {
-  const { frauditId, userId } = req.body;
+  const { frauditId, userId } = req.body
 
-  const { isOwner } = getFrauditOwnerStatus(frauditId, userId);
+  const { isOwner } = getFrauditOwnerStatus(frauditId, userId)
 
   if (!isOwner) {
     // TODO: ERROR HANDLER
-    next();
+    next()
   }
 
   try {
-    await Fraudit.findByIdAndDelete(frauditId);
-    res.status(200).json("SubFraudit has been successfully deleted");
+    await Fraudit.findByIdAndDelete(frauditId)
+    res.status(200).json('SubFraudit has been successfully deleted')
   } catch (err) {
-    next(err);
+    next(err)
   }
-};
+}
 
-module.exports.createFraudit = createFraudit;
-module.exports.deleteFraudit = deleteFraudit;
+module.exports.createFraudit = createFraudit
+module.exports.deleteFraudit = deleteFraudit

@@ -1,3 +1,3 @@
-const getMembers = require("./getMembers");
+const getMembers = require('./getMembers')
 
-module.exports.getMembers = getMembers;
+module.exports.getMembers = getMembers
