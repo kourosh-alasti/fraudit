@@ -3,6 +3,7 @@ const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { error, debug } = require("../utils/consoler");
 
+//* WORKS
 const register = async (req, res, next) => {
   /*
    * GRABS USER INFORMATION FROM FORM
@@ -55,6 +56,7 @@ const register = async (req, res, next) => {
   }
 };
 
+//* WORKS
 const login = async (req, res, next) => {
   /*
    * PULLS USERNAME AND PASSWORD FROM FORM
