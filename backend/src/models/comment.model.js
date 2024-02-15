@@ -1,4 +1,4 @@
-const { default: mongoose } = require('mongoose')
+import { mongoose } from 'mongoose'
 
 const commentSchema = mongoose.Schema({
   content: {

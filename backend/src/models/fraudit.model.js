@@ -1,4 +1,4 @@
-const { default: mongoose } = require('mongoose')
+import { mongoose } from 'mongoose'
 
 const frauditSchema = mongoose.Schema(
   {
@@ -30,4 +30,4 @@ const frauditSchema = mongoose.Schema(
 )
 
 const Fraudit = mongoose.model('Fraudit', frauditSchema)
-module.exports = Fraudit
+export default Fraudit

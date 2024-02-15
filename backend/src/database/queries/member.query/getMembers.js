@@ -1,6 +1,6 @@
-const Member = require('../../../models/member.model')
+import Member from '../../../models/member.model'
 
-const getMembers = async (id) => {
+export const getMembers = async (id) => {
   const members = await Member.find({ frauditId: id })
 
   if (!members) {
@@ -10,5 +10,3 @@ const getMembers = async (id) => {
 
   return members
 }
-
-module.exports = getMembers

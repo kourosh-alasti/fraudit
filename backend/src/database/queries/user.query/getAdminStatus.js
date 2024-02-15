@@ -1,7 +1,7 @@
-// const User = require('../../../models/user.model')
-const getUserInformation = require('./getUserInformation')
+// import User from '../../../models/user.model'
+import getUserInformation from './getUserInformation'
 
-const getAdminStatus = async (id) => {
+export const getAdminStatus = async (id) => {
   const user = await getUserInformation(id)
 
   if (!user.isAdmin) {
@@ -16,5 +16,3 @@ const getAdminStatus = async (id) => {
     isAdmin: true
   }
 }
-
-module.exports = getAdminStatus

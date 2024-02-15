@@ -1,13 +1,14 @@
-const express = require('express')
-const {
+import express from 'express'
+
+import {
   deleteUser,
   getUser,
   getUsers,
-  logout,
   updateUser,
   updateUserAdmin
-} = require('../controllers/user.controller')
-const { verifyToken, verifyIsAdmin } = require('../utils/auth')
+} from '../controllers/user.controller'
+
+import { verifyToken, verifyIsAdmin } from '../utils/auth'
 
 const router = express.Router()
 
@@ -18,4 +19,4 @@ router.post('/logout', logout)
 router.get('/getusers', verifyToken, verifyIsAdmin, getUsers)
 router.get('/:userId', verifyToken, getUser)
 
-module.exports = router
+export default router

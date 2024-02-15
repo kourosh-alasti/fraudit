@@ -1,7 +1,7 @@
-const { getFrauditInformation } = require('./getFrauditInformation')
-const { getAdminStatus } = require('../user.query')
+import { getFrauditInformation } from './getFrauditInformation'
+import { getAdminStatus } from '../user.query'
 
-const getFrauditOwnerStatus = async (frauditId, userId) => {
+export const getFrauditOwnerStatus = async (frauditId, userId) => {
   const fraudit = getFrauditInformation(frauditId)
 
   if (fraudit.ownerId !== userId) {
@@ -13,5 +13,3 @@ const getFrauditOwnerStatus = async (frauditId, userId) => {
     isOwner: fraudit.ownerId === userId || getAdminStatus(userId)
   }
 }
-
-module.exports = getFrauditOwnerStatus

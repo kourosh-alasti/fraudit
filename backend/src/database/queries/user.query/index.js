@@ -1,5 +1,3 @@
-const getAdminStatus = require('./getAdminStatus')
-const getUserInformation = require('./getUserInformation')
-
-module.exports.getUserInformation = getUserInformation
-module.exports.getAdminStatus = getAdminStatus
+export * from './getAdminStatus'
+export * from './getUserInformation'
+export * from './getUserFraudits'

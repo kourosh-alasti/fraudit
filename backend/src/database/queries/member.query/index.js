@@ -1,3 +1,1 @@
-const getMembers = require('./getMembers')
-
-module.exports.getMembers = getMembers
+export * from './getMembers'

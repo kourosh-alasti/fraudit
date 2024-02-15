@@ -1,9 +1,9 @@
-// const User = require('../../../models/user.model')
-const Member = require('../../../models/member.model')
-const Fraudit = require('../../../models/fraudit.model')
-const { getUserInformation } = require('./getUserInformation')
+// import User from '../../../models/user.model'
+import Member from '../../../models/member.model'
+import Fraudit from '../../../models/fraudit.model'
+import { getUserInformation } from './getUserInformation'
 
-const getUserFraudits = async (id) => {
+export const getUserFraudits = async (id) => {
   const user = await getUserInformation(id)
 
   if (!user) {
@@ -21,5 +21,3 @@ const getUserFraudits = async (id) => {
 
   // TODO: NEED REST
 }
-
-module.exports = getUserFraudits

@@ -1,10 +1,10 @@
-const User = require('../models/user.model')
-const bcryptjs = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const { error } = require('../utils/consoler')
+import User from '../models/user.model'
+import bcryptjs from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import { error } from '../utils/consoler'
 
 //* WORKS
-const register = async (req, res, next) => {
+export const register = async (req, res, next) => {
   /*
    * GRABS USER INFORMATION FROM FORM
    */
@@ -57,7 +57,7 @@ const register = async (req, res, next) => {
 }
 
 //* WORKS
-const login = async (req, res, next) => {
+export const login = async (req, res, next) => {
   /*
    * PULLS USERNAME AND PASSWORD FROM FORM
    */
@@ -118,5 +118,15 @@ const login = async (req, res, next) => {
   }
 }
 
-module.exports.register = register
-module.exports.login = login
+//* WORKS
+export const logout = (req, res, next) => {
+  try {
+    /*
+     * Clear Browser Cookie with stored JWT Auth TOKEN
+     * Return JSON Message and 200 Status Code for Success
+     */
+    res.clearCookie('access_token').status(200).json('You have been logged out')
+  } catch (err) {
+    next(err)
+  }
+}

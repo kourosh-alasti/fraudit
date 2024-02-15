@@ -1,4 +1,4 @@
-const { default: mongoose } = require('mongoose')
+import { mongoose } from 'mongoose'
 
 const courseSchema = mongoose.Schema(
   {
@@ -19,4 +19,4 @@ const courseSchema = mongoose.Schema(
 )
 
 const Course = mongoose.model('Course', courseSchema)
-module.exports = Course
+export default Course

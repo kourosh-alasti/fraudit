@@ -1,6 +1,6 @@
-const Fraudit = require('../../../models/fraudit.model')
+import Fraudit from '../../../models/fraudit.model'
 
-const getFrauditInformation = async (id) => {
+export const getFrauditInformation = async (id) => {
   const fraudit = await Fraudit.findById(id)
 
   if (!fraudit) {
@@ -14,5 +14,3 @@ const getFrauditInformation = async (id) => {
     ...info
   }
 }
-
-module.exports = getFrauditInformation

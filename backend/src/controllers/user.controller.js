@@ -1,22 +1,9 @@
-const bcryptjs = require('bcryptjs')
-const User = require('../models/user.model')
-const { getUserInformation } = require('../database/queries/user.query')
+import bcryptjs from 'bcryptjs'
+import User from '../models/user.model'
+import { getUserInformation } from '../database/queries/user.query'
 
 //* WORKS
-const logout = (req, res, next) => {
-  try {
-    /*
-     * Clear Browser Cookie with stored JWT Auth TOKEN
-     * Return JSON Message and 200 Status Code for Success
-     */
-    res.clearCookie('access_token').status(200).json('You have been logged out')
-  } catch (err) {
-    next(err)
-  }
-}
-
-//* WORKS
-const getUser = async (req, res, next) => {
+export const getUser = async (req, res, next) => {
   try {
     /*
      * PULLS USER FROM BUCKET BY ID FROM REQUEST
@@ -47,7 +34,7 @@ const getUser = async (req, res, next) => {
 }
 
 // TODO: ADD ADMIN PRIVILEGES / OWNER PRIVILEGES
-const getUsers = async (req, res, next) => {
+export const getUsers = async (req, res, next) => {
   /*
    * CHECKS IF USER HAS ADMIN PRIVILEGES
    */
@@ -117,7 +104,7 @@ const getUsers = async (req, res, next) => {
 }
 
 //* WORKS
-const deleteUser = async (req, res, next) => {
+export const deleteUser = async (req, res, next) => {
   if (req.user.id !== req.params.userId) {
     // TODO: ERROR HANDLER
     return next()
@@ -132,7 +119,7 @@ const deleteUser = async (req, res, next) => {
 }
 
 //* WORKS
-const updateUser = async (req, res, next) => {
+export const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.userId) {
     // TODO: ERROR HANDLER
     return next()
@@ -191,7 +178,7 @@ const updateUser = async (req, res, next) => {
 }
 
 //* WORKS
-const updateUserAdmin = async (req, res, next) => {
+export const updateUserAdmin = async (req, res, next) => {
   if (!req.isAdmin) {
     // TODO: ERROR HANDLER
     return next()
@@ -221,10 +208,3 @@ const updateUserAdmin = async (req, res, next) => {
     next(err)
   }
 }
-
-module.exports.logout = logout
-module.exports.getUser = getUser
-module.exports.getUsers = getUsers
-module.exports.deleteUser = deleteUser
-module.exports.updateUser = updateUser
-module.exports.updateUserAdmin = updateUserAdmin

@@ -1,6 +1,6 @@
-const User = require('../../../models/user.model')
+import User from '../../../models/user.model'
 
-const getUserInformation = async (id) => {
+export const getUserInformation = async (id) => {
   const user = await User.findById(id)
 
   if (!user) {
@@ -14,5 +14,3 @@ const getUserInformation = async (id) => {
     ...info
   }
 }
-
-module.exports = getUserInformation

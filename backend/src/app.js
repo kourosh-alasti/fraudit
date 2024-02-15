@@ -1,14 +1,14 @@
-const dotenv = require('dotenv')
-const dotenvExpand = require('dotenv-expand')
-const cors = require('cors')
-const express = require('express')
-// const session = require('express-session')
-const bodyParser = require('body-parser')
-const multer = require('multer')
-const cookieParser = require('cookie-parser')
-const mongoose = require('mongoose')
-// const path = require('path')
-const { ready, error, debug } = require('./utils/consoler.js')
+import dotenv from 'dotenv'
+import dotenvExpand from 'dotenv-expand'
+import cors from 'cors'
+import express from 'express'
+// import session from 'session'
+import bodyParser from 'body-parser'
+import multer from 'multer'
+import cookieParser from 'cookie-parser'
+import mongoose from 'mongoose'
+// import path from 'path'
+import { ready, error, debug } from './utils/consoler.js'
 
 const devEnv = dotenv.config({ processEnv: {} })
 dotenvExpand.expand(devEnv)
