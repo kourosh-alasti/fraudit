@@ -49,11 +49,11 @@
 - abbreviation : String
 - overallRating : Number
 - address : Object {
-  -- street : String
-  -- city : String
-  -- state : String
-  -- zipCode : String
-- }
+  - street : String
+  - city : String
+  - state : String
+  - zipCode : String
+  - }
 
 ##### User Model
 
