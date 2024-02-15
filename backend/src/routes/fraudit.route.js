@@ -7,6 +7,6 @@ const {
 const router = express.Router()
 
 router.post('/create', createFraudit)
-router.delete('/delete/:id', deleteFraudit)
+router.delete('/delete/:frauditId', deleteFraudit)
 
 module.exports = router
