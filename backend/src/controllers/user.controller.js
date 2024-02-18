@@ -33,7 +33,7 @@ const getUser = async (req, res, next) => {
   }
 }
 
-// TODO: ADD ADMIN PRIVILEGES / OWNER PRIVILEGES
+//* WORKS
 const getUsers = async (req, res, next) => {
   /*
    * CHECKS IF USER HAS ADMIN PRIVILEGES
