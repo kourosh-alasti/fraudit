@@ -3,19 +3,6 @@ const User = require('../models/user.model')
 const { getUserInformation } = require('../database/queries/user.query')
 
 //* WORKS
-const logout = (req, res, next) => {
-  try {
-    /*
-     * Clear Browser Cookie with stored JWT Auth TOKEN
-     * Return JSON Message and 200 Status Code for Success
-     */
-    res.clearCookie('access_token').status(200).json('You have been logged out')
-  } catch (err) {
-    next(err)
-  }
-}
-
-//* WORKS
 const getUser = async (req, res, next) => {
   try {
     /*
@@ -222,7 +209,6 @@ const updateUserAdmin = async (req, res, next) => {
   }
 }
 
-module.exports.logout = logout
 module.exports.getUser = getUser
 module.exports.getUsers = getUsers
 module.exports.deleteUser = deleteUser

@@ -118,5 +118,19 @@ const login = async (req, res, next) => {
   }
 }
 
+//* WORKS
+const logout = (req, res, next) => {
+  try {
+    /*
+     * Clear Browser Cookie with stored JWT Auth TOKEN
+     * Return JSON Message and 200 Status Code for Success
+     */
+    res.clearCookie('access_token').status(200).json('You have been logged out')
+  } catch (err) {
+    next(err)
+  }
+}
+
 module.exports.register = register
 module.exports.login = login
+module.exports.logout = logout
