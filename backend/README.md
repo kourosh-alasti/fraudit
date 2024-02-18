@@ -69,8 +69,9 @@
 
 #### Auth Routes (/api/auth)
 
-- /login
-- /register
+- /login _working_
+- /register _working_
+- /logout _working_
 
 #### Course Routes (/api/course)
 
@@ -89,14 +90,21 @@
 - /delete/:threadId (IP)
 - /update/:threadId (IP)
 
+#### Thread Routes (/api/threads)
+
+- POST /
+- GET /
+- GET /:threadId
+- DELETE /:threadId
+- PATCH /:threadId
+
 #### User Routes (/api/user)
 
-- /update/:userId
-- /admin/:userId
-- /delete/:userId
-- /logout
-- /getusers
-- /:userId
+- PATCH /:userId _working_
+- PATCH /admin/:userId _working_
+- DELETE /:userId _working_
+- GET / _working_
+- GET /:userId _working_
 
 _More Coming_
 
