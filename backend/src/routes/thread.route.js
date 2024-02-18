@@ -2,6 +2,7 @@ const express = require('express')
 const { verifyToken } = require('../utils/auth')
 const {
   createThread,
+  getThread,
   getThreads,
   deleteThread,
   updateThread
@@ -9,9 +10,10 @@ const {
 
 const router = express.Router()
 
-router.post('/create', verifyToken, createThread)
+router.post('/', verifyToken, createThread)
+router.get('/', getThread)
 router.get('/:threadId', getThreads)
-router.delete('/delete/:threadId', verifyToken, deleteThread)
-router.put('/update/:threadId', verifyToken, updateThread)
+router.delete('/:threadId', verifyToken, deleteThread)
+router.patch('/:threadId', verifyToken, updateThread)
 
 module.exports = router

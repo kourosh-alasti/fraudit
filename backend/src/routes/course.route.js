@@ -8,9 +8,9 @@ const {
 
 const router = express.Router()
 
-router.put('/update/:courseId', updateCourse)
-router.delete('/delete/:courseId', deleteCourse)
-router.get('/getcourses', getCourses)
+router.get('/', getCourses)
 router.get('/:courseId', getCourse)
+router.delete('/:courseId', deleteCourse)
+router.patch('/:courseId', updateCourse)
 
 module.exports = router
