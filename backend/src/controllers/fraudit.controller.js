@@ -52,5 +52,12 @@ const deleteFraudit = async (req, res, next) => {
   }
 }
 
+const getFraudit = async (req, res, next) => {}
+const getFraudits = async (req, res, next) => {}
+const updateFraudits = async (req, res, next) => {}
+
 module.exports.createFraudit = createFraudit
 module.exports.deleteFraudit = deleteFraudit
+module.exports.getFraudit = getFraudit
+module.exports.getFraudits = getFraudits
+module.exports.updateFraudits = updateFraudits
