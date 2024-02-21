@@ -3,6 +3,7 @@ const { getUserInformation } = require('../database/queries/user.query/')
 const { debug, warn, error } = require('./consoler')
 
 const verifyToken = (req, res, next) => {
+  warn('Verifying Token')
   /*
    *  PULLS JWT TOKEN FROM COOKIES
    */
@@ -30,6 +31,7 @@ const verifyToken = (req, res, next) => {
     }
 
     debug('Setting User')
+    console.log(user)
     req.user = user
     next()
   })
