@@ -34,15 +34,36 @@ const frauditRoutes = require('./routes/fraudit.route.js')
 const SERVER_PORT = process.env.DEV_SERVER_PORT
 const FORM_HANDLER = multer()
 
+const WHITELIST_ORIGINS = [
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'http://localhost:3333',
+  'http://127.0.0.1:3333',
+  'http://localhost',
+  'http://127.0.0.1',
+  '*'
+]
+const CORS_OPTIONS = {
+  origin: WHITELIST_ORIGINS,
+  method: ['GET', 'POST', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  withCredentials: true,
+  optionSuccessStatus: 200
+}
+
 /*
  * MIDDLEWARES
  */
-server.use(bodyParser.urlencoded({ extended: false }))
+server.use(bodyParser.urlencoded({ extended: true }))
 server.use(bodyParser.json())
-server.use(cors())
-server.use(FORM_HANDLER.array())
 server.use(cookieParser())
-server.use(express.static('public'))
+
+server.use(cors(CORS_OPTIONS))
+
+server.use(FORM_HANDLER.array())
+
+// server.use(express.static('public'))
 
 /*
  * START SERVER
@@ -54,11 +75,11 @@ server.listen(SERVER_PORT, () => {
 /*
  * SERVER AND API ROUTES AND CONTROLLERS
  */
-server.use('/api', testingRoute)
-server.use('/api/auth', authRoutes)
-server.use('/api/user', userRoutes)
-server.use('/api/thread', threadRoutes)
-server.use('/api/fraudit', frauditRoutes)
+server.use('/api/v1', testingRoute)
+server.use('/api/v1/auth', authRoutes)
+server.use('/api/v1/user', userRoutes)
+server.use('/api/v1/thread', threadRoutes)
+server.use('/api/v1/fraudit', frauditRoutes)
 
 // server.use(express.static(path.join(dirname, '/frontend/dist')))
 
