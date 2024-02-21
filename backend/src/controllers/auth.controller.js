@@ -108,10 +108,7 @@ const login = async (req, res, next) => {
     /*
      * RETURNS 200 STATUS FOR OK and ADDS JWT TOKEN TO COOKIE AND RETURNS USER OBJECT W/O PASSWORD
      */
-    res
-      .status(200)
-      .cookie('access_token', jwToken, { httpOnly: true })
-      .json(rest)
+    res.status(200).cookie('access_token', jwToken).json(rest)
   } catch (err) {
     error(err)
     next(err)
