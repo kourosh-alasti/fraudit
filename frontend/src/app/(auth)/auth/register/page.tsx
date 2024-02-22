@@ -1,12 +1,16 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -25,8 +29,6 @@ import {
   CardTitle,
   CardFooter,
 } from "@/components/ui/card";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 import { AlertTriangle } from "lucide-react";
 
 const RegisterFormSchema = z.object({
@@ -47,6 +49,9 @@ const RegisterFormSchema = z.object({
 });
 
 export default function RegisterPage() {
+  const router = useRouter();
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof RegisterFormSchema>>({
     resolver: zodResolver(RegisterFormSchema),
     defaultValues: {
@@ -58,15 +63,37 @@ export default function RegisterPage() {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof RegisterFormSchema>) => {
-    toast({
-      title: "Registering your account...",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  const onSubmit = async (data: z.infer<typeof RegisterFormSchema>) => {
+    try {
+      const { confirm_password, ...rest } = data;
+
+      const response = await fetch(
+        "http://localhost:3333/api/v1/auth/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          mode: "cors",
+          body: JSON.stringify(rest),
+        }
+      );
+
+      toast({
+        variant: "destructive",
+        title: "Registering account...",
+        description: "Registering your new account for Fraudit",
+      });
+
+      if (response.ok) {
+        router.replace("/");
+      }
+    } catch (err) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to register account, please try again later",
+      });
+    }
   };
 
   return (
