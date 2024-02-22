@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -29,7 +30,6 @@ import {
   CardTitle,
   CardFooter,
 } from "@/components/ui/card";
-import Link from "next/link";
 
 const LoginFormSchema = z.object({
   username: z
