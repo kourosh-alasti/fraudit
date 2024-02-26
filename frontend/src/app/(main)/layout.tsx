@@ -8,7 +8,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex flex-col justify-center items-center">
       <Toaster />
-      {/* <UINavbar /> */}
+      <UINavbar />
       <div className="flex">
         <FrauditsSidebar />
         {children}
