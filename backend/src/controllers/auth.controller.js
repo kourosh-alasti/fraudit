@@ -2,6 +2,7 @@ const User = require('../models/user.model')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { error } = require('../utils/consoler')
+const { requestResetPassword, resetPassword } = require('../utils/auth')
 
 //* WORKS
 const register = async (req, res, next) => {
@@ -128,6 +129,22 @@ const logout = (req, res, next) => {
   }
 }
 
+const passwordRequest = async (req, res, next) => {
+  const response = await requestResetPassword(req.body.email)
+
+  return res.json(response)
+}
+
+const passwordReset = async (req, res, next) => {
+  const { token, id } = req.params
+
+  const response = await resetPassword(id, token, req.body.password)
+
+  return res.json(response)
+}
+
 module.exports.register = register
 module.exports.login = login
 module.exports.logout = logout
+module.exports.passwordRequest = passwordRequest
+module.exports.passwordReset = passwordReset
