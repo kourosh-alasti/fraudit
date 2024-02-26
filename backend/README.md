@@ -69,9 +69,11 @@
 
 #### Auth Routes (/api/auth)
 
-- /login _working_
-- /register _working_
-- /logout _working_
+- POST /login _working_
+- POST /register _working_
+- POST /request-reset _working_
+- POST /password-reset _working_
+- GET /logout _working_
 
 #### Course Routes (/api/course)
 
