@@ -1,13 +1,16 @@
 const dotenv = require('dotenv')
 const dotenvExpand = require('dotenv-expand')
 const cors = require('cors')
+const helmet = require('helmet')
 const express = require('express')
+const compression = require('compression')
 // const session = require('express-session')
 const bodyParser = require('body-parser')
 const multer = require('multer')
 const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose')
 // const path = require('path')
+const { rateLimit } = require('express-rate-limit')
 const { ready, error, debug } = require('./utils/consoler.js')
 
 const devEnv = dotenv.config({ processEnv: {} })
@@ -53,11 +56,50 @@ const CORS_OPTIONS = {
 }
 
 /*
+ * API REQUEST RATE LIMITER
+ */
+
+const limiter = rateLimit({
+  windowMS: 1 * 60 * 1000,
+  limit: 100,
+  legacyHeaders: false
+})
+
+/*
+ * HELMET CONFIG
+ */
+
+const HELMET_OPTIONS = {
+  contentSecurityPolicy: {
+    useDefaults: true,
+    directives: {
+      'font-src': ["'self'", 'external-website.com'],
+      'style-src': null
+    }
+  },
+  referrerPolicy: {
+    policy: 'no-referrer'
+  },
+  hsts: {
+    maxAge: 86400,
+    includeSubDomains: false
+  },
+  frameguard: {
+    action: 'deny'
+  },
+  noSniff: false,
+  xDownloadOptions: false
+}
+
+/*
  * MIDDLEWARES
  */
+server.use(limiter)
+server.use(compression())
 server.use(bodyParser.urlencoded({ extended: true }))
 server.use(bodyParser.json())
 server.use(cookieParser())
+server.use(helmet(HELMET_OPTIONS))
 
 server.use(cors(CORS_OPTIONS))
 
