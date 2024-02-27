@@ -8,8 +8,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { ArrowDown, ArrowUp, Trash, Trash2 } from "lucide-react";
-import React from "react";
+import { ArrowDown, ArrowUp, Trash2 } from "lucide-react";
 
 const ProfilePage = () => {
   return (
