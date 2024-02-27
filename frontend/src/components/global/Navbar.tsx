@@ -4,6 +4,7 @@ import { Menu } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import Image from "next/image";
 
 const UINavbar = () => {
   const [isMobileMenu, setIsMobileMenu] = useState(false);
@@ -19,7 +20,13 @@ const UINavbar = () => {
       <div className="items-center px-4 max-w-screen-xl mx-auto md:flex md:justify-between md:px-8">
         <div className="flex items-center justify-between py-3 md:py-5 md:block">
           <Link href="/">
-            <h1 className="text-3xl font-bold text-purple-600">Fraudit</h1>
+            {/* <h1 className="text-3xl font-bold text-purple-600">Fraudit</h1> */}
+            <Image
+              src="/nav_logo.png"
+              height="100"
+              width="100"
+              alt="Fraudit Logo"
+            />
           </Link>
           <div className="md:hidden">
             <button
