@@ -13,12 +13,12 @@ import { ArrowDown, ArrowUp, Trash2 } from "lucide-react";
 const ProfilePage = () => {
   return (
     <div className="w-[70vw] min-h-[65vh] rounded-md bg-blue-200 flex flex-col p-4">
-      <div className="flex justify-between px-12 py-6">
-        <Avatar>
+      <div className="flex justify-between px-6 sm:px-12 py-6">
+        <Avatar className="md:h-40 md:w-40 w-20 h-20">
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>TU</AvatarFallback>
         </Avatar>
-        <Card>
+        <Card className="sm:block hidden">
           <CardHeader>
             <CardTitle className="text-end">Your Profile</CardTitle>
           </CardHeader>
@@ -38,6 +38,17 @@ const ProfilePage = () => {
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="sm:hidden block ml-4">
+          <CardHeader>
+            <CardTitle className="text-center">Profile</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col items-center gap-2">
+              <p className="text-center">Test User</p>
+              <Button>Edit Profile</Button>
             </div>
           </CardContent>
         </Card>
