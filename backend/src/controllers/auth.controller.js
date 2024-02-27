@@ -104,12 +104,22 @@ const login = async (req, res, next) => {
     /*
      * PULLS PASSWORD OUT OF REST OF USER DATA
      */
-    const { password: pass, ...rest } = user._doc
+    const {
+      password: pass,
+      _id,
+      __v,
+      createdAt,
+      updatedAt,
+      ...rest
+    } = user._doc
 
     /*
      * RETURNS 200 STATUS FOR OK and ADDS JWT TOKEN TO COOKIE AND RETURNS USER OBJECT W/O PASSWORD
      */
-    res.status(200).cookie('access_token', jwToken).json(rest)
+    res
+      .status(200)
+      .cookie('access_token', jwToken)
+      .json({ ...rest, id: _id })
   } catch (err) {
     error(err)
     next(err)
