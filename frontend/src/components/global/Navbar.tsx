@@ -3,6 +3,7 @@
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const UINavbar = () => {
   const [isMobileMenu, setIsMobileMenu] = useState(false);
@@ -38,7 +39,13 @@ const UINavbar = () => {
             {MENU_ITEMS.map((item, id) => (
               <li key={id} className="text-gray-600 hover:text-indigo-600">
                 {item.title === "Profile" ? (
-                  <div></div>
+                  <Link href={item.path}>
+                    <p className="md:hidden block">{item.title}</p>
+                    <Avatar className="h-14 w-14 hidden md:block">
+                      <AvatarImage src="https://github.com/shadcn.png" />
+                      <AvatarFallback>TU</AvatarFallback>
+                    </Avatar>
+                  </Link>
                 ) : (
                   <Link href={item.path}>{item.title}</Link>
                 )}
