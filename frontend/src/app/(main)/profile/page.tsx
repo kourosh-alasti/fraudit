@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,14 +10,17 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useUserStore } from "@/store/use-user-store";
 import { ArrowDown, ArrowUp, Trash2 } from "lucide-react";
 
 const ProfilePage = () => {
+  const user = useUserStore((state) => state.user);
+
   return (
     <div className="w-[70vw] min-h-[65vh] rounded-md bg-blue-200 flex flex-col p-4">
       <div className="flex justify-between px-6 sm:px-12 py-6">
         <Avatar className="md:h-40 md:w-40 w-20 h-20">
-          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarImage src={user?.profile_picture as string} />
           <AvatarFallback>TU</AvatarFallback>
         </Avatar>
         <Card className="sm:block hidden">
@@ -23,7 +28,9 @@ const ProfilePage = () => {
             <CardTitle className="text-end">Your Profile</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-end text-lg">Test User</p>
+            <p className="text-end text-lg">
+              {user?.first_name + " " + user?.last_name}
+            </p>
             <div className="flex justify-between gap-2 mt-4">
               <Button>Edit Profile</Button>
               <TooltipProvider>

@@ -13,6 +13,6 @@ interface UserAction {
 
 export const useUserStore = create<UserState & UserAction>((set) => ({
   user: null,
-  login: ({ ...info }) => set((state) => ({ user: info })),
+  login: (info) => set({ user: info }),
   logout: () => set({ user: null }),
 }));

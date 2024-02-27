@@ -21,7 +21,11 @@ const verifyToken = (req, res, next) => {
   if (!token) {
     // TODO: ERROR HANDLER
     warn('Token does not exist')
-    return next()
+    res.writeHead(302, {
+      Location: 'http://localhost:3000/login'
+    })
+
+    return res.end()
   }
 
   /*
