@@ -4,15 +4,52 @@ import { Menu } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Button } from "../ui/button";
+import { useUserStore } from "@/store/use-user-store";
+import { useToast } from "../ui/use-toast";
+import { useRouter } from "next/navigation";
 
 const UINavbar = () => {
   const [isMobileMenu, setIsMobileMenu] = useState(false);
+  const logout = useUserStore((state) => state.logout);
+  const router = useRouter();
+  const { toast } = useToast();
 
   const MENU_ITEMS = [
     { title: "Home", path: "/" },
     { title: "Fraudits", path: "/fraudits" },
     { title: "Profile", path: "/profile" },
   ];
+
+  const onLogout = async () => {
+    try {
+      const response = await fetch("http://localhost:3333/api/v1/auth/logout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        mode: "cors",
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        toast({
+          variant: "destructive",
+          title: "Logging Out",
+          description: data.message,
+        });
+
+        logout();
+        router.replace("/login");
+      }
+    } catch (err) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "There has been an error logging out, try again later",
+      });
+    }
+  };
 
   return (
     <nav className="bg-white w-full border-b md:border-0 mb-4">
@@ -36,8 +73,8 @@ const UINavbar = () => {
           }`}
         >
           <ul className="justify-center items-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-            {MENU_ITEMS.map((item, id) => (
-              <li key={id} className="text-gray-600 hover:text-indigo-600">
+            {MENU_ITEMS.map((item, index) => (
+              <li key={index} className="text-gray-600 hover:text-indigo-600">
                 {item.title === "Profile" ? (
                   <Link href={item.path}>
                     <p className="md:hidden block">{item.title}</p>
@@ -51,6 +88,9 @@ const UINavbar = () => {
                 )}
               </li>
             ))}
+            <li key="logout-user" className="md:hidden block">
+              <Button>Logout</Button>
+            </li>
           </ul>
         </div>
       </div>
