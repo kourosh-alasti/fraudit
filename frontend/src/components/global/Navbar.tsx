@@ -15,6 +15,7 @@ const UINavbar = () => {
   const [isMobileMenu, setIsMobileMenu] = useState(false);
   const logout = useUserStore((state) => state.logout);
   const router = useRouter();
+  const user = useUserStore((state) => state.user);
   const { toast } = useToast();
 
   const MENU_ITEMS = [
@@ -60,7 +61,7 @@ const UINavbar = () => {
           <Link href="/">
             {/* <h1 className="text-3xl font-bold text-purple-600">Fraudit</h1> */}
             <Image
-              src="/nav_logo.png"
+              src="/the_thing.png"
               height="100"
               width="100"
               alt="Fraudit Logo"
@@ -87,8 +88,19 @@ const UINavbar = () => {
                   <Link href={item.path}>
                     <p className="md:hidden block">{item.title}</p>
                     <Avatar className="h-14 w-14 hidden md:block">
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>TU</AvatarFallback>
+                      <AvatarImage
+                        src={
+                          user
+                            ? (user.profile_picture as string)
+                            : "https://github.com/shadcn.png"
+                        }
+                      />
+                      <AvatarFallback>
+                        {user
+                          ? user.first_name[0].toUpperCase() +
+                            user.last_name[0].toUpperCase()
+                          : "TU"}
+                      </AvatarFallback>
                     </Avatar>
                   </Link>
                 ) : (
@@ -97,7 +109,7 @@ const UINavbar = () => {
               </li>
             ))}
             <li key="logout-user" className="md:hidden block">
-              <Button>Logout</Button>
+              <Button onClick={onLogout}>Logout</Button>
             </li>
           </ul>
         </div>
