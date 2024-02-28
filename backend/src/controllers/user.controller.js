@@ -105,14 +105,14 @@ const getUsers = async (req, res, next) => {
 
 //* WORKS
 const deleteUser = async (req, res, next) => {
-  if (req.user.id !== req.params.userId) {
+  if (req.user.id !== req.params.userId && !req.isAdmin) {
     // TODO: ERROR HANDLER
     return next()
   }
 
   try {
     await User.findByIdAndDelete(req.params.userId)
-    res.status(200).json('Your account has been deleted')
+    res.status(200).json({ message: 'Your account has been deleted' })
   } catch (err) {
     next(err)
   }
@@ -120,7 +120,7 @@ const deleteUser = async (req, res, next) => {
 
 //* WORKS
 const updateUser = async (req, res, next) => {
-  if (req.user.id !== req.params.userId) {
+  if (req.user.id !== req.params.userId && !req.isAdmin) {
     // TODO: ERROR HANDLER
     return next()
   }
