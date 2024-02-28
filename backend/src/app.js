@@ -43,8 +43,8 @@ const WHITELIST_ORIGINS = [
   'http://localhost:3333',
   'http://127.0.0.1:3333',
   'http://localhost',
-  'http://127.0.0.1',
-  '*'
+  'http://127.0.0.1'
+  // '*'
 ]
 const CORS_OPTIONS = {
   origin: WHITELIST_ORIGINS,
@@ -139,3 +139,5 @@ server.use((err, req, res, next) => {
     message
   })
 })
+
+module.exports = server
