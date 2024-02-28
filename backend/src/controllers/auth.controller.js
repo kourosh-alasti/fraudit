@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const User = require('../models/user.model')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
@@ -9,7 +10,7 @@ const register = async (req, res, next) => {
   /*
    * GRABS USER INFORMATION FROM FORM
    */
-  const { username, email, password, fname, lname } = req.body
+  const { username, email, password, first_name, last_name } = req.body
 
   /*
    * VALIDATES USER INFORMATION IN BACKEND POST-FRONTEND VALIDATION
@@ -18,11 +19,11 @@ const register = async (req, res, next) => {
     !username ||
     !email ||
     !password ||
-    !fname ||
+    !first_name ||
     username === '' ||
     email === '' ||
     password === '' ||
-    fname === ''
+    first_name === ''
   ) {
     // ERROR HANDLER
     next()
@@ -39,8 +40,8 @@ const register = async (req, res, next) => {
   const newUser = new User({
     username,
     email,
-    first_name: fname,
-    last_name: lname === '' ? '' : lname,
+    first_name,
+    last_name: last_name === '' ? '' : last_name,
     password: hashedPassword,
     idAdmin: false
   })
