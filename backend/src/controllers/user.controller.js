@@ -40,6 +40,10 @@ const getUsers = async (req, res, next) => {
    */
   if (!req.isAdmin) {
     // TODO: ERROR HANDLER
+    res.status(403).json({
+      message: 'Access Denied, only Site Admins can access this information'
+    })
+
     return next()
   }
 
@@ -107,6 +111,10 @@ const getUsers = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
   if (req.user.id !== req.params.userId && !req.isAdmin) {
     // TODO: ERROR HANDLER
+    res
+      .status(403)
+      .json({ message: 'Access Denied. Only an Admin can delete accounts' })
+
     return next()
   }
 
@@ -122,6 +130,9 @@ const deleteUser = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.userId && !req.isAdmin) {
     // TODO: ERROR HANDLER
+    res
+      .status(403)
+      .json({ message: "Access Denied. Can't update other accounts" })
     return next()
   }
 
@@ -181,6 +192,12 @@ const updateUser = async (req, res, next) => {
 const updateUserAdmin = async (req, res, next) => {
   if (!req.isAdmin) {
     // TODO: ERROR HANDLER
+    res
+      .status(403)
+      .json({
+        message: 'Access Denied. Do Not have permission to update admin status'
+      })
+
     return next()
   }
 
