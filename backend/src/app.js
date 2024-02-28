@@ -31,8 +31,8 @@ const server = express()
 const testingRoute = require('./routes/test.route.js')
 const authRoutes = require('./routes/auth.route.js')
 const userRoutes = require('./routes/user.route.js')
-const threadRoutes = require('./routes/thread.route.js')
-const frauditRoutes = require('./routes/fraudit.route.js')
+// const threadRoutes = require('./routes/thread.route.js')
+// const frauditRoutes = require('./routes/fraudit.route.js')
 
 const SERVER_PORT = process.env.DEV_SERVER_PORT
 const FORM_HANDLER = multer()
@@ -120,8 +120,8 @@ server.listen(SERVER_PORT, () => {
 server.use('/api/v1', testingRoute)
 server.use('/api/v1/auth', authRoutes)
 server.use('/api/v1/user', userRoutes)
-server.use('/api/v1/thread', threadRoutes)
-server.use('/api/v1/fraudit', frauditRoutes)
+// server.use('/api/v1/thread', threadRoutes)
+// server.use('/api/v1/fraudit', frauditRoutes)
 
 // server.use(express.static(path.join(dirname, '/frontend/dist')))
 
