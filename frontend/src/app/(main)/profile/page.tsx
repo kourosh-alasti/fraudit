@@ -20,8 +20,19 @@ const ProfilePage = () => {
     <div className="w-[70vw] min-h-[65vh] rounded-md bg-blue-200 flex flex-col p-4">
       <div className="flex justify-between px-6 sm:px-12 py-6">
         <Avatar className="md:h-40 md:w-40 w-20 h-20">
-          <AvatarImage src={user?.profile_picture as string} />
-          <AvatarFallback>TU</AvatarFallback>
+          <AvatarImage
+            src={
+              user
+                ? (user.profile_picture as string)
+                : "https://github.com/shadcn.png"
+            }
+          />
+          <AvatarFallback>
+            {user
+              ? user.first_name[0].toUpperCase() +
+                user.last_name[0].toUpperCase()
+              : "TU"}
+          </AvatarFallback>
         </Avatar>
         <Card className="sm:block hidden">
           <CardHeader>
