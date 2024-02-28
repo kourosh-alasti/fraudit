@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 import { User } from "../utils/store.types";
 
@@ -10,9 +11,16 @@ interface UserAction {
   login: (info: User) => void;
   logout: () => void;
 }
-
-export const useUserStore = create<UserState & UserAction>((set) => ({
-  user: null,
-  login: ({ ...info }) => set((state) => ({ user: info })),
-  logout: () => set({ user: null }),
-}));
+// <UserState & UserAction>
+export const useUserStore = create(
+  persist<UserState & UserAction>(
+    (set, get) => ({
+      user: null,
+      login: (info) => set({ user: info }),
+      logout: () => set({ user: null }),
+    }),
+    {
+      name: "userStorage",
+    }
+  )
+);
