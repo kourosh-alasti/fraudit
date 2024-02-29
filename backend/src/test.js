@@ -1,5 +1,11 @@
 const { describe, test } = require('@jest/globals')
 const { expect } = require('expect')
+const mongoose = require('mongoose')
+const dotenv = require('dotenv')
+const dotenvExpand = require('dotenv-expand')
+
+const devEnv = dotenv.config({ processEnv: {} })
+dotenvExpand.expand(devEnv)
 
 const {
   getUser,
@@ -8,6 +14,16 @@ const {
   updateUser,
   updateUserAdmin
 } = require('./controllers/user.controller.js')
+const { debug, error } = require('./utils/consoler.js')
+
+mongoose
+  .connect(process.env.MONGOOSE_URL)
+  .then(() => {
+    debug('Connection to MongoDB Established')
+  })
+  .catch((err) => {
+    error(err)
+  })
 
 describe('User Endpoints as Admin', () => {
   const ADMIN_REQ = {
