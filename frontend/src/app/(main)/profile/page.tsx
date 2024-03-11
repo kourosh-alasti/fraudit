@@ -12,21 +12,17 @@ import {
 } from "@/components/ui/tooltip";
 import { useUserStore } from "@/store/use-user-store";
 import { ArrowDown, ArrowUp, Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const ProfilePage = () => {
   const user = useUserStore((state) => state.user);
+  const router = useRouter();
 
   return (
-    <div className="w-[70vw] min-h-[65vh] rounded-md bg-blue-200 flex flex-col p-4">
+    <div className="w-[70vw] min-h-[65vh] mx-auto rounded-md bg-slate-100 flex flex-col p-4">
       <div className="flex justify-between px-6 sm:px-12 py-6">
         <Avatar className="md:h-40 md:w-40 w-20 h-20">
-          <AvatarImage
-            src={
-              user
-                ? (user.profile_picture as string)
-                : "https://github.com/shadcn.png"
-            }
-          />
+          <AvatarImage src={user?.profile_picture as string} />
           <AvatarFallback>
             {user
               ? user.first_name[0].toUpperCase() +
@@ -43,7 +39,9 @@ const ProfilePage = () => {
               {user?.first_name + " " + user?.last_name}
             </p>
             <div className="flex justify-between gap-2 mt-4">
-              <Button>Edit Profile</Button>
+              <Button onClick={() => router.push("/profile/edit")}>
+                Edit Profile
+              </Button>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -65,8 +63,12 @@ const ProfilePage = () => {
           </CardHeader>
           <CardContent>
             <div className="flex flex-col items-center gap-2">
-              <p className="text-center">Test User</p>
-              <Button>Edit Profile</Button>
+              <p className="text-center">
+                {user?.first_name + " " + user?.last_name}
+              </p>
+              <Button onClick={() => router.push("/profile/edit")}>
+                Edit Profile
+              </Button>
             </div>
           </CardContent>
         </Card>
