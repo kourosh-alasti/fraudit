@@ -1,0 +1,38 @@
+{
+  "nodeModulesDir": true,
+  "lock": false,
+
+  "compilerOptions": {
+    "allowJs": true,
+    "lib": ["deno.window"],
+    "strict": true
+  },
+  "imports": {
+    "$std/": "https://deno.land/std@0.219.0/",
+    "$oak": "https://deno.land/x/oak/mod.ts",
+    "$lodash": "https://esm.sh/lodash@4.17.21"
+  },
+  "tasks": {
+    "dev": "deno run --watch --allow-net --allow-read --allow-sys --allow-env server.ts",
+    "check": "deno check server.ts",
+    "test": "deno test --watch"
+  },
+  "lint": {
+    "include": ["src/"],
+    "exclude": ["src/test"],
+    "rules": {
+      "tags": ["recommended"],
+      "include": ["ban-untagged-todo"]
+    }
+  },
+  "fmt": {
+    "useTabs": true,
+    "singleQuote": true,
+    "lineWidth": 80,
+    "indentWidth": 2,
+    "semiColons": false,
+    "proseWrap": "preserve",
+    "include": ["src/"],
+    "exclude": ["src/test"]
+  }
+}
