@@ -1,4 +1,3 @@
-import UIFooter from "@/components/global/Footer";
 import UINavbar from "@/components/global/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 
