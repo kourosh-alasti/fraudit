@@ -11,7 +11,7 @@ import { useUserStore } from "@/store/use-user-store";
 import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 import { SidebarContext } from "@/providers/sidebar-provider";
-import NewSidebar from "./NewSidebar";
+import NewSidebar from "./Sidebar";
 import { Input } from "../ui/input";
 
 const UINavbar = () => {
