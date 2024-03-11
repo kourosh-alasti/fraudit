@@ -1,4 +1,11 @@
-const { describe, test, expect } = require('jest')
+const { describe, test } = require('@jest/globals')
+const { expect } = require('expect')
+const mongoose = require('mongoose')
+const dotenv = require('dotenv')
+const dotenvExpand = require('dotenv-expand')
+
+const devEnv = dotenv.config({ processEnv: {} })
+dotenvExpand.expand(devEnv)
 
 const {
   getUser,
@@ -7,6 +14,16 @@ const {
   updateUser,
   updateUserAdmin
 } = require('./controllers/user.controller.js')
+const { debug, error } = require('./utils/consoler.js')
+
+mongoose
+  .connect(process.env.MONGOOSE_URL)
+  .then(() => {
+    debug('Connection to MongoDB Established')
+  })
+  .catch((err) => {
+    error(err)
+  })
 
 describe('User Endpoints as Admin', () => {
   const ADMIN_REQ = {
@@ -56,15 +73,15 @@ describe('User Endpoints as Admin', () => {
     const res = {
       code: 0,
       body: {},
-      status: (input) => {
+      status(input) {
         this.code = input
       },
-      json: (input) => {
+      json(input) {
         this.body = input
       }
     }
 
-    await getUsers(ADMIN_REQ, res)
+    await getUsers(ADMIN_REQ, res, jest.fn())
 
     expect(res.code).toEqual(200)
     expect(res.body).toHaveProperty('users')
@@ -75,15 +92,15 @@ describe('User Endpoints as Admin', () => {
     const res = {
       code: 0,
       body: {},
-      status: (input) => {
+      status(input) {
         this.code = input
       },
-      json: (input) => {
+      json(input) {
         this.body = input
       }
     }
 
-    await getUser(ADMIN_REQ, res)
+    await getUser(ADMIN_REQ, res, jest.fn())
 
     expect(res.code).toEqual(200)
     expect(res.body).toHaveProperty('_id')
@@ -101,15 +118,15 @@ describe('User Endpoints as Admin', () => {
     const res = {
       code: 0,
       body: {},
-      status: (input) => {
+      status(input) {
         this.code = input
       },
-      json: (input) => {
+      json(input) {
         this.body = input
       }
     }
 
-    await deleteUser(DELETE_REQ, res)
+    await deleteUser(DELETE_REQ, res, jest.fn())
 
     expect(res.code).toEqual(200)
     expect(res.body).toHaveProperty('message')
@@ -119,15 +136,15 @@ describe('User Endpoints as Admin', () => {
     const res = {
       code: 0,
       body: {},
-      status: (input) => {
+      status(input) {
         this.code = input
       },
-      json: (input) => {
+      json(input) {
         this.body = input
       }
     }
 
-    await updateUser(UPDATE_REQ, res)
+    await updateUser(UPDATE_REQ, res, jest.fn())
 
     expect(res.code).toEqual(200)
     expect(res.body).toHaveProperty('_id')
@@ -145,15 +162,15 @@ describe('User Endpoints as Admin', () => {
     const res = {
       code: 0,
       body: {},
-      status: (input) => {
+      status(input) {
         this.code = input
       },
-      json: (input) => {
+      json(input) {
         this.body = input
       }
     }
 
-    await updateUserAdmin(UPDATE_ADMIN_REQ, res)
+    await updateUserAdmin(UPDATE_ADMIN_REQ, res, jest.fn())
 
     expect(res.code).toEqual(200)
     expect(res.body).toHaveProperty('_id')
@@ -236,15 +253,15 @@ describe('User Endpoints as User', () => {
     const res = {
       code: 0,
       body: {},
-      status: (input) => {
+      status(input) {
         this.code = input
       },
-      json: (input) => {
+      json(input) {
         this.body = input
       }
     }
 
-    await getUsers(USER_REQ, res)
+    await getUsers(USER_REQ, res, jest.fn())
 
     expect(res.code).toEqual(403)
     expect(res.body).toHaveProperty('message')
@@ -254,15 +271,15 @@ describe('User Endpoints as User', () => {
     const res = {
       code: 0,
       body: {},
-      status: (input) => {
+      status(input) {
         this.code = input
       },
-      json: (input) => {
+      json(input) {
         this.body = input
       }
     }
 
-    await getUser(USER_REQ, res)
+    await getUser(USER_REQ, res, jest.fn())
 
     expect(res.code).toEqual(200)
     expect(res.body).toHaveProperty('_id')
@@ -280,15 +297,15 @@ describe('User Endpoints as User', () => {
     const res = {
       code: 0,
       body: {},
-      status: (input) => {
+      status(input) {
         this.code = input
       },
-      json: (input) => {
+      json(input) {
         this.body = input
       }
     }
 
-    await deleteUser(DELETE_SELF_REQ, res)
+    await deleteUser(DELETE_SELF_REQ, res, jest.fn())
 
     expect(res.code).toEqual(200)
     expect(res.body).toHaveProperty('message')
@@ -298,15 +315,15 @@ describe('User Endpoints as User', () => {
     const res = {
       code: 0,
       body: {},
-      status: (input) => {
+      status(input) {
         this.code = input
       },
-      json: (input) => {
+      json(input) {
         this.body = input
       }
     }
 
-    await deleteUser(DELETE_RANDOM_REQ, res)
+    await deleteUser(DELETE_RANDOM_REQ, res, jest.fn())
 
     expect(res.code).toEqual(403)
     expect(res.body).toHaveProperty('message')
@@ -316,15 +333,15 @@ describe('User Endpoints as User', () => {
     const res = {
       code: 0,
       body: {},
-      status: (input) => {
+      status(input) {
         this.code = input
       },
-      json: (input) => {
+      json(input) {
         this.body = input
       }
     }
 
-    await updateUser(UPDATE_SELF_REQ, res)
+    await updateUser(UPDATE_SELF_REQ, res, jest.fn())
 
     expect(res.code).toEqual(200)
     expect(res.body).toHaveProperty('_id')
@@ -342,15 +359,15 @@ describe('User Endpoints as User', () => {
     const res = {
       code: 0,
       body: {},
-      status: (input) => {
+      status(input) {
         this.code = input
       },
-      json: (input) => {
+      json(input) {
         this.body = input
       }
     }
 
-    await updateUser(UPDATE_RANDOM_REQ, res)
+    await updateUser(UPDATE_RANDOM_REQ, res, jest.fn())
 
     expect(res.code).toEqual(403)
     expect(res.body).toHaveProperty('message')
@@ -360,15 +377,15 @@ describe('User Endpoints as User', () => {
     const res = {
       code: 0,
       body: {},
-      status: (input) => {
+      status(input) {
         this.code = input
       },
-      json: (input) => {
+      json(input) {
         this.body = input
       }
     }
 
-    await updateUserAdmin(UPDATE_ADMIN_STATUS_REQ, res)
+    await updateUserAdmin(UPDATE_ADMIN_STATUS_REQ, res, jest.fn())
 
     expect(res.code).toEqual(403)
     expect(res.body).toHaveProperty('message')
