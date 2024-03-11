@@ -180,8 +180,9 @@ const updateUser = async (req, res, next) => {
       req.params.userId,
       {
         $set: {
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
           username: req.body.username,
-          email: req.body.email,
           profilePicture: req.body.profilePicture,
           password: req.body.password
         }
