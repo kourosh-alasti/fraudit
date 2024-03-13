@@ -99,7 +99,7 @@ const UINavbar = () => {
               className="w-96 px-2 py-2 text-gray-500 bg-transparent md:hidden rounded-md border-slate-500"
             />
             <li key="user-avatar" className="text-gray-600 self-end ">
-              <Link href="/profile">
+              <Link href="/user">
                 <Avatar className="h-14 w-14 hidden md:block">
                   <AvatarImage src={user?.profile_picture as string} />
                   <AvatarFallback>
