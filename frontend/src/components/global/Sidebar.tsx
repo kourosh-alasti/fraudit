@@ -61,7 +61,7 @@ export default function NewSidebar({}) {
         </div>
         <div className="mb-6">
           <div className="flex justify-center items-center">
-            <Link href="/profile">
+            <Link href="/user">
               <Image
                 className="cursor-pointer rounded-[50%]"
                 src={user?.profile_picture as string}
@@ -73,9 +73,15 @@ export default function NewSidebar({}) {
           </div>
           <div className="text-center">
             <h2 className="font-bold mt-[10px] text-slate-700">{`${user?.first_name} ${user?.last_name}`}</h2>
-            <Link href="/profile/edit">
+            <Link href="/user/edit">
               <p className="underline text-slate-400 hover:cursor-pointer">
                 Edit Profile
+              </p>
+            </Link>
+            |
+            <Link href="/">
+              <p className="underline text-slate-400 hover:cursor-pointer">
+                Logout
               </p>
             </Link>
           </div>
