@@ -1,14 +1,20 @@
 const bcryptjs = require('bcryptjs')
 const User = require('../models/user.model')
-const { getUserInformation } = require('../database/queries/user.query')
+const {
+  getUserInformation,
+  getUserByUsername
+} = require('../database/queries/user.query')
+const { error } = require('../utils/error')
 
 //* WORKS
 const getUser = async (req, res, next) => {
   try {
     /*
-     * PULLS USER FROM BUCKET BY ID FROM REQUEST
+     * PULLS USER FROM BUCKET BY USERNAME FROM REQUEST
      */
-    const user = await User.findById(req.params.userId)
+    // const user = await User.findById(req.params.userId)
+
+    const user = await getUserByUsername(req.params.username)
 
     /*
      * RETURNS ERROR IF USER DOESNT EXIST
@@ -17,7 +23,7 @@ const getUser = async (req, res, next) => {
       // TODO: ERROR HANDLING
       res.status(404)
       res.json({ message: 'User Not Found' })
-      return next()
+      return next(error(404, 'User Not Found'))
     }
 
     /*
