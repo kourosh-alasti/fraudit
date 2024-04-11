@@ -64,7 +64,7 @@ export const SideDrawer = () => {
         </div>
         <div className="mb-6">
           <div className="flex items-center justify-center">
-            <Link href="/app/user">
+            <Link href="/app/u">
               <Image
                 className="cursor-pointer rounded-[50%]"
                 src={user.user?.imageUrl as string}
@@ -77,7 +77,7 @@ export const SideDrawer = () => {
           <div className="text-center">
             <h2 className="mt-[10px] font-bold text-slate-700">{`${user.user?.firstName} ${user.user?.lastName}`}</h2>
             <div className="flex items-center justify-center gap-2">
-              <Link href="/app/user/edit-profile">
+              <Link href="/app/u/edit-profile">
                 <p className="text-slate-400 underline hover:cursor-pointer">
                   Edit Profile
                 </p>

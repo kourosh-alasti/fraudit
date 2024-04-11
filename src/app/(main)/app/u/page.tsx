@@ -36,7 +36,7 @@ const ProfilePage = () => {
               {user.user?.firstName + " " + user.user?.lastName}
             </p>
             <div className="mt-4 flex justify-between gap-2">
-              <Button onClick={() => router.push("/app/user/edit-profile")}>
+              <Button onClick={() => router.push("/app/u/edit-profile")}>
                 Edit Profile
               </Button>
               <TooltipProvider>

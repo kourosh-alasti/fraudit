@@ -9,7 +9,7 @@ export default function UserErrorPage() {
         Sorry, nobody on Fraudit goes by that username
       </h1>
       <Link
-        href="/app/user"
+        href="/app/u"
         className="w-auto rounded-lg bg-blue-400 px-3 py-1 text-center text-white hover:bg-blue-700"
       >
         View your profile
