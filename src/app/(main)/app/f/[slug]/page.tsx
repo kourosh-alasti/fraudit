@@ -7,7 +7,7 @@ const FrauditPage = ({ params: { slug } }: { params: { slug: string } }) => {
   const slugName = slug;
 
   return (
-    <div className="flex flex-col gap-[48px] px-6 xl:flex-row-reverse">
+    <div className="flex flex-col gap-[48px] px-6 md:flex-row-reverse">
       <StickyWrapper>
         <div className=" flex h-40 w-auto flex-col justify-between rounded-md border px-4 py-2 shadow-lg">
           <div className="flex-col">
