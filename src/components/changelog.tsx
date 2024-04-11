@@ -49,7 +49,7 @@ export const Changelog = () => {
             <Image
               width={100}
               height={100}
-              src="/the_thing.png"
+              src="/logo.png"
               alt="fraudit"
               className="mr-2 h-7 w-7 rounded-full"
             />

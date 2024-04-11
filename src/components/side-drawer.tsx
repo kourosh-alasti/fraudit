@@ -54,7 +54,7 @@ export const SideDrawer = () => {
       <Menu className="box-content w-full pt-10 ">
         <div className="mb-10 ml-4 mr-4 flex items-center justify-between">
           <Image
-            src="/the_thing.png"
+            src="/logo.png"
             width={80}
             height={80}
             alt="Fraudit Logo"

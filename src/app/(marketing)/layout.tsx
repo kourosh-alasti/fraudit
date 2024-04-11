@@ -31,7 +31,7 @@ const LayoutHeader = () => {
     <header className="h-20 w-full border-b border-slate-300 px-4">
       <div className="lg:max-w-screen mx-auto flex h-full items-center justify-between ">
         <div className="flex items-center gap-x-3 pb-7 pl-4 pt-8">
-          <Image src="/the_thing.png" alt="Mascot" height={40} width={40} />
+          <Image src="/logo.png" alt="Mascot" height={40} width={40} />
           <h1 className="text-2xl font-extrabold uppercase tracking-wide text-neutral-700">
             Fraudit
           </h1>

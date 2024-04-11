@@ -30,7 +30,7 @@ export const AppBar = () => {
           <Link href="/app">
             {/* <h1 className="text-3xl font-bold text-purple-600">Fraudit</h1> */}
             <Image
-              src="/the_thing.png"
+              src="/logo.png"
               height="100"
               width="100"
               alt="Fraudit Logo"
