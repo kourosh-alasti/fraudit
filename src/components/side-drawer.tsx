@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { useSidebar } from "@/store/use-sidebar";
 import { useEffect } from "react";
-import { SidebarItems } from "./sidebar-items";
+import { DrawerItems } from "./drawer-items";
 
 const TEMP_FRAUDITS = [
   "Homework",
@@ -106,7 +106,7 @@ export const SideDrawer = () => {
         >
           <p className="text-sm font-semibold uppercase">SubFraudits</p>
         </div>
-        <SidebarItems />
+        <DrawerItems />
         <div className="mt-3 text-center ">
           <p>Copyright &copy; Fraudit 2024</p>
         </div>
