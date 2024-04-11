@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,25 +10,38 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { ArrowDown, ArrowUp, Trash, Trash2 } from "lucide-react";
-import React from "react";
+import { useUserStore } from "@/store/use-user-store";
+import { ArrowDown, ArrowUp, Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const ProfilePage = () => {
+  const user = useUserStore((state) => state.user);
+  const router = useRouter();
+
   return (
-    <div className="w-[70vw] min-h-[65vh] rounded-md bg-blue-200 flex flex-col p-4">
-      <div className="flex justify-between px-12 py-6">
-        <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>TU</AvatarFallback>
+    <div className="w-[70vw] min-h-[65vh] mx-auto rounded-md bg-slate-100 flex flex-col p-4">
+      <div className="flex justify-between px-6 sm:px-12 py-6">
+        <Avatar className="md:h-40 md:w-40 w-20 h-20">
+          <AvatarImage src={user?.profile_picture as string} />
+          <AvatarFallback>
+            {user
+              ? user.first_name[0].toUpperCase() +
+                user.last_name[0].toUpperCase()
+              : "TU"}
+          </AvatarFallback>
         </Avatar>
-        <Card>
+        <Card className="sm:block hidden">
           <CardHeader>
             <CardTitle className="text-end">Your Profile</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-end text-lg">Test User</p>
+            <p className="text-end text-lg">
+              {user?.first_name + " " + user?.last_name}
+            </p>
             <div className="flex justify-between gap-2 mt-4">
-              <Button>Edit Profile</Button>
+              <Button onClick={() => router.push("/profile/edit")}>
+                Edit Profile
+              </Button>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -39,6 +54,21 @@ const ProfilePage = () => {
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="sm:hidden block ml-4">
+          <CardHeader>
+            <CardTitle className="text-center">Profile</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col items-center gap-2">
+              <p className="text-center">
+                {user?.first_name + " " + user?.last_name}
+              </p>
+              <Button onClick={() => router.push("/profile/edit")}>
+                Edit Profile
+              </Button>
             </div>
           </CardContent>
         </Card>

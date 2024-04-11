@@ -1,21 +1,29 @@
 const bcryptjs = require('bcryptjs')
 const User = require('../models/user.model')
-const { getUserInformation } = require('../database/queries/user.query')
+const {
+  getUserInformation,
+  getUserByUsername
+} = require('../database/queries/user.query')
+const { error } = require('../utils/error')
 
 //* WORKS
 const getUser = async (req, res, next) => {
   try {
     /*
-     * PULLS USER FROM BUCKET BY ID FROM REQUEST
+     * PULLS USER FROM BUCKET BY USERNAME FROM REQUEST
      */
-    const user = await User.findById(req.params.userId)
+    // const user = await User.findById(req.params.userId)
+
+    const user = await getUserByUsername(req.params.username)
 
     /*
      * RETURNS ERROR IF USER DOESNT EXIST
      */
     if (!user) {
       // TODO: ERROR HANDLING
-      return next()
+      res.status(404)
+      res.json({ message: 'User Not Found' })
+      return next(error(404, 'User Not Found'))
     }
 
     /*
@@ -26,7 +34,8 @@ const getUser = async (req, res, next) => {
     /*
      * RETURN STATUS CODE 200 FOR OK AND USER DATA AS JSON
      */
-    res.status(200).json(rest)
+    res.status(200)
+    res.json(rest)
   } catch (err) {
     // ERROR HANDLING
     next(err)
@@ -40,6 +49,11 @@ const getUsers = async (req, res, next) => {
    */
   if (!req.isAdmin) {
     // TODO: ERROR HANDLER
+    res.status(403)
+    res.json({
+      message: 'Access Denied, only Site Admins can access this information'
+    })
+
     return next()
   }
 
@@ -93,10 +107,15 @@ const getUsers = async (req, res, next) => {
      * Returns status 200 for success
      * Returns users as JSON object
      */
-    res.status(200).json({
+    // res.status(200).json({
+    //   users: usersWithoutPassword,
+    //   totalUsers
+    //   // lastMonthUsers,
+    // })
+    res.status(200)
+    res.json({
       users: usersWithoutPassword,
       totalUsers
-      // lastMonthUsers,
     })
   } catch (err) {
     next(err)
@@ -105,14 +124,18 @@ const getUsers = async (req, res, next) => {
 
 //* WORKS
 const deleteUser = async (req, res, next) => {
-  if (req.user.id !== req.params.userId) {
+  if (req.user.id !== req.params.userId && !req.isAdmin) {
     // TODO: ERROR HANDLER
+    res.status(403)
+    res.json({ message: 'Access Denied. Only an Admin can delete accounts' })
+
     return next()
   }
 
   try {
     await User.findByIdAndDelete(req.params.userId)
-    res.status(200).json('Your account has been deleted')
+    res.status(200)
+    res.json({ message: 'Your account has been deleted' })
   } catch (err) {
     next(err)
   }
@@ -120,8 +143,10 @@ const deleteUser = async (req, res, next) => {
 
 //* WORKS
 const updateUser = async (req, res, next) => {
-  if (req.user.id !== req.params.userId) {
+  if (req.user.id !== req.params.userId && !req.isAdmin) {
     // TODO: ERROR HANDLER
+    res.status(403)
+    res.json({ message: "Access Denied. Can't update other accounts" })
     return next()
   }
 
@@ -161,8 +186,9 @@ const updateUser = async (req, res, next) => {
       req.params.userId,
       {
         $set: {
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
           username: req.body.username,
-          email: req.body.email,
           profilePicture: req.body.profilePicture,
           password: req.body.password
         }
@@ -171,7 +197,8 @@ const updateUser = async (req, res, next) => {
     )
 
     const { password, ...rest } = updatedUser._doc
-    res.status(200).json(rest)
+    res.status(200)
+    res.json(rest)
   } catch (err) {
     next(err)
   }
@@ -181,6 +208,11 @@ const updateUser = async (req, res, next) => {
 const updateUserAdmin = async (req, res, next) => {
   if (!req.isAdmin) {
     // TODO: ERROR HANDLER
+    res.status(403)
+    res.json({
+      message: 'Access Denied. Do Not have permission to update admin status'
+    })
+
     return next()
   }
 
@@ -203,7 +235,8 @@ const updateUserAdmin = async (req, res, next) => {
     )
 
     const { password, ...rest } = updatedUser._doc
-    res.status(200).json(rest)
+    res.status(200)
+    res.json(rest)
   } catch (err) {
     next(err)
   }

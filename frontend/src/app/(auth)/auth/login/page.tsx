@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -30,6 +29,8 @@ import {
   CardTitle,
   CardFooter,
 } from "@/components/ui/card";
+import { useUserStore } from "@/store/use-user-store";
+import { User } from "@/utils/store.types";
 
 const LoginFormSchema = z.object({
   username: z
@@ -51,6 +52,8 @@ const LoginFormSchema = z.object({
 export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
+  const login = useUserStore((state) => state.login);
+  const user = useUserStore((state) => state.user);
 
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     resolver: zodResolver(LoginFormSchema),
@@ -81,6 +84,9 @@ export default function LoginPage() {
       });
 
       if (response.ok) {
+        const data = await response.json();
+        login(data);
+
         router.replace("/");
       }
     } catch (err) {

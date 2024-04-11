@@ -11,8 +11,8 @@ const {
 const router = express.Router()
 
 router.post('/', verifyToken, createThread)
-router.get('/', getThread)
-router.get('/:threadId', getThreads)
+router.get('/', verifyToken, getThread)
+router.get('/:threadId', verifyToken, getThreads)
 router.delete('/:threadId', verifyToken, deleteThread)
 router.patch('/:threadId', verifyToken, updateThread)
 

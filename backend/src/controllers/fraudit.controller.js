@@ -52,9 +52,100 @@ const deleteFraudit = async (req, res, next) => {
   }
 }
 
-const getFraudit = async (req, res, next) => {}
-const getFraudits = async (req, res, next) => {}
-const updateFraudits = async (req, res, next) => {}
+const getFraudit = async (req, res, next) => {
+  try {
+    const fraudit = await Fraudit.findById(req.params.frauditId)
+
+    if (!fraudit) {
+      res.status(404)
+      res.json({ message: 'Subfraudit does not exist' })
+      return next()
+    }
+
+    const { ownerId, ...rest } = fraudit._doc
+
+    res.status(200)
+    res.json(rest)
+  } catch (err) {
+    next(err)
+  }
+}
+
+const getFraudits = async (req, res, next) => {
+  try {
+    const startIndex = parseInt(req.query.startIndex) || 0
+    const limit = parseInt(req.query.limit) || 9
+    const sortDirection = req.query.slot === 'arc' ? 1 : -1
+
+    const fraudits = await Fraudit.find()
+      .sort({ createdAt: sortDirection })
+      .skip(startIndex)
+      .limit(limit)
+
+    const frauditsWithoutOwnerId = fraudits.map((fraudit) => {
+      const { ownerId, ...rest } = fraudit._doc
+
+      return rest
+    })
+
+    const totalFraudits = await Fraudit.countDocuments()
+
+    res.status(200)
+    res.json({ fraudits: frauditsWithoutOwnerId, totalFraudits })
+  } catch (err) {
+    next(err)
+  }
+}
+
+const updateFraudits = async (req, res, next) => {
+  const fraudit = await Fraudit.findById(req.params.frauditId)
+
+  if (req.user.id !== fraudit.ownerId && !req.isAdmin) {
+    res.status(403)
+    res.json({ message: "Access Denied. Can't update other subfraudits" })
+    return next()
+  }
+
+  if (req.body.title) {
+    if (req.body.title < 5) {
+      return next()
+    }
+
+    if (!req.body.title.match(/^[a-zA-Z0-9]+$/)) {
+      return next()
+    }
+  }
+  if (req.body.description) {
+    if (req.body.description.trim() < 2) {
+      return next()
+    }
+  }
+  if (req.body.slug) {
+    if (req.body.slug.length < 5) {
+      return next()
+    }
+  }
+
+  try {
+    const updatedFraudit = await Fraudit.findByIdAndUpdate(
+      req.params.frauditId,
+      {
+        $set: {
+          title: req.body.title,
+          description: req.body.description,
+          slug: req.body.slug
+        }
+      },
+      { new: true }
+    )
+
+    const { ownerId, ...rest } = updatedFraudit._doc
+    res.status(200)
+    res.json(rest)
+  } catch (err) {
+    next(err)
+  }
+}
 
 module.exports.createFraudit = createFraudit
 module.exports.deleteFraudit = deleteFraudit

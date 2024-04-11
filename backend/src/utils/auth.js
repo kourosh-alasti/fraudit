@@ -21,7 +21,11 @@ const verifyToken = (req, res, next) => {
   if (!token) {
     // TODO: ERROR HANDLER
     warn('Token does not exist')
-    return next()
+    res.writeHead(302, {
+      Location: 'http://localhost:3000/login'
+    })
+
+    return res.end()
   }
 
   /*
@@ -36,7 +40,6 @@ const verifyToken = (req, res, next) => {
     }
 
     debug('Setting User')
-    console.log(user)
     req.user = user
     next()
   })
@@ -82,15 +85,19 @@ const requestResetPassword = async (email) => {
   }).save()
 
   const link = `${process.env.DEV_CLIENT_URL}/api/v1/auth/password-reset?token=${newResetToken}&id=${user._id}`
-  sendEmail(
+  const { error } = await sendEmail(
     user.email,
     'Password Reset Request',
     {
       name: user.name,
       link
     },
-    './template/requestResetPassword'
+    './templates/requestResetPassword.hbs'
   )
+
+  if (error) {
+    throw new Error('Error sending Password Reset Request')
+  }
 
   return link
 }
@@ -115,11 +122,11 @@ const resetPassword = async (userId, token, password) => {
 
   const user = User.findById({ _id: userId })
 
-  sendEmail(
+  await sendEmail(
     user.email,
     'Password Reset Successfully',
     { name: user.first_name },
-    './template/resetPassword.handlebars'
+    './templates/resetPassword.hbs'
   )
 
   await pwdResetToken.deleteOne()

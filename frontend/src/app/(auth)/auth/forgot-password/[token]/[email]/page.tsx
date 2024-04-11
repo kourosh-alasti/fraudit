@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -27,28 +26,32 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 
 const ForgotPasswordSchema = z.object({
-  email: z
+  password: z
     .string({
-      required_error: "Your Email Address is required to reset your password.",
+      required_error: "You must enter a password",
     })
-    .email({ message: "Invalid Email Address" }),
+    .min(6, { message: "Password must be greater than 6 characters" }),
+  confirmPassword: z
+    .string({ required_error: "Must re-enter password" })
+    .min(6, { message: "Passwords must match" }),
 });
 
-export default function ForgotPassword({
-  children,
+export default function ForgotPasswordPage({
+  params,
 }: {
-  children: React.ReactNode;
+  params: { token: String; email: String };
 }) {
   const { toast } = useToast();
-  const { query } = useRouter();
+  const router = useRouter();
 
-  const token = query.token;
-  const email = query.email;
+  const token = params.token;
+  const email = params.email;
 
   const form = useForm<z.infer<typeof ForgotPasswordSchema>>({
     resolver: zodResolver(ForgotPasswordSchema),
     defaultValues: {
-      email: "",
+      password: "",
+      confirmPassword: "",
     },
   });
 
@@ -81,12 +84,11 @@ export default function ForgotPassword({
 
   return (
     <>
-      <div>{children}</div>
       <Card>
         <CardHeader>
           <CardTitle>Reset Your Password!</CardTitle>
           <CardDescription>
-            Forgot your password? Send a reset link to your email.
+            It is time to reset your password. Write down in a secure place.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -97,18 +99,31 @@ export default function ForgotPassword({
             >
               <FormField
                 control={form.control}
-                name="email"
+                name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email Address</FormLabel>
+                    <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Email Address" {...field} />
+                      <Input placeholder="Password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit">Get Magic Link</Button>
+              <FormField
+                control={form.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirm Password</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Confirm Password" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit">Reset Password!</Button>
             </form>
           </Form>
         </CardContent>
@@ -116,5 +131,3 @@ export default function ForgotPassword({
     </>
   );
 }
-
-function ForgotPasswordForm() {}
