@@ -52,6 +52,9 @@ devDependencies:
   '@types/react-dom':
     specifier: ^18
     version: 18.2.24
+  '@types/webpack-env':
+    specifier: ^1.18.4
+    version: 1.18.4
   autoprefixer:
     specifier: ^10.0.1
     version: 10.4.19(postcss@8.4.38)
@@ -986,6 +989,10 @@ packages:
       '@types/node': 20.12.7
       '@types/send': 0.17.4
     dev: false
+
+  /@types/webpack-env@1.18.4:
+    resolution: {integrity: sha512-I6e+9+HtWADAWeeJWDFQtdk4EVSAbj6Rtz4q8fJ7mSr1M0jzlFcs8/HZ+Xb5SHzVm1dxH7aUiI+A8kA8Gcrm0A==}
+    dev: true
 
   /@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5):
     resolution: {integrity: sha512-tbsV1jPne5CkFQCgPBcDOt30ItF7aJoZL997JSF7MhGQqOeT3svWRYxiqlfA5RUdlHN6Fi+EI9bxqbdyAUZjYQ==}
