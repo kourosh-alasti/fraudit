@@ -29,6 +29,6 @@ export const getFrauditInfoBySlug = async ({ slug }: Props) => {
     return data;
   } catch (err) {
     console.error(err);
-    throw new Error("Could not fetch fraudit informatin, please try again.");
+    throw new Error("Could not fetch fraudit information, please try again.");
   }
 };
