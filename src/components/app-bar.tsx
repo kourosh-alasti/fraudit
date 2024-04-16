@@ -55,7 +55,7 @@ export const AppBar = () => {
             isMobileMenuOpen ? "block" : "hidden"
           }`}
         >
-          <ul className="flex w-full items-center justify-center md:flex-col md:space-x-6 md:space-y-0">
+          <ul className="flex w-full flex-col items-center justify-center gap-y-3 md:space-x-6 md:space-y-0">
             <Input
               type="text"
               placeholder="Search"
