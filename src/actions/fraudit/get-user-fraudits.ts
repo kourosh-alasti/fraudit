@@ -1,7 +1,7 @@
 "use server";
 
 import db from "@/db/drizzle";
-import { fraudits, threads, userToFraudits, users } from "@/db/schema";
+import { users } from "@/db/schema";
 import { auth } from "@clerk/nextjs";
 import { eq } from "drizzle-orm";
 import { getFraudit } from "../../db/queries/fraudit";
