@@ -3,37 +3,52 @@
 import { getFrauditBySlug } from "@/db/queries/fraudit";
 import { fraudits } from "@/db/schema";
 import { useEffect, useState } from "react";
-import { StickyWrapper } from "@/components/sticky-wrapper";
+import { Skeleton } from "../ui/skeleton";
+import { FrauditInfoSkeleton } from "./fraudit-info-skeleton";
+import { cn } from "@/lib/utils";
 
 interface Props {
   slug: string;
+  className?: string;
 }
 
-export const FrauditInfo = ({ slug }: Props) => {
+export const FrauditInfo = ({ slug, className }: Props) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [info, setInfo] = useState<typeof fraudits.$inferSelect | null>(null);
 
   useEffect(() => {
+    setIsLoading(true);
     const getData = () => {
       getFrauditBySlug(slug).then((data) => setInfo(data!));
+
+      setIsLoading(false);
     };
+
+    getData();
   }, [slug, info]);
 
-  //   if (!info) {
-  //     throw new Error("Fraudit does not exist");
-  //   }
-
   return (
-    <StickyWrapper>
-      <div className=" flex h-40 w-auto flex-col justify-between rounded-md border px-4 py-2 shadow-lg">
-        <div className="flex-col">
-          <p className="text-lg">{info?.title}</p>
-          <p className="text-sm text-muted-foreground">f/{info?.slug}</p>
+    <>
+      {isLoading && <FrauditInfoSkeleton />}
+      {!isLoading && (
+        <div
+          className={cn(
+            "h-40 flex-col justify-between rounded-md py-2  ",
+            className &&
+              "sticky top-0 z-[999] flex w-[100vw] self-center border-b bg-white px-10 lg:hidden lg:px-3",
+            !className && "flex w-auto border px-4 shadow-lg",
+          )}
+        >
+          <div className="flex-col">
+            <p className="text-lg">{info?.title}</p>
+            <p className="text-sm text-muted-foreground">{`f/${info?.slug}`}</p>
+          </div>
+          <div className="flex justify-between">
+            <p>{`${info?.memberCount} ${info?.memberCount === 1 ? "Member" : "Members"}`}</p>
+            <p>{`Since ${info?.createdAt!.toLocaleDateString()}`}</p>
+          </div>
         </div>
-        <div className="flex justify-between">
-          <p>{info?.memberCount} Members</p>
-          <p>Since {info?.createdAt!.toLocaleDateString()}</p>
-        </div>
-      </div>
-    </StickyWrapper>
+      )}
+    </>
   );
 };
