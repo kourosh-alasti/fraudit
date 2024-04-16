@@ -6,10 +6,9 @@ import React, { useState } from "react";
 
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { useToast } from "./ui/use-toast";
 import { SideDrawer } from "./side-drawer";
 import { Input } from "./ui/input";
-import { SignInButton, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useSidebar } from "@/store/use-sidebar";
 
@@ -62,7 +61,12 @@ export const AppBar = () => {
               placeholder="Search"
               className="w-96 rounded-md border-slate-500 bg-transparent px-2 py-2 text-gray-500 md:hidden"
             />
-            <div className="flex items-center md:gap-4 md:self-end">
+            <div className="ml-2 flex items-center gap-x-1 md:ml-0 md:gap-4 md:self-end">
+              <SignedOut>
+                <SignInButton afterSignInUrl="/" afterSignUpUrl="/">
+                  <Button>Sign In</Button>
+                </SignInButton>
+              </SignedOut>
               <div>
                 <Button
                   className="px-1"
@@ -73,18 +77,17 @@ export const AppBar = () => {
                   Create Fraudit
                 </Button>
               </div>
+
+              <SignedIn>
+                <li key="logout-user" className="block md:hidden">
+                  <Button>Logout</Button>
+                </li>
+              </SignedIn>
+
               <div className="hidden md:block">
                 <UserButton afterSignOutUrl="/" />
               </div>
             </div>
-            <SignedOut>
-              <SignInButton afterSignInUrl="/" afterSignUpUrl="/">
-                <Button>Sign In</Button>
-              </SignInButton>
-            </SignedOut>
-            <li key="logout-user" className="block md:hidden">
-              <Button>Logout</Button>
-            </li>
           </ul>
         </div>
       </div>
