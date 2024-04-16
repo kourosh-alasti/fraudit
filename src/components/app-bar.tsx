@@ -8,9 +8,17 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { SideDrawer } from "./side-drawer";
 import { Input } from "./ui/input";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import {
+  ClerkLoaded,
+  ClerkLoading,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useSidebar } from "@/store/use-sidebar";
+import { Skeleton } from "./ui/skeleton";
 
 export const AppBar = () => {
   const [isMobileMenuOpen, setisMobileMenuOpen] = useState(false);
@@ -85,7 +93,12 @@ export const AppBar = () => {
               </SignedIn>
 
               <div className="hidden md:block">
-                <UserButton afterSignOutUrl="/" />
+                <ClerkLoaded>
+                  <UserButton afterSignOutUrl="/" />
+                </ClerkLoaded>
+                <ClerkLoading>
+                  <Skeleton className="h-12 w-12 rounded-full" />
+                </ClerkLoading>
               </div>
             </div>
           </ul>
