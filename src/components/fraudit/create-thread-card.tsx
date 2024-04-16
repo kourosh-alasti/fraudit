@@ -7,7 +7,6 @@ export const CreateThreadCard = () => {
       <div className="h-8 w-auto rounded-md bg-rose-500 px-2 py-1 text-white hover:cursor-pointer hover:bg-rose-700">
         Leave Fraudit
       </div>
-      <div></div>
     </div>
   );
 };
