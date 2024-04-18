@@ -63,7 +63,7 @@ export const SideDrawer = () => {
           </div>
         </div>
         <MenuItem component={<Link href="/app" />}>Home</MenuItem>
-        <MenuItem component={<Link href="/app/fraudits" />}>Fruadits </MenuItem>
+        <MenuItem component={<Link href="/app/f" />}>Fraudits</MenuItem>
         <MenuItem component={<Link href="/app/policies/privacy" />}>
           Privacy
         </MenuItem>
