@@ -17,7 +17,7 @@ import {
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { createThread } from "@/actions/fraudit/create-thread";
 import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
   slug: string;
@@ -34,9 +34,11 @@ const formSchema = z.object({
     .min(40, { message: "Description must be more than 40 characters" }),
 });
 
-const CreateThreadPage = ({ slug }: Props) => {
+const CreateThreadPage = () => {
   const { toast } = useToast();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const slug = searchParams.get("slug") as string;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -108,3 +110,5 @@ const CreateThreadPage = ({ slug }: Props) => {
     </div>
   );
 };
+
+export default CreateThreadPage;
