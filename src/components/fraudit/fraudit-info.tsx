@@ -4,7 +4,7 @@ import { getFrauditBySlug } from "@/db/queries/fraudit";
 import { fraudits } from "@/db/schema";
 import { useEffect, useState } from "react";
 import { Skeleton } from "../ui/skeleton";
-import { FrauditInfoSkeleton } from "./fraudit-info-skeleton";
+import { FrauditInfoSkeleton } from "./skeletons/fraudit-info-skeleton";
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -25,7 +25,7 @@ export const FrauditInfo = ({ slug, className }: Props) => {
     };
 
     getData();
-  }, [slug, info]);
+  }, [slug]);
 
   return (
     <>
