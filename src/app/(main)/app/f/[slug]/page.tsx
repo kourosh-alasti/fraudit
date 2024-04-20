@@ -13,7 +13,7 @@ const FrauditPage = ({ params: { slug } }: { params: { slug: string } }) => {
     <div className="flex flex-col gap-[48px] px-6 md:flex-row-reverse">
       <StickyWrapper>
         <FrauditInfo slug={slug} />
-        <CreateThreadCard />
+        <CreateThreadCard slug={slug} />
       </StickyWrapper>
       <FeedWrapper>
         <FrauditInfo slug={slug} className="w-full" />
