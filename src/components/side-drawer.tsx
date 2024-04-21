@@ -4,30 +4,7 @@ import { Separator } from "./ui/separator";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { useSidebar } from "@/store/use-sidebar";
-import { useEffect } from "react";
 import { DrawerItems } from "./drawer-items";
-
-const TEMP_FRAUDITS = [
-  "Homework",
-  "ComputerScience",
-  "CSUFullerton",
-  "Classes2Take",
-  "Parties&Socials",
-  "TopFood",
-  "BestBarsInTown",
-  "DessertAfter",
-  "PsychDepartment",
-  "Housing4Cheap",
-  "BestMallsInOC",
-  "OCDeals",
-  "TextBooksMarket",
-  "StudyBuddies",
-  "Beers&Cheers",
-  "SportsTeams",
-  "CheapHousing",
-  "Flights",
-  "CarpooLExclusives",
-];
 
 export const SideDrawer = () => {
   const user = useUser();
@@ -38,7 +15,7 @@ export const SideDrawer = () => {
       onBackdropClick={() => close()}
       toggled={isOpen}
       breakPoint="all"
-      className={`ps-broken h-full bg-indigo-300`}
+      className={`ps-broken h-full bg-white opacity-100`}
       rootStyles={{
         "& .ps-sidebar-container": {
           overflow: "scroll",
@@ -52,7 +29,7 @@ export const SideDrawer = () => {
       }}
     >
       <Menu className="box-content w-full pt-10 ">
-        <div className="mb-10 ml-4 mr-4 flex items-center justify-between">
+        <div className="mb-10 ml-4 mr-4 flex items-center justify-start">
           <Image
             src="/logo.png"
             width={80}
@@ -60,7 +37,7 @@ export const SideDrawer = () => {
             alt="Fraudit Logo"
             priority
           />
-          <h1 className="text-xl uppercase">Fraudit</h1>
+          <h1 className="text-xl uppercase tracking-tighter">Fraudit</h1>
         </div>
         <div className="mb-6">
           <div className="flex items-center justify-center">
@@ -82,17 +59,11 @@ export const SideDrawer = () => {
                   Edit Profile
                 </p>
               </Link>
-              {/* |
-              <Link href="/app" onClick={() => signOut()}>
-                <p className="text-slate-400 underline hover:cursor-pointer">
-                  Logout
-                </p>
-              </Link> */}
             </div>
           </div>
         </div>
         <MenuItem component={<Link href="/app" />}>Home</MenuItem>
-        <MenuItem component={<Link href="/app/fraudits" />}>Fruadits </MenuItem>
+        <MenuItem component={<Link href="/app/f" />}>Fraudits</MenuItem>
         <MenuItem component={<Link href="/app/policies/privacy" />}>
           Privacy
         </MenuItem>

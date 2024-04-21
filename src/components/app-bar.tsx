@@ -6,12 +6,19 @@ import React, { useState } from "react";
 
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { useToast } from "./ui/use-toast";
 import { SideDrawer } from "./side-drawer";
 import { Input } from "./ui/input";
-import { SignInButton, SignedOut, UserButton } from "@clerk/nextjs";
+import {
+  ClerkLoaded,
+  ClerkLoading,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useSidebar } from "@/store/use-sidebar";
+import { Skeleton } from "./ui/skeleton";
 
 export const AppBar = () => {
   const [isMobileMenuOpen, setisMobileMenuOpen] = useState(false);
@@ -56,13 +63,18 @@ export const AppBar = () => {
             isMobileMenuOpen ? "block" : "hidden"
           }`}
         >
-          <ul className="flex w-full items-center justify-center md:flex-col md:space-x-6 md:space-y-0">
+          <ul className="flex w-full flex-col items-center justify-center gap-y-3 md:space-x-6 md:space-y-0">
             <Input
               type="text"
               placeholder="Search"
               className="w-96 rounded-md border-slate-500 bg-transparent px-2 py-2 text-gray-500 md:hidden"
             />
-            <div className="flex items-center md:gap-4 md:self-end">
+            <div className="ml-2 flex items-center gap-x-1 md:ml-0 md:gap-4 md:self-end">
+              <SignedOut>
+                <SignInButton afterSignInUrl="/" afterSignUpUrl="/">
+                  <Button>Sign In</Button>
+                </SignInButton>
+              </SignedOut>
               <div>
                 <Button
                   className="px-1"
@@ -73,18 +85,22 @@ export const AppBar = () => {
                   Create Fraudit
                 </Button>
               </div>
+
+              <SignedIn>
+                <li key="logout-user" className="block md:hidden">
+                  <Button>Logout</Button>
+                </li>
+              </SignedIn>
+
               <div className="hidden md:block">
-                <UserButton afterSignOutUrl="/" />
+                <ClerkLoaded>
+                  <UserButton afterSignOutUrl="/" />
+                </ClerkLoaded>
+                <ClerkLoading>
+                  <Skeleton className="h-12 w-12 rounded-full" />
+                </ClerkLoading>
               </div>
             </div>
-            <SignedOut>
-              <SignInButton afterSignInUrl="/" afterSignUpUrl="/">
-                <Button>Sign In</Button>
-              </SignInButton>
-            </SignedOut>
-            <li key="logout-user" className="block md:hidden">
-              <Button>Logout</Button>
-            </li>
           </ul>
         </div>
       </div>

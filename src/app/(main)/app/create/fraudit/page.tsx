@@ -51,8 +51,9 @@ const CreateFrauditPage = () => {
           title: "Success",
           description: "Congrats for creating a new Fraudit",
           variant: "success",
-        }),
-          router.push("/app");
+        });
+
+        router.push('/app')
       })
       .catch((err) =>
         toast({
