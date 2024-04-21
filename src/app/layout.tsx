@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 
 import "./globals.css";
 import "./markdown.css";
+import "@mdxeditor/editor/style.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
