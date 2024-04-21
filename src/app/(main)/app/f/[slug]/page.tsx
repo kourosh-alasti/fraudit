@@ -1,7 +1,7 @@
 import { FeedWrapper } from "@/components/feed-wrapper";
 import { CreateThreadCard } from "@/components/fraudit/create-thread-card";
 import { FrauditInfo } from "@/components/fraudit/fraudit-info";
-import { PostInfo } from "@/components/fraudit/post-info";
+import { PostList } from "@/components/fraudit/post-list";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 
 import React from "react";
@@ -17,7 +17,7 @@ const FrauditPage = ({ params: { slug } }: { params: { slug: string } }) => {
       </StickyWrapper>
       <FeedWrapper>
         <FrauditInfo slug={slug} className="w-full" />
-        <PostInfo slug={slug} />
+        <PostList slug={slug} />
       </FeedWrapper>
     </div>
   );
