@@ -18,6 +18,8 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { createThread } from "@/actions/fraudit/create-thread";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter, useSearchParams } from "next/navigation";
+import { ForwardedEditor } from "@/components/editor";
+import { useState } from "react";
 
 interface Props {
   slug: string;
@@ -27,11 +29,6 @@ const formSchema = z.object({
   title: z
     .string({ required_error: "A Title is required to post a thread" })
     .min(6, { message: "Best Practices to have a well-defined title" }),
-  content: z
-    .string({
-      required_error: "Content is required to post a new thread",
-    })
-    .min(40, { message: "Description must be more than 40 characters" }),
 });
 
 const CreateThreadPage = () => {
@@ -40,23 +37,27 @@ const CreateThreadPage = () => {
   const searchParams = useSearchParams();
   const slug = searchParams.get("slug") as string;
 
+  const [content, setContent] = useState<string>("Edit Me!");
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      content: "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    await createThread({ ...values, frauditSlug: slug })
+    await createThread({
+      title: values.title,
+      content: content,
+      frauditSlug: slug,
+    })
       .then(() => {
         toast({
           title: "Success",
           description: "Successfully posted a new thread",
           variant: "success",
         });
-
         router.push(`/app/f/${slug}`);
       })
       .catch((err) =>
@@ -67,6 +68,10 @@ const CreateThreadPage = () => {
             err.message || "Failed to post new thread, please try again later",
         }),
       );
+  };
+
+  const onEditorChange = (text: string) => {
+    setContent(text);
   };
 
   return (
@@ -93,13 +98,14 @@ const CreateThreadPage = () => {
                   </FormItem>
                 )}
               />
-              <FormField
+              {/* <FormField
                 control={form.control}
                 name="content"
                 render={({ field }) => (
                   <Input placeholder="Content" {...field} />
                 )}
-              />
+              /> */}
+              <ForwardedEditor markdown={content} onChange={onEditorChange} />
               <Button type="submit" className="bg-green-500 text-slate-700">
                 Post
               </Button>
