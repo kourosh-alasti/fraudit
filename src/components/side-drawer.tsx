@@ -64,10 +64,22 @@ export const SideDrawer = () => {
         </div>
         <MenuItem component={<Link href="/app" />}>Home</MenuItem>
         <MenuItem component={<Link href="/app/f" />}>Fraudits</MenuItem>
-        <MenuItem component={<Link href="/app/policies/privacy" />}>
+        <MenuItem
+          // component={<Link href="/app/policies/privacy" />}
+          style={{
+            color: "gray",
+            cursor: "not-allowed",
+          }}
+        >
           Privacy
         </MenuItem>
-        <MenuItem component={<Link href="/app/policies/user-agreement" />}>
+        <MenuItem
+          //  component={<Link href="/app/policies/user-agreement" />
+          style={{
+            color: "gray",
+            cursor: "not-allowed",
+          }}
+        >
           User Agreement
         </MenuItem>
         <Separator className="my-3 bg-slate-600" />
