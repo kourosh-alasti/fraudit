@@ -26,9 +26,6 @@ const FrauditThreadPage = ({
     (typeof comments.$inferSelect)[] | null
   >([]);
 
-  console.log("threadId");
-  console.log(threadId);
-
   useEffect(() => {
     const getData = () => {
       setIsLoading(true);
@@ -72,7 +69,7 @@ const FrauditThreadPage = ({
           </div>
           <div className="flex flex-col gap-[48px] px-6 md:flex-row-reverse">
             <StickyWrapper>
-              <CommentModal>
+              <CommentModal threadId={thread.id} frauditId={thread.frauditId!}>
                 <Button>Comment</Button>
               </CommentModal>
               <div className="flex w-full gap-4 ">
@@ -98,11 +95,16 @@ const FrauditThreadPage = ({
                   Comments
                 </h1>
 
-                {threadComments?.length === 0 && (
+                {(threadComments?.length === 0 || !threadComments?.length) && (
                   <h3 className="text-sm md:text-base lg:text-lg">
                     No-one has commented on this Thread. Be the first to comment
                   </h3>
                 )}
+                {threadComments?.length &&
+                  threadComments?.length > 0 &&
+                  threadComments?.map((item) => (
+                    <div key={item.id}>{item.content}</div>
+                  ))}
               </div>
             </FeedWrapper>
           </div>
