@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,12 +12,45 @@ import {
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
+import { createComment } from "@/actions/comment/create-comment";
+import { useToast } from "./ui/use-toast";
+import { useRouter } from "next/navigation";
 
 interface Props {
   children: React.ReactNode;
+  threadId: string;
+  frauditId: string;
 }
 
-export const CommentModal = ({ children }: Props) => {
+export const CommentModal = ({ children, threadId, frauditId }: Props) => {
+  const [val, setVal] = useState("");
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const postComment = () => {
+    createComment({
+      content: val,
+      threadId,
+      frauditId,
+    })
+      .then(() =>
+        toast({
+          title: "Success",
+          description: "Successfully Commented",
+          variant: "success",
+        }),
+      )
+      .catch((err) =>
+        toast({
+          title: "An Error Occured",
+          description: err.message || "Please try again later.",
+          variant: "destructive",
+        }),
+      );
+
+    router.refresh();
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -30,10 +66,12 @@ export const CommentModal = ({ children }: Props) => {
             <Label className="text-base">Content:</Label>
             <Input
               type="text"
+              value={val}
+              onChange={(e) => setVal(e.target.value)}
               className="w-full border outline-none focus:outline-none active:outline-none "
               placeholder="Nice Post!"
             />
-            <Button>Post Now</Button>
+            <Button onClick={postComment}>Post Now</Button>
           </div>
         </DialogHeader>
       </DialogContent>
