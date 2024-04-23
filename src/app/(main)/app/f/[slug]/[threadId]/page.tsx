@@ -48,8 +48,8 @@ const FrauditThreadPage = ({
 
   return (
     <>
-      {isLoading && <div>Loading...</div>}
       {/* TODO: SKELETON */}
+      {isLoading && <div>Loading...</div>}
       {!isLoading && !thread && <div>Thread not found</div>}
       {!isLoading && thread && (
         <div className="flex min-h-[40%] w-full flex-col items-center justify-center gap-12  px-4 py-2 text-black">
@@ -57,7 +57,7 @@ const FrauditThreadPage = ({
             <div className="mb-3 flex w-full items-center justify-between">
               <h1 className="text-lg md:text-xl lg:text-3xl">{thread.title}</h1>
               {/* TODO: USERNAME and AVATAR */}
-              <p className="text-base tracking-tight">f/kouroshalasti</p>
+              <p className="text-base tracking-tight">u/kouroshalasti</p>
             </div>
             <Separator className="hidden h-[1px] bg-slate-800 text-slate-800 md:block" />
 
@@ -68,7 +68,7 @@ const FrauditThreadPage = ({
             </div>
           </div>
           <div className="flex flex-col gap-[48px] px-6 md:flex-row-reverse">
-            <StickyWrapper>
+            <FeedWrapper>
               <CommentModal threadId={thread.id} frauditId={thread.frauditId!}>
                 <Button>Comment</Button>
               </CommentModal>
@@ -88,7 +88,7 @@ const FrauditThreadPage = ({
                   <ArrowDownIcon /> DownVote
                 </Button>
               </div>
-            </StickyWrapper>
+            </FeedWrapper>
             <FeedWrapper>
               <div className="mx-auto flex w-full flex-1 flex-col rounded-md border bg-gray-100 px-4 py-2 shadow-md ">
                 <h1 className="text-lg md:text-xl lg:text-2xl xl:text-4xl">
