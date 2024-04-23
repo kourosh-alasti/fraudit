@@ -16,7 +16,6 @@ interface Props {
 export const CreateThreadCard = ({ slug }: Props) => {
   const [isMember, setIsMember] = useState(false);
   const router = useRouter();
-  const user = currentUser();
 
   // const [isLoading, setIsLoading] = useState(true);
   // const [id, setId] = useState<string | null>(null);
