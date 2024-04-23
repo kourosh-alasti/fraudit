@@ -17,4 +17,11 @@ export const getThreadById = async (id: string) => {
       },
     },
   });
+
+  if (!data) {
+    console.error(data);
+    throw new Error("Thread not found");
+  }
+
+  return data;
 };
