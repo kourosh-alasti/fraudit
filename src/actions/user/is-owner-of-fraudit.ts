@@ -21,9 +21,9 @@ export const isOwnerOfFraudit = async (slug: string) => {
     const isOwner = fraudit.ownerId === user.id;
 
     return {
-      isOwner: isOwner,
-      fraudit: fraudit,
-      user: user,
+      isOwner,
+      fraudit,
+      user,
     };
   } catch (err) {
     console.error(err);
