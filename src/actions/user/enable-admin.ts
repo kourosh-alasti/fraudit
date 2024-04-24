@@ -1,3 +1,5 @@
+"use server";
+
 import db from "@/db/drizzle";
 import { isUserAdmin } from "@/db/queries/user";
 import { users } from "@/db/schema";
