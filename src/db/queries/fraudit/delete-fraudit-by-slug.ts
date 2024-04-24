@@ -23,10 +23,6 @@ export const deleteFrauditBySlug = async (slug: string) => {
     }
 
     await db.delete(fraudits).where(eq(fraudits.slug, slug));
-
-    return {
-      message: "Fraudit deleted successfully",
-    };
   } catch (error) {
     console.error(error);
     throw new Error("Something went wrong, please try again later");
