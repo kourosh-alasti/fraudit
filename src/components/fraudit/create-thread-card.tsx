@@ -11,6 +11,7 @@ import { leaveUserMembership } from "@/actions/user/leave-user-membership";
 import { isOwnerOfFraudit } from "@/actions/user/is-owner-of-fraudit";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
+import { DestructiveModal } from "../destructive-modal";
 
 interface Props {
   slug: string;
@@ -27,6 +28,7 @@ export const CreateThreadCard = ({ slug }: Props) => {
   useEffect(() => {
     const getData = () => {
       setIsLoading(true);
+
       isMemberOfFraudit(slug)
         .then((res) => {
           if (res) {
@@ -35,6 +37,7 @@ export const CreateThreadCard = ({ slug }: Props) => {
         })
         .catch((err) => {
           console.log(err);
+          setIsMember(false);
         });
 
       isOwnerOfFraudit(slug)
@@ -42,6 +45,7 @@ export const CreateThreadCard = ({ slug }: Props) => {
           if (res) {
             setIsOwner(res.isOwner);
           }
+          setIsLoading(false);
         })
         .catch((err) => {
           console.log(err);
@@ -49,7 +53,6 @@ export const CreateThreadCard = ({ slug }: Props) => {
     };
 
     getData();
-    setIsLoading(false);
   }, []);
 
   const join = () => {
@@ -85,7 +88,7 @@ export const CreateThreadCard = ({ slug }: Props) => {
 
   const deleteFraudit = () => {
     deleteFrauditBySlug(slug)
-      .then((res) => {
+      .then(() => {
         toast({
           variant: "success",
           title: "Fraudit Deleted",
@@ -99,7 +102,7 @@ export const CreateThreadCard = ({ slug }: Props) => {
           variant: "destructive",
           title: "An Error Occured",
           description:
-            err?.message || "Failed to delete Fraudit, please try again later",
+            err.message || "Failed to delete Fraudit, please try again later",
         });
 
         console.error(err || "An Error Occured");
@@ -113,27 +116,34 @@ export const CreateThreadCard = ({ slug }: Props) => {
         <div className="flex h-20 w-full items-center justify-center gap-4 rounded-md border shadow-xl ">
           {isMember && (
             <>
-              <Button className="h-8 w-auto rounded-md border bg-white px-2 py-1 hover:cursor-pointer hover:bg-gray-100">
+              <Button
+                variant="ghost"
+                className="h-8 w-auto rounded-md border bg-white px-2 py-1 hover:cursor-pointer hover:bg-gray-100"
+              >
                 <Link href={`/app/create/thread?slug=${slug}`}>
                   Create Post
                 </Link>
               </Button>
               {isMember && !isOwner && (
-                <Button
-                  className="h-8 w-auto rounded-md bg-rose-500 px-2 py-1 text-white hover:cursor-pointer hover:bg-rose-700"
-                  onClick={leaveFraudit}
-                >
-                  Leave Fraudit
-                </Button>
+                <DestructiveModal mode="leave">
+                  <Button
+                    className="h-8 w-auto rounded-md bg-rose-500 px-2 py-1 text-white hover:cursor-pointer hover:bg-rose-700"
+                    // onClick={leaveFraudit}
+                  >
+                    Leave Fraudit
+                  </Button>
+                </DestructiveModal>
               )}
 
               {isMember && isOwner && (
-                <Button
-                  className="h-8 w-auto rounded-md bg-rose-500 px-2 py-1 text-white hover:cursor-pointer hover:bg-rose-700"
-                  onClick={deleteFraudit}
-                >
-                  Delete
-                </Button>
+                <DestructiveModal mode="delete">
+                  <Button
+                    className="h-8 w-auto rounded-md bg-rose-500 px-2 py-1 text-white hover:cursor-pointer hover:bg-rose-700"
+                    // onClick={deleteFraudit}
+                  >
+                    Delete Fraudit
+                  </Button>
+                </DestructiveModal>
               )}
             </>
           )}
