@@ -4,6 +4,7 @@ import db from "@/db/drizzle";
 import { fraudits, userToFraudits } from "@/db/schema";
 import { currentUser } from "@clerk/nextjs";
 import { and, eq } from "drizzle-orm";
+import { Alegreya_SC } from "next/font/google";
 
 export const isMemberOfFraudit = async (slug: string) => {
   const user = await currentUser();
@@ -29,10 +30,15 @@ export const isMemberOfFraudit = async (slug: string) => {
     });
 
     if (!data) {
-      throw new Error("You are not a member of this fraudit");
+      return {
+        isMember: false,
+      };
     }
 
-    return { isMember: true, data };
+    return {
+      isMember: true,
+      // data: data
+    };
   } catch (err) {
     console.error(err);
     throw new Error("Could not fetch fraudit information, please try again.");
