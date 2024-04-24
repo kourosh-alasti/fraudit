@@ -32,7 +32,7 @@ export const isMemberOfFraudit = async (slug: string) => {
       throw new Error("You are not a member of this fraudit");
     }
 
-    return data;
+    return { isMember: true, data };
   } catch (err) {
     console.error(err);
     throw new Error("Could not fetch fraudit information, please try again.");
