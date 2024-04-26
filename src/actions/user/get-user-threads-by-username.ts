@@ -1,8 +1,8 @@
 "use server";
 
 import { getUserByUsername } from "@/db/queries/user";
-import { getUserThreads } from "./get-user-threads";
 import { currentUser } from "@clerk/nextjs";
+import { getUserThreadsById } from "./get-user-threads-by-id";
 
 export const getUserThreadsByUsername = async (username: string) => {
   const user = await currentUser();
@@ -18,7 +18,7 @@ export const getUserThreadsByUsername = async (username: string) => {
       throw new Error("User not found");
     }
 
-    const allThreads = await getUserThreads(otherUser.id);
+    const allThreads = await getUserThreadsById(otherUser.id);
 
     if (!allThreads) {
       throw new Error("No Threads Found");
