@@ -64,50 +64,50 @@ export const CreateThreadCard = ({ slug }: Props) => {
       .catch((err) => console.error(err || "An Error Occured"));
   };
 
-  const leaveFraudit = () => {
-    leaveUserMembership({ slug })
-      .then(() => {
-        toast({
-          title: "Success",
-          description: "Successfully left the fraudit",
-          variant: "success",
-        });
+  // const leaveFraudit = () => {
+  //   leaveUserMembership({ slug })
+  //     .then(() => {
+  //       toast({
+  //         title: "Success",
+  //         description: "Successfully left the fraudit",
+  //         variant: "success",
+  //       });
 
-        setIsMember(false);
-      })
-      .catch((err) => {
-        toast({
-          variant: "destructive",
-          title: "An Error Occured",
-          description: err.message || "Failed to leave the fraudit",
-        });
+  //       setIsMember(false);
+  //     })
+  //     .catch((err) => {
+  //       toast({
+  //         variant: "destructive",
+  //         title: "An Error Occured",
+  //         description: err.message || "Failed to leave the fraudit",
+  //       });
 
-        console.error(err || "An Error Occured");
-      });
-  };
+  //       console.error(err || "An Error Occured");
+  //     });
+  // };
 
-  const deleteFraudit = () => {
-    deleteFrauditBySlug(slug)
-      .then(() => {
-        toast({
-          variant: "success",
-          title: "Fraudit Deleted",
-          description: "Fraudit has been deleted",
-        });
+  // const deleteFraudit = () => {
+  //   deleteFrauditBySlug(slug)
+  //     .then(() => {
+  //       toast({
+  //         variant: "success",
+  //         title: "Fraudit Deleted",
+  //         description: "Fraudit has been deleted",
+  //       });
 
-        router.push("/app");
-      })
-      .catch((err) => {
-        toast({
-          variant: "destructive",
-          title: "An Error Occured",
-          description:
-            err.message || "Failed to delete Fraudit, please try again later",
-        });
+  //       router.push("/app");
+  //     })
+  //     .catch((err) => {
+  //       toast({
+  //         variant: "destructive",
+  //         title: "An Error Occured",
+  //         description:
+  //           err.message || "Failed to delete Fraudit, please try again later",
+  //       });
 
-        console.error(err || "An Error Occured");
-      });
-  };
+  //       console.error(err || "An Error Occured");
+  //     });
+  // };
 
   return (
     <>
@@ -125,7 +125,7 @@ export const CreateThreadCard = ({ slug }: Props) => {
                 </Link>
               </Button>
               {isMember && !isOwner && (
-                <DestructiveModal mode="leave">
+                <DestructiveModal mode="leave" slug={slug}>
                   <Button
                     className="h-8 w-auto rounded-md bg-rose-500 px-2 py-1 text-white hover:cursor-pointer hover:bg-rose-700"
                     // onClick={leaveFraudit}
@@ -136,9 +136,10 @@ export const CreateThreadCard = ({ slug }: Props) => {
               )}
 
               {isMember && isOwner && (
-                <DestructiveModal mode="delete">
+                <DestructiveModal mode="delete" slug={slug}>
                   <Button
-                    className="h-8 w-auto rounded-md bg-rose-500 px-2 py-1 text-white hover:cursor-pointer hover:bg-rose-700"
+                    className="h-8 w-auto rounded-md bg-rose-500 px-2 py-1 text-white hover:cursor-not-allowed hover:cursor-pointer hover:bg-rose-700"
+                    disabled
                     // onClick={deleteFraudit}
                   >
                     Delete Fraudit
