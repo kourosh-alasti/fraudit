@@ -78,7 +78,7 @@ export const InfiniteScroller = () => {
                 onClick={() => router.push(`/app/f/${fraudit.slug}`)}
               >
                 <div className="w-1/2 overflow-ellipsis">
-                  <h3 className="text-xl font-bold">{`f/${fraudit.slug}`}</h3>
+                  <h3 className="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-bold ">{`f/${fraudit.slug}`}</h3>
                   <p className="overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground">
                     {fraudit.descripton}
                   </p>
