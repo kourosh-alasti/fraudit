@@ -1,6 +1,5 @@
 import { InfiniteScroller } from "@/components/infinite-scroller";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import React from "react";
 
 const FrauditsPage = () => {
   return (
