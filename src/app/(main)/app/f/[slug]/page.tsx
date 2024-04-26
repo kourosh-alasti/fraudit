@@ -15,7 +15,7 @@ const FrauditPage = ({ params: { slug } }: { params: { slug: string } }) => {
       </StickyWrapper>
       <FeedWrapper>
         <FrauditInfo slug={slug} className="w-full" />
-        <CreateThreadCard slug={slug} />
+        <CreateThreadCard slug={slug} className="md:hidden" />
         <PostList slug={slug} />
       </FeedWrapper>
     </div>
