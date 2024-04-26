@@ -94,10 +94,10 @@ export const userToFraudits = pgTable(
   {
     userId: text("user_id")
       .notNull()
-      .references(() => users.id),
+      .references(() => users.id, { onDelete: "cascade" }),
     frauditId: uuid("fraudit_id")
       .notNull()
-      .references(() => fraudits.id),
+      .references(() => fraudits.id, { onDelete: "cascade" }),
   },
   (t) => ({
     pk: primaryKey({
