@@ -61,7 +61,7 @@ export const DestructiveModal = ({ children, mode, slug }: Props) => {
           variant: "success",
         });
 
-        router.refresh();
+        location.reload();
       })
       .catch((err) => {
         toast({
