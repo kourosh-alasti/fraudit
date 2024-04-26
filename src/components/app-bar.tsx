@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, Menu, PlusIcon, XIcon } from "lucide-react";
+import { Menu, PanelLeftOpenIcon, PlusIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -29,7 +29,7 @@ export const AppBar = () => {
     <nav className=" z-[999] mb-2 w-full border-b">
       <div className="mx-auto max-w-screen-xl items-center px-4 md:flex md:justify-between  md:px-8">
         <div className="flex items-center justify-between py-3 md:py-5  ">
-          <ChevronLeft
+          <PanelLeftOpenIcon
             onClick={() => open()}
             className="hover:cursor-pointer"
           />

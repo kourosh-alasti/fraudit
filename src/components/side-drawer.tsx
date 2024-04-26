@@ -22,13 +22,14 @@ export const SideDrawer = () => {
           overflowX: "hidden",
           scrollbarWidth: "none",
           msOverflowStyle: "none",
+          zIndex: 9999,
         },
         "& .ps-sidebar-container::-webkit-scrollbar": {
           display: "none",
         },
       }}
     >
-      <Menu className="box-content w-full pt-10 ">
+      <Menu className="z-[9999] box-content w-full pt-10">
         <div className="mb-10 ml-4 mr-4 flex items-center justify-start">
           <Image
             src="/logo.png"

@@ -7,8 +7,6 @@ import { StickyWrapper } from "@/components/sticky-wrapper";
 import React from "react";
 
 const FrauditPage = ({ params: { slug } }: { params: { slug: string } }) => {
-  const slugName = slug;
-
   return (
     <div className="flex flex-col gap-[48px] px-6 md:flex-row-reverse">
       <StickyWrapper>
@@ -17,6 +15,7 @@ const FrauditPage = ({ params: { slug } }: { params: { slug: string } }) => {
       </StickyWrapper>
       <FeedWrapper>
         <FrauditInfo slug={slug} className="w-full" />
+        <CreateThreadCard slug={slug} className="md:hidden" />
         <PostList slug={slug} />
       </FeedWrapper>
     </div>

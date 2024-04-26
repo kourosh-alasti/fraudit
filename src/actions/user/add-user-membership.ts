@@ -4,16 +4,23 @@ import db from "@/db/drizzle";
 import { getFrauditBySlug } from "@/db/queries/fraudit";
 import { getUser } from "@/db/queries/user";
 import { fraudits, userToFraudits } from "@/db/schema";
+import { auth, currentUser } from "@clerk/nextjs";
 import { eq } from "drizzle-orm";
 
 interface Props {
   slug: string;
-  userId: string;
+  userId?: string;
 }
 
 export const addUserMembership = async ({ slug, userId }: Props) => {
   try {
-    const user = await getUser(userId);
+    let user;
+    if (userId) {
+      user = await getUser(userId);
+    } else {
+      const { userId: id } = await auth();
+      user = await getUser(id!);
+    }
     const fraudit = await getFrauditBySlug(slug);
 
     if (!user) {
