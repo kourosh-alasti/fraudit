@@ -1,6 +1,5 @@
 "use server";
 
-import { getThreadById } from "@/db/queries/thread";
 import { getUserByUsername } from "@/db/queries/user";
 import { getUserThreads } from "./get-user-threads";
 import { currentUser } from "@clerk/nextjs";
