@@ -1,17 +1,20 @@
 "use client";
 
+import Markdown from "react-markdown";
+
 import { FeedWrapper } from "@/components/feed-wrapper";
-import { StickyWrapper } from "@/components/sticky-wrapper";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { getThreadById } from "@/db/queries/thread";
 import { getUser } from "@/db/queries/user";
 import { threads, users, comments } from "@/db/schema";
-import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
+import { ArrowDownIcon, ArrowUpIcon, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Markdown from "react-markdown";
 import { CommentModal } from "@/components/comment-modal";
+import { getUserInfoById } from "@/actions/user";
+import Link from "next/link";
+import { CommentList } from "@/components/comment-list";
 
 const FrauditThreadPage = ({
   params: { threadId },
@@ -20,8 +23,8 @@ const FrauditThreadPage = ({
 }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<any>();
   const [thread, setThread] = useState<typeof threads.$inferSelect>();
-  const [user, setUser] = useState<typeof users.$inferSelect>();
   const [threadComments, setThreadComments] = useState<
     (typeof comments.$inferSelect)[] | null
   >([]);
@@ -35,29 +38,42 @@ const FrauditThreadPage = ({
           setThreadComments(res.comments);
           setThread(res);
 
-          getUser(res.user!.id)
-            .then((resp) => setUser(resp))
-            .catch((err) => console.error(err));
+          getUserInfoById(res.userId!)
+            .then((resp) => {
+              setUser(resp);
+              setIsLoading(false);
+            })
+            .catch((err) => {
+              console.error(err);
+            });
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+          console.error(err);
+          setIsLoading(false);
+        });
     };
 
     getData();
-    setIsLoading(false);
   }, []);
 
   return (
     <>
-      {/* TODO: SKELETON */}
-      {isLoading && <div>Loading...</div>}
-      {!isLoading && !thread && <div>Thread not found</div>}
-      {!isLoading && thread && (
+      {isLoading && (
+        <div className="flex items-center justify-center">
+          <Loader2 className="h-12 w-12 animate-spin" />
+        </div>
+      )}
+      {!isLoading && !thread && (
+        <div className="flex items-center justify-center">Thread not found</div>
+      )}
+      {!isLoading && thread && user && (
         <div className="flex min-h-[40%] w-full flex-col items-center justify-center gap-12  px-4 py-2 text-black">
           <div className="mx-auto flex w-full flex-col rounded-md border bg-gray-100 px-4 py-2 shadow-md lg:max-w-[988px]">
             <div className="mb-3 flex w-full items-center justify-between">
               <h1 className="text-lg md:text-xl lg:text-3xl">{thread.title}</h1>
-              {/* TODO: USERNAME and AVATAR */}
-              <p className="text-base tracking-tight">u/kouroshalasti</p>
+              <Link href={`/app/u/${user.clerk?.username}`}>
+                <p className="text-base tracking-tight">{`u/${user.clerk!.username}`}</p>
+              </Link>
             </div>
             <Separator className="hidden h-[1px] bg-slate-800 text-slate-800 md:block" />
 
@@ -104,11 +120,9 @@ const FrauditThreadPage = ({
                       comment
                     </h3>
                   )}
-                  {threadComments &&
-                    threadComments?.length > 0 &&
-                    threadComments?.map((item) => (
-                      <div key={item.id}>{item.content}</div>
-                    ))}
+                  {threadComments && threadComments?.length > 0 && (
+                    <CommentList comments={threadComments} />
+                  )}
                 </div>
               </FeedWrapper>
             </div>
