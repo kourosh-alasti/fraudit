@@ -1,11 +1,9 @@
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { fraudits, threads } from "@/db/schema";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getUserInfo } from "@/actions/user/get-user-info";
 import { getFraudit } from "@/db/queries/fraudit";
+import { UserThreadItemSkeleton } from "./skeletons/user-thread-item-skeleton";
 
 interface Props {
   className?: string;
@@ -40,8 +38,7 @@ export const UserThreadItem = ({ thread, className }: Props) => {
 
   return (
     <>
-      {/* TODO : SKELETON */}
-      {isLoading && <p>Loading</p>}
+      {isLoading && <UserThreadItemSkeleton />}
       {!isLoading && fraudit && (
         <div
           className={cn(
