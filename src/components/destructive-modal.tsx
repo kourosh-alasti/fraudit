@@ -1,3 +1,4 @@
+import { leaveUserMembership } from "@/actions/user";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,17 +10,69 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { deleteFrauditBySlug } from "@/db/queries/fraudit";
+import { useToast } from "./ui/use-toast";
+import { useRouter } from "next/navigation";
 
 interface Props {
   mode: "leave" | "delete";
+  slug: string;
   children: React.ReactNode;
 }
 
-export const DestructiveModal = ({ children, mode }: Props) => {
+export const DestructiveModal = ({ children, mode, slug }: Props) => {
+  const { toast } = useToast();
+  const router = useRouter();
+
   const content =
     mode === "delete"
       ? "This action cannot be undone. This will permanently delete your fraudit and remove its data from our servers"
       : "This action is reversible, but you will not be able to post to this fraudit anymore";
+
+  const deleteFraudit = () => {
+    deleteFrauditBySlug(slug)
+      .then(() => {
+        toast({
+          variant: "success",
+          title: "Fraudit Deleted",
+          description: "Fraudit has been deleted",
+        });
+
+        router.push("/app");
+      })
+      .catch((err) => {
+        toast({
+          variant: "destructive",
+          title: "An Error Occured",
+          description:
+            err.message || "Failed to delete Fraudit, please try again later",
+        });
+
+        console.error(err || "An Error Occured");
+      });
+  };
+
+  const leaveFraudit = () => {
+    leaveUserMembership({ slug })
+      .then(() => {
+        toast({
+          title: "Success",
+          description: "Successfully left the fraudit",
+          variant: "success",
+        });
+
+        router.refresh();
+      })
+      .catch((err) => {
+        toast({
+          variant: "destructive",
+          title: "An Error Occured",
+          description: err.message || "Failed to leave the fraudit",
+        });
+
+        console.error(err || "An Error Occured");
+      });
+  };
 
   return (
     <AlertDialog>
@@ -31,7 +84,10 @@ export const DestructiveModal = ({ children, mode }: Props) => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction className="bg-rose-600">
+          <AlertDialogAction
+            className="bg-rose-600"
+            onClick={mode === "delete" ? deleteFraudit : leaveFraudit}
+          >
             {mode === "delete" ? "Delete" : "Leave"}
           </AlertDialogAction>
         </AlertDialogFooter>
