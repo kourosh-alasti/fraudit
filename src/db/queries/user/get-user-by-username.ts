@@ -13,8 +13,9 @@ export const getUserByUsername = async (username: string) => {
 
   const data = await getUser(userId);
 
-  return {
-    user: data,
-    id: userId,
-  };
+  if (!data) {
+    throw new Error("No User Found with this Username");
+  }
+
+  return data;
 };
