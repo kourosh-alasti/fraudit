@@ -33,6 +33,13 @@ export const leaveUserMembership = async ({ slug }: Props) => {
           eq(userToFraudits.frauditId, fraudit.id),
         ),
       );
+
+    await db
+      .update(fraudits)
+      .set({
+        memberCount: fraudit.memberCount! - 1,
+      })
+      .where(eq(fraudits.id, fraudit.id));
   } catch (err) {
     console.error(err);
     throw new Error("Something went wrong. Please try again later!");
