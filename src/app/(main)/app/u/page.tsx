@@ -5,16 +5,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import {
-  Tooltip,
-  TooltipProvider,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { UserThreadList } from "@/components/user-thread-list";
 import { threads } from "@/db/schema";
 import { ClerkLoaded, ClerkLoading, useUser } from "@clerk/nextjs";
-import { ArrowDown, ArrowUp, Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -79,10 +73,7 @@ const ProfilePage = () => {
         </ClerkLoaded>
         <ClerkLoading>
           <Avatar className="h-20 w-20 md:h-40 md:w-40">
-            {/* <AvatarImage src={user.user?.imageUrl} /> */}
-            <AvatarFallback className="animate-pulse">
-              {/* {`${user.user?.firstName?.toUpperCase()} ${user.user?.lastName?.toUpperCase()}`} */}
-            </AvatarFallback>
+            <AvatarFallback className="animate-pulse" />
           </Avatar>
         </ClerkLoading>
       </div>
