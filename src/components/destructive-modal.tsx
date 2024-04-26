@@ -10,9 +10,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { deleteFrauditBySlug } from "@/db/queries/fraudit";
 import { useToast } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
+import { deleteFrauditBySlug } from "@/actions/fraudit";
 
 interface Props {
   mode: "leave" | "delete";
@@ -40,7 +40,7 @@ export const DestructiveModal = ({ children, mode, slug }: Props) => {
 
         router.push("/app");
       })
-      .catch((err) => {
+      .catch((err: any) => {
         toast({
           variant: "destructive",
           title: "An Error Occured",
