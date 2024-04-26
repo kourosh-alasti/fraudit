@@ -63,7 +63,6 @@ export const CommentModal = ({ children, threadId, frauditId }: Props) => {
             </p>
           </DialogDescription>
           <div className="flex items-center space-x-2">
-            <Label className="text-base">Content:</Label>
             <Input
               type="text"
               value={val}
