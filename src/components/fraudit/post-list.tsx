@@ -5,7 +5,7 @@ import { ThreadItem } from "./thread-item";
 // import { threads } from "@/db/schema";
 
 import { getFrauditThreads } from "@/db/queries/thread/get-fraudit-threads";
-import { PostListSkeleton } from "./skeletons/post-list-skeletons";
+import { PostListSkeleton } from "../skeletons/post-list-skeletons";
 
 interface Props {
   slug: string;

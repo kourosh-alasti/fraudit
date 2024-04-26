@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { createFraudit } from "@/actions/fraudit/create-fraudit";
+import { createFraudit } from "@/actions/fraudit";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 
@@ -53,7 +53,7 @@ const CreateFrauditPage = () => {
           variant: "success",
         });
 
-        router.push('/app')
+        router.push("/app");
       })
       .catch((err) =>
         toast({

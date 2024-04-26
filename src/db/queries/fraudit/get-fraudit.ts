@@ -1,9 +1,8 @@
 import db from "@/db/drizzle";
 import { comments, fraudits, threads } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { cache } from "react";
 
-export const getFraudit = cache(async (frauditId: string) => {
+export const getFraudit = async (frauditId: string) => {
   const data = await db.query.fraudits.findFirst({
     where: eq(fraudits.id, frauditId),
     with: {
@@ -19,4 +18,4 @@ export const getFraudit = cache(async (frauditId: string) => {
   });
 
   return data;
-});
+};

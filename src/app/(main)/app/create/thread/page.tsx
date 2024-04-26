@@ -9,13 +9,12 @@ import {
   Form,
   FormControl,
   FormField,
-  FormDescription,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { createThread } from "@/actions/fraudit/create-thread";
+import { createThread } from "@/actions/fraudit";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ForwardedEditor } from "@/components/editor";
