@@ -11,6 +11,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { UserThreadList } from "@/components/user-thread-list";
 import { threads } from "@/db/schema";
 import { ClerkLoaded, ClerkLoading, useUser } from "@clerk/nextjs";
 import { ArrowDown, ArrowUp, Trash2 } from "lucide-react";
@@ -50,40 +51,11 @@ const ProfilePage = () => {
         <ClerkLoaded>
           <Avatar className="h-20 w-20 md:h-40 md:w-40">
             <AvatarImage src={user.user?.imageUrl} />
-            <AvatarFallback>
-              {`${user.user?.firstName?.toUpperCase()} ${user.user?.lastName?.toUpperCase()}`}
-            </AvatarFallback>
+            <AvatarFallback></AvatarFallback>
           </Avatar>
-          <Card className="hidden sm:block">
+          <Card className="ml-4 sm:ml-0">
             <CardHeader>
-              <CardTitle className="text-end">Your Profile</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-end text-lg">
-                {user.user?.firstName + " " + user.user?.lastName}
-              </p>
-              <div className="mt-4 flex justify-between gap-2">
-                <Button onClick={() => router.push("/app/u/edit-profile")}>
-                  Edit Profile
-                </Button>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button>
-                        <Trash2 />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Delete Account?</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="ml-4 block sm:hidden">
-            <CardHeader>
-              <CardTitle className="text-center">{`u/${user.user?.username}`}</CardTitle>
+              <CardTitle className="text-center sm:text-end">{`u/${user.user?.username}`}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex flex-col items-center gap-2">
@@ -91,12 +63,16 @@ const ProfilePage = () => {
                   {user.user?.firstName + " " + user.user?.lastName}
                 </p>
                 <p className="text-center text-xs md:text-base lg:text-lg">
-                  Since 2024
+                  {`Since ${new Date(user.user?.createdAt!).getFullYear()}`}
                 </p>
-
-                <Button onClick={() => router.push("/profile/edit")}>
-                  Edit Profile
-                </Button>
+                <div className="mt-4 hidden justify-between gap-2 sm:flex">
+                  <Button
+                    onClick={() => router.push("/app/u/edit-profile")}
+                    className="w-full"
+                  >
+                    Edit Profile
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -124,12 +100,7 @@ const ProfilePage = () => {
               </p>
             </div>
           </div>
-
-          <div className="flex flex-col">
-            {userThreads.map((thread) => (
-              <div key={thread.id}>{thread.title}</div>
-            ))}
-          </div>
+          <UserThreadList threads={userThreads} />
         </div>
       )}
     </div>
