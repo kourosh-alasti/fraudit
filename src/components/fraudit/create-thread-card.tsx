@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { deleteFrauditBySlug } from "@/db/queries/fraudit";
 import { useEffect, useState } from "react";
 import { CreateThreadCardSkeleton } from "./skeletons/create-thread-card-skeleton";
 import { addUserMembership } from "@/actions/user/add-user-membership";
@@ -15,9 +14,10 @@ import { DestructiveModal } from "../destructive-modal";
 
 interface Props {
   slug: string;
+  className?: string;
 }
 
-export const CreateThreadCard = ({ slug }: Props) => {
+export const CreateThreadCard = ({ slug, className }: Props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isMember, setIsMember] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
@@ -64,51 +64,6 @@ export const CreateThreadCard = ({ slug }: Props) => {
       .catch((err) => console.error(err || "An Error Occured"));
   };
 
-  // const leaveFraudit = () => {
-  //   leaveUserMembership({ slug })
-  //     .then(() => {
-  //       toast({
-  //         title: "Success",
-  //         description: "Successfully left the fraudit",
-  //         variant: "success",
-  //       });
-
-  //       setIsMember(false);
-  //     })
-  //     .catch((err) => {
-  //       toast({
-  //         variant: "destructive",
-  //         title: "An Error Occured",
-  //         description: err.message || "Failed to leave the fraudit",
-  //       });
-
-  //       console.error(err || "An Error Occured");
-  //     });
-  // };
-
-  // const deleteFraudit = () => {
-  //   deleteFrauditBySlug(slug)
-  //     .then(() => {
-  //       toast({
-  //         variant: "success",
-  //         title: "Fraudit Deleted",
-  //         description: "Fraudit has been deleted",
-  //       });
-
-  //       router.push("/app");
-  //     })
-  //     .catch((err) => {
-  //       toast({
-  //         variant: "destructive",
-  //         title: "An Error Occured",
-  //         description:
-  //           err.message || "Failed to delete Fraudit, please try again later",
-  //       });
-
-  //       console.error(err || "An Error Occured");
-  //     });
-  // };
-
   return (
     <>
       {isLoading && <CreateThreadCardSkeleton />}
@@ -126,10 +81,7 @@ export const CreateThreadCard = ({ slug }: Props) => {
               </Button>
               {isMember && !isOwner && (
                 <DestructiveModal mode="leave" slug={slug}>
-                  <Button
-                    className="h-8 w-auto rounded-md bg-rose-500 px-2 py-1 text-white hover:cursor-pointer hover:bg-rose-700"
-                    // onClick={leaveFraudit}
-                  >
+                  <Button className="h-8 w-auto rounded-md bg-rose-500 px-2 py-1 text-white hover:cursor-pointer hover:bg-rose-700">
                     Leave Fraudit
                   </Button>
                 </DestructiveModal>
@@ -138,9 +90,8 @@ export const CreateThreadCard = ({ slug }: Props) => {
               {isMember && isOwner && (
                 <DestructiveModal mode="delete" slug={slug}>
                   <Button
-                    className="h-8 w-auto rounded-md bg-rose-500 px-2 py-1 text-white hover:cursor-not-allowed hover:cursor-pointer hover:bg-rose-700"
+                    className="h-8 w-auto rounded-md bg-rose-500 px-2 py-1 text-white hover:cursor-not-allowed  hover:bg-rose-700"
                     disabled
-                    // onClick={deleteFraudit}
                   >
                     Delete Fraudit
                   </Button>
