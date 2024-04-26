@@ -74,7 +74,7 @@ export const InfiniteScroller = () => {
             return (
               <div
                 key={`${fraudit.id}-${id}`}
-                className="mb-3 flex h-20 w-[250px] justify-between rounded-md border-2 border-slate-700 bg-white px-4 py-2 shadow-lg hover:cursor-pointer hover:shadow-2xl md:w-[500px] lg:w-[988px]"
+                className="mb-3 flex h-20 w-[320px] justify-between rounded-md border-2 border-slate-700 bg-white px-4 py-2 shadow-lg hover:cursor-pointer hover:shadow-2xl sm:w-[500px] md:w-[700px] lg:w-[988px]"
                 onClick={() => router.push(`/app/f/${fraudit.slug}`)}
               >
                 <div className="w-1/2 overflow-ellipsis">
