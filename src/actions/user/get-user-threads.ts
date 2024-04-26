@@ -7,14 +7,8 @@ import { currentUser } from "@clerk/nextjs";
 import { User } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 
-export const getUserThreads = async (id?: string) => {
-  let user: any;
-
-  if (!id) {
-    user = await currentUser();
-  } else {
-    user = await getUser(id);
-  }
+export const getUserThreads = async () => {
+  const user = await currentUser();
 
   try {
     if (!user) {
