@@ -104,7 +104,7 @@ const FrauditThreadPage = ({
                       comment
                     </h3>
                   )}
-                  {threadComments?.length &&
+                  {threadComments &&
                     threadComments?.length > 0 &&
                     threadComments?.map((item) => (
                       <div key={item.id}>{item.content}</div>
