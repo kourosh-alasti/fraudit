@@ -48,7 +48,7 @@ export const CommentModal = ({ children, threadId, frauditId }: Props) => {
         }),
       );
 
-    router.refresh();
+    location.reload();
   };
 
   return (
