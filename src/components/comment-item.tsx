@@ -35,7 +35,7 @@ export const CommentItem = ({ comment }: Props) => {
         <div className="flex w-full justify-between rounded-md bg-white px-2 py-1">
           <p>{comment.content}</p>
           <div className="flex flex-col gap-2">
-            <Link href={`app/u/${user.clerk?.username}`} className="self-end">
+            <Link href={`/app/u/${user.clerk?.username}`} className="self-end">
               <p>{`u/${user.clerk?.username}`}</p>
             </Link>
             <p>{comment.createdAt!.toLocaleString()}</p>

@@ -54,20 +54,21 @@ export const CreateThreadCard = ({ slug, className }: Props) => {
     };
 
     getData();
+    router.refresh();
   }, []);
 
   const join = () => {
     addUserMembership({ slug: slug })
       .then((res) => {
         setIsMember(true);
-        router.refresh();
+        location.reload();
       })
       .catch((err) => console.error(err || "An Error Occured"));
   };
 
   return (
     <>
-      {isLoading && <CreateThreadCardSkeleton />}
+      {isLoading && <CreateThreadCardSkeleton className={className} />}
       {!isLoading && isMember && (
         <div
           className={cn(
