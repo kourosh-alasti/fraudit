@@ -4,3 +4,4 @@ export * from "./is-member-of-fraudit";
 export * from "./is-owner-of-fraudit";
 export * from "./is-owner-of-thread";
 export * from "./leave-user-membership";
+export * from "./get-user-threads";
