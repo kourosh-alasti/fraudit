@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { getUserInfo } from "@/actions/user/get-user-info";
 import { getUserInfoById } from "@/actions/user/get-user-info-by-id";
 import { Loader } from "lucide-react";
+import { UserThreadItemSkeleton } from "../skeletons/user-thread-item-skeleton";
 
 interface Props {
   className?: string;
@@ -42,23 +43,21 @@ export const ThreadItem = ({ thread, className }: Props) => {
 
   return (
     <>
-      {loading && <Loader className="h-12 w-12 animate-spin" />}
+      {loading && <UserThreadItemSkeleton />}
       {!loading && (
         <div
           className={cn(
             "flex h-auto max-h-[10rem] w-full flex-col justify-evenly gap-4 rounded-md border px-2 py-3 shadow-md hover:cursor-pointer hover:border-[1.5px] hover:shadow-2xl",
             className,
           )}
+          onClick={handleCardClick}
         >
           <div className="flex w-full items-center justify-between overflow-ellipsis whitespace-nowrap ">
-            <p
-              className="overflow-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal"
-              onClick={handleCardClick}
-            >
+            <p className="overflow-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal">
               {thread.title}
             </p>
             <div className="flex items-center gap-1 md:gap-4">
-              <Link href={`/app/u/${user.clerk?.username}`}>
+              <Link href={`/app/u/${user.clerk!.username}`}>
                 <p className="hidden md:block">{`u/${user.clerk!.username}`}</p>
               </Link>
               <Link href={`/app/u/${user.clerk!.username}`}>
@@ -68,10 +67,7 @@ export const ThreadItem = ({ thread, className }: Props) => {
               </Link>
             </div>
           </div>
-          <div
-            className="flex flex-col justify-between gap-1 sm:flex-row md:gap-2"
-            onClick={handleCardClick}
-          >
+          <div className="flex flex-col justify-between gap-1 sm:flex-row md:gap-2">
             <p className="w-3/4 overflow-hidden text-ellipsis whitespace-nowrap text-sm text-muted-foreground sm:whitespace-normal">
               {thread.content}
             </p>
