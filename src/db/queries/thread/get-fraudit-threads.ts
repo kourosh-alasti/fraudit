@@ -12,6 +12,7 @@ export const getFrauditThreads = async (slug: string) => {
 
   const data = await db.query.threads.findMany({
     where: eq(threads.frauditId, fraudit.id),
+    orderBy: (fraudits, { desc }) => [desc(fraudits.updatedAt)],
     with: {
       comments: {
         orderBy: (comments, { desc }) => [desc(comments.updatedAt)],
