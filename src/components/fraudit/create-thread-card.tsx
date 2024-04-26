@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { CreateThreadCardSkeleton } from "./skeletons/create-thread-card-skeleton";
+import { CreateThreadCardSkeleton } from "../skeletons/create-thread-card-skeleton";
 import { addUserMembership } from "@/actions/user/add-user-membership";
 import { useRouter } from "next/navigation";
 import { isMemberOfFraudit } from "@/actions/user/is-member-of-fraudit";
@@ -11,6 +11,7 @@ import { isOwnerOfFraudit } from "@/actions/user/is-owner-of-fraudit";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import { DestructiveModal } from "../destructive-modal";
+import { cn } from "@/lib/utils";
 
 interface Props {
   slug: string;
@@ -68,7 +69,12 @@ export const CreateThreadCard = ({ slug, className }: Props) => {
     <>
       {isLoading && <CreateThreadCardSkeleton />}
       {!isLoading && isMember && (
-        <div className="flex h-20 w-full items-center justify-center gap-4 rounded-md border shadow-xl ">
+        <div
+          className={cn(
+            "flex h-20 w-full items-center justify-center gap-4 rounded-md border shadow-xl",
+            className,
+          )}
+        >
           {isMember && (
             <>
               <Button
