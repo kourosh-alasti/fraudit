@@ -9,19 +9,20 @@ import {
   primaryKey,
   doublePrecision,
 } from "drizzle-orm/pg-core";
-import { comment } from "postcss";
 
 export const universities = pgTable("universities", {
   id: uuid("id").defaultRandom().primaryKey(),
   name: text("name").notNull(),
   abbreviation: text("abbreviation").notNull(),
-  rating: doublePrecision("rating").default(5),
+  rating: doublePrecision("rating").default(5.0),
+  ratingCount: integer("rating_count").default(1),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
-export const universityRelations = relations(universities, ({ one, many }) => ({
+export const universityRelations = relations(universities, ({ many }) => ({
   courses: many(courses),
+  reviews: many(reviews),
   professors: many(professors),
 }));
 
@@ -43,6 +44,7 @@ export const courseRelations = relations(courses, ({ one, many }) => ({
     references: [universities.id],
   }),
   professorsToCourses: many(professorsToCourses),
+  reviews: many(reviews),
 }));
 
 export const professors = pgTable("professors", {
@@ -54,6 +56,7 @@ export const professors = pgTable("professors", {
   lastName: text("last_name").notNull(),
   email: text("email").notNull(),
   rating: doublePrecision("rating").default(5.0),
+  ratingCount: integer("rating_count").default(1),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -64,6 +67,7 @@ export const professorsRelations = relations(professors, ({ one, many }) => ({
     references: [universities.id],
   }),
   professorsToCourses: many(professorsToCourses),
+  reviews: many(reviews),
 }));
 
 export const professorsToCourses = pgTable("professors_to_courses", {
@@ -88,6 +92,43 @@ export const professorsToCoursesRelations = relations(
     }),
   }),
 );
+
+export const reviews = pgTable("reviews", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: text("user_id").references(() => users.id, {
+    onDelete: "cascade",
+  }),
+  professorId: uuid("professor_id").references(() => professors.id, {
+    onDelete: "cascade",
+  }),
+  courseId: uuid("course_id").references(() => courses.id, {
+    onDelete: "cascade",
+  }),
+  universityId: uuid("university_id").references(() => universities.id),
+  rating: doublePrecision("rating").notNull(),
+  comment: text("comment").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const reviewsRelations = relations(reviews, ({ one, many }) => ({
+  university: one(universities, {
+    fields: [reviews.universityId],
+    references: [universities.id],
+  }),
+  professors: one(professors, {
+    fields: [reviews.professorId],
+    references: [professors.id],
+  }),
+  courses: one(courses, {
+    fields: [reviews.courseId],
+    references: [courses.id],
+  }),
+  users: one(users, {
+    fields: [reviews.userId],
+    references: [users.id],
+  }),
+}));
 
 export const userToFraudits = pgTable(
   "users_to_fraudits",
@@ -129,6 +170,7 @@ export const userRelations = relations(users, ({ many }) => ({
   ownerOf: many(fraudits),
   threads: many(threads),
   comments: many(comments),
+  reviews: many(reviews),
 }));
 
 export const fraudits = pgTable("fraudits", {
