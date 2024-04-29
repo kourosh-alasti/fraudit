@@ -14,6 +14,9 @@ interface Props {
 export const SearchBar = ({ className, value = "" }: Props) => {
   const [searchValue, setSearchValue] = useState(value);
 
+  // TODO:
+  // Issue on search page.
+
   return (
     <div className={cn(className)}>
       <Input
