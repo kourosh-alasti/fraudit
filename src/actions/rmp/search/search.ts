@@ -6,8 +6,6 @@ import { currentUser } from "@clerk/nextjs";
 export const searchProfessor = async (query: string) => {
   const user = await currentUser();
 
-  console.log(query);
-
   try {
     if (!user) {
       throw new Error("Unauthorized Access");
