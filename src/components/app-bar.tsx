@@ -51,7 +51,7 @@ export const AppBar = () => {
           />
           <div className="md:hidden">
             <button
-              className="focuse:border-gray-400 rounded-md p-2 text-gray-700 outline-none focus:border"
+              className="rounded-md p-2 text-gray-700 outline-none focus:border focus:border-gray-400"
               onClick={() => setisMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <XIcon /> : <Menu />}
