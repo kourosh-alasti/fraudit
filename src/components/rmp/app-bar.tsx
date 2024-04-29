@@ -63,6 +63,7 @@ export const AppBar = () => {
                   className="px-1"
                   variant="outline"
                   onClick={() => router.push("/rmp/create/review")}
+                  disabled
                 >
                   <PlusIcon className="h-4 w-4" />
                   Review Professor
