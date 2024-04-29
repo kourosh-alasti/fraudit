@@ -1,5 +1,7 @@
 import { SearchBar } from "@/components/rmp/search-bar";
+import { Button } from "@/components/ui/button";
 import { currentUser } from "@clerk/nextjs";
+import Link from "next/link";
 
 const RateMyProfessorHomePage = async () => {
   const userPromise = currentUser();
@@ -18,6 +20,15 @@ const RateMyProfessorHomePage = async () => {
           </p>
         </div>
         <SearchBar className="flex md:hidden" />
+
+        <Link
+          className="mx-auto w-full"
+          href="/rmp/university/5d617113-160f-40af-a345-10f3c7297029"
+        >
+          <Button className="mx-auto w-full" variant="default">
+            View CSU Fullerton
+          </Button>
+        </Link>
 
         <div className="flex flex-col gap-1">
           <h3 className="mb-2 text-[1.25rem] text-zinc-800 md:mb-5 md:text-3xl">
