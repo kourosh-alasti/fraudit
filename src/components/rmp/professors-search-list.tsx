@@ -114,7 +114,7 @@ export const ProfessorsSearchList = ({ professors }: Props) => {
 
       {professors.length > 0 && (
         <div className="mt-6 flex flex-col gap-2 md:gap-4">
-          {professors.map(async (prof) => (
+          {professors.map((prof) => (
             <ProfessorSearchItem key={prof.id} professor={prof} />
           ))}
         </div>
