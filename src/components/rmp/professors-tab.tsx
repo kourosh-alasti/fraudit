@@ -18,7 +18,7 @@ export const ProfessorsTab = ({ professors }: Props) => {
         </div>
       )}
       {professors.length > 0 && (
-        <div className="mt-4 flex w-full flex-col items-center justify-center">
+        <div className="mt-4 flex w-full flex-col items-center justify-center gap-2">
           {professors.map((professor) => (
             <ProfessorTabItem key={professor.id} professor={professor} />
           ))}

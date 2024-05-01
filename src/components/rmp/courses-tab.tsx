@@ -18,7 +18,7 @@ export const CoursesTab = ({ courses }: Props) => {
         </div>
       )}
       {courses.length > 0 && (
-        <div className="mt-4 flex w-full flex-col items-center justify-center">
+        <div className="mt-4 flex w-full flex-col items-center justify-center gap-2">
           {courses.map((course) => (
             <CourseTabItem key={course.id} course={course} />
           ))}
