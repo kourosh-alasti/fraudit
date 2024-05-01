@@ -8,7 +8,7 @@ interface Props {
 export const CourseTabItem = ({ course }: Props) => {
   return (
     <Link
-      href={`course/${course.abbreviation}/${course.courseNumber}`}
+      href={`/rmp/university/${encodeURIComponent(course.universityId!)}/course/${encodeURIComponent(course.abbreviation)}/${encodeURIComponent(course.courseNumber)}`}
       className="w-full"
     >
       <div className="flex flex-col gap-1 rounded-md border-2 border-zinc-600 px-2 py-1">
