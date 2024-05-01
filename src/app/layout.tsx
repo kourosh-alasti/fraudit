@@ -24,7 +24,7 @@ export default function RootLayout({
     <ClerkProvider
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!}
     >
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en">
         <body className={inter.className}>
           <Toaster />
           <div className="flex h-full w-full flex-col">{children}</div>

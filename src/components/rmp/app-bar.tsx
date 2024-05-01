@@ -1,13 +1,11 @@
 "use client";
 
-import { Menu, PanelLeftOpenIcon, PlusIcon, XIcon } from "lucide-react";
-import Link from "next/link";
-import React, { useState } from "react";
-
 import Image from "next/image";
-import { Button } from "./ui/button";
-import { SideDrawer } from "./side-drawer";
-import { Input } from "./ui/input";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Input } from "../ui/input";
+import { Menu, PlusIcon, XIcon } from "lucide-react";
 import {
   ClerkLoaded,
   ClerkLoading,
@@ -16,26 +14,21 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
-import { useSidebar } from "@/store/use-sidebar";
-import { Skeleton } from "./ui/skeleton";
+import { Button } from "../ui/button";
+import { Skeleton } from "../ui/skeleton";
+import { SearchBar } from "./search-bar";
 
 export const AppBar = () => {
-  const [isMobileMenuOpen, setisMobileMenuOpen] = useState(false);
-  const { open } = useSidebar();
   const router = useRouter();
 
+  const [searchValue, setSearchValue] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
-    <nav className=" z-[999] mb-2 w-full border-b">
-      <div className="mx-auto max-w-screen-xl items-center px-4 md:flex md:justify-between  md:px-8">
-        <div className="flex items-center justify-between py-3 md:py-5  ">
-          <PanelLeftOpenIcon
-            onClick={() => open()}
-            className="hover:cursor-pointer"
-          />
-          <SideDrawer />
-          <Link href="/app">
-            {/* <h1 className="text-3xl font-bold text-purple-600">Fraudit</h1> */}
+    <nav className="z-[999] mb-2 w-full border-b">
+      <div className="mx-auto max-w-screen-xl items-center px-4 md:flex md:justify-between md:px-8">
+        <div className="flex items-center justify-between py-3 md:py-5">
+          <Link href="/rmp">
             <Image
               src="/logo.png"
               height="100"
@@ -44,45 +37,40 @@ export const AppBar = () => {
               priority
             />
           </Link>
-          <Input
-            type="text"
-            placeholder="Search"
-            className="hidden w-96 rounded-md border-slate-500 bg-transparent px-2 py-2 text-gray-500 md:block"
-          />
+          <SearchBar className="hidden md:flex" />
+
           <div className="md:hidden">
             <button
               className="rounded-md p-2 text-gray-700 outline-none focus:border focus:border-gray-400"
-              onClick={() => setisMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <XIcon /> : <Menu />}
             </button>
           </div>
         </div>
         <div
-          className={`mt-8 w-full flex-1 justify-self-center pb-3 md:mt-0 md:block md:pb-0 ${
-            isMobileMenuOpen ? "block" : "hidden"
-          }`}
+          className={`mt-8 w-full flex-1 justify-self-center pb-3 md:mt-0 md:block md:pb-0 ${isMobileMenuOpen ? "block" : "hidden"}`}
         >
           <ul className="flex w-full flex-col items-center justify-center gap-y-3 md:space-x-6 md:space-y-0">
-            <Input
-              type="text"
-              placeholder="Search"
-              className="w-96 rounded-md border-slate-500 bg-transparent px-2 py-2 text-gray-500 md:hidden"
-            />
             <div className="ml-2 flex items-center gap-x-1 md:ml-0 md:gap-4 md:self-end">
               <SignedOut>
-                <SignInButton afterSignInUrl="/" afterSignUpUrl="/">
+                <SignInButton
+                  afterSignInUrl="/rmp"
+                  afterSignUpUrl="/rmp"
+                  mode="modal"
+                >
                   <Button>Sign In</Button>
                 </SignInButton>
               </SignedOut>
               <div>
                 <Button
                   className="px-1"
-                  variant={"outline"}
-                  onClick={() => router.push("/app/create/fraudit")}
+                  variant="outline"
+                  onClick={() => router.push("/rmp/create/review")}
+                  disabled
                 >
                   <PlusIcon className="h-4 w-4" />
-                  Create Fraudit
+                  Review Professor
                 </Button>
               </div>
 
