@@ -2,7 +2,73 @@
 
 Fraudit is a web application built with Next.js, a popular React framework, designed to server as a Reddit-like platform for discussing and reviewing all forms of activities across various industries. The application aims to provide a user-friendly interface for users to create and participate in discussions, and access various topics.
 
-First, run the development server:
+### Table of Content
+
+- Features
+- Getting Started
+- Project Structure
+- Code Snippets
+- Technologies Used
+- Package Managers
+- Scripts
+- Changelog
+- License
+
+### Features
+
+- User Authentication using Clerk
+- Creation of new discussion threads with customizable titles and content
+- Commenting on existing discussion without nested replies
+- User roles and permissions for different levels of access
+- Integration with external services for data validation and enrichment
+
+### Getting Started
+
+To get started with Fraudit, follow these steps:
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/kourosh-alasti/fraudit.git
+```
+
+2. Change into the project directory:
+
+```bash
+cd fraudit
+```
+
+3. Install the project dependencies:
+
+```bash
+npm install
+# or
+yarn
+# or
+pnpm install
+# or
+bun install
+```
+
+4. Update your environment variables:
+
+```bash
+# .env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY= # UPDATE THIS
+NEXT_PUBLIC_CLERK_URL= # UPDATE THIS
+
+NEXT_PUBLIC_NEON_URL=$NEON_DB_URL
+```
+
+```bash
+# .env.local
+CLERK_SECRET_KEY= #UPDATE THIS
+CLERK_WEBHOOK_SECRET= #UPDATE THIS
+
+NEON_DB_URL= #UPDATE THIS
+```
+
+5. Start the development server:
 
 ```bash
 npm run dev
