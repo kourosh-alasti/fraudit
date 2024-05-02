@@ -4,13 +4,22 @@ import { getProfessorsByQuery } from "@/db/queries/professors/get-professors-by-
 import { currentUser } from "@clerk/nextjs";
 
 export const searchProfessor = async (query: string) => {
+  /**
+   * Grabs the current logged in user
+   */
   const user = await currentUser();
 
   try {
+    /**
+     * If the user is not logged in, throw an error
+     */
     if (!user) {
       throw new Error("Unauthorized Access");
     }
 
+    /**
+     * Grabs the professors by the query
+     */
     const professors = await getProfessorsByQuery(query);
 
     return {
