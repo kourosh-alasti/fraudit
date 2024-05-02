@@ -3,7 +3,6 @@
 import db from "@/db/drizzle";
 import { comments } from "@/db/schema";
 import { currentUser } from "@clerk/nextjs";
-import { NeonDbError } from "@neondatabase/serverless";
 
 interface Props {
   content: string;
@@ -16,13 +15,22 @@ export const createComment = async ({
   frauditId,
   threadId,
 }: Props) => {
+  /**
+   * Pulls the current logged in user from Clerk
+   */
   const user = await currentUser();
 
   try {
+    /**
+     * Checks if the user is logged in, if not, throw an error
+     */
     if (!user) {
       throw new Error("Unauthorized Access");
     }
 
+    /**
+     * Inserts the new comment into the comments table
+     */
     await db.insert(comments).values({
       content: content,
       frauditId: frauditId,

@@ -10,21 +10,36 @@ interface Props {
 }
 
 export const leaveUserMembership = async ({ slug }: Props) => {
+  /**
+   * Grabs the current logged in user
+   */
   const user = await currentUser();
 
   try {
+    /**
+     * If the user is not logged in, throw an error
+     */
     if (!user) {
       throw new Error("Unauthorized Access");
     }
 
+    /**
+     * Get Fraudit by Slug
+     */
     const fraudit = await db.query.fraudits.findFirst({
       where: eq(fraudits.slug, slug),
     });
 
+    /**
+     * If no fraudit is found, throw an error
+     */
     if (!fraudit) {
       throw new Error("Fraudit does not exist");
     }
 
+    /**
+     * Delete the relationship between the user and the fraudit
+     */
     await db
       .delete(userToFraudits)
       .where(
@@ -34,6 +49,9 @@ export const leaveUserMembership = async ({ slug }: Props) => {
         ),
       );
 
+    /**
+     * Decrement the member count of the fraudit
+     */
     await db
       .update(fraudits)
       .set({
