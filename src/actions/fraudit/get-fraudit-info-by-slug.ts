@@ -1,8 +1,7 @@
 "use server";
 
 import db from "@/db/drizzle";
-import { auth } from "@clerk/nextjs";
-import { getFrauditBySlug } from "@/db/queries/fraudit";
+import { currentUser } from "@clerk/nextjs";
 import { eq } from "drizzle-orm";
 import { fraudits } from "@/db/schema";
 
@@ -11,17 +10,29 @@ interface Props {
 }
 
 export const getFrauditInfoBySlug = async ({ slug }: Props) => {
-  const { userId } = await auth();
-
-  if (!userId) {
-    throw new Error("Unauthorized Access");
-  }
+  /**
+   * Grabs the current logged in user from Clerk
+   */
+  const user = await currentUser();
 
   try {
+    /**
+     * Checks if the user is logged in, if not, throw an error
+     */
+    if (!user) {
+      throw new Error("Unauthorized Access");
+    }
+
+    /**
+     * Gets the fraudit from the database using the slug
+     */
     const data = await db.query.fraudits.findFirst({
       where: eq(fraudits.slug, slug),
     });
 
+    /**
+     * Checks if the fraudit exists, if not, throw an error
+     */
     if (!data) {
       throw new Error("Fraudit does not exist");
     }

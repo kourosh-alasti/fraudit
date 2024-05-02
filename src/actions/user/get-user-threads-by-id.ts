@@ -7,12 +7,22 @@ import { eq } from "drizzle-orm";
 
 export const getUserThreadsById = async (id: string) => {
   try {
+    /**
+     * Get User by Id
+     */
     const user = await getUser(id);
 
+    /**
+     * If the user doesnt exist, throw an error
+     */
     if (!user) {
       throw new Error("Unauthorized Access");
     }
 
+    /**
+     * Get all Users threads by id
+     * order by updated_at desc
+     */
     const allUserThreads = await db.query.threads.findMany({
       where: eq(threads.userId, user.id),
       orderBy: (threads, { desc }) => [desc(threads.updatedAt)],

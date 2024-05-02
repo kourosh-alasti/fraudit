@@ -15,27 +15,54 @@ interface Props {
 export const addUserMembership = async ({ slug, userId }: Props) => {
   try {
     let user;
+    /**
+     * Check if other user joined or if self join
+     */
     if (userId) {
+      /**
+       * If Other User
+       * Get Use info
+       */
       user = await getUser(userId);
     } else {
+      /**
+       * If Self
+       * Get curent user info
+       */
       const { userId: id } = await auth();
       user = await getUser(id!);
     }
+
+    /**
+     * Get Fraudit by slug
+     */
     const fraudit = await getFrauditBySlug(slug);
 
+    /**
+     * If No User Exist, throw error
+     */
     if (!user) {
       throw new Error("User does not exist");
     }
 
+    /**
+     * If No Fraudit Exist, throw error
+     */
     if (!fraudit) {
       throw new Error("Fraudit does not exist");
     }
 
+    /**
+     * Create membership relationship
+     */
     await db.insert(userToFraudits).values({
       frauditId: fraudit.id,
       userId: user.id,
     });
 
+    /**
+     * Update fraudit member count
+     */
     await db
       .update(fraudits)
       .set({
