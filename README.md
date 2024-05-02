@@ -1,6 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Fraudit: A Next.JS Reddit Clone
 
-## Getting Started
+Fraudit is a web application built with Next.js, a popular React framework, designed to server as a Reddit-like platform for discussing and reviewing all forms of activities across various industries. The application aims to provide a user-friendly interface for users to create and participate in discussions, and access various topics.
 
 First, run the development server:
 
@@ -14,23 +14,78 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+6. Open your browser and navigate to http://localhost:3000 to see the Fraudit Application in action.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The project structure is organized as follows:
 
-## Learn More
+- `public`: contains static assets like images and icons.
+- `src`: contains the main source code directory, contains the following sub-directories:
 
-To learn more about Next.js, take a look at the following resources:
+  - `components`: contains resusable UI components
+  - `db`: contains database-related files and schemas
+  - `lib`: contains utility functions
+  - `app`: contains the pages for the frontend
+  - `actions`: contains the Next.js server actions
+  - `store`: contains the state management hooks
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Code Snippets
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Here's an example of how you can use the `logDir` variable from the provided code snippet:
 
-## Deploy on Vercel
+File: `/src/components/changelog.tsx`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Code:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```typescript
+import path from "path";
+
+const logDir = path.join(process.cwd(), "changelogs");
+
+export const Changelog = () => {
+  // redacted
+};
+```
+
+In this example, the logDir variable is used to define the path to the directory containing the changelog files. You can modify this variable to suit you specific project requirements.
+
+### Technologies Used
+
+Fraudit is built using the following technologies:
+
+- Next.js: A React framework for building server-rendered or statis applications
+- Clerk: A universal identity and access management platform for web applications
+- React: A Javascript library for building User Interfaces
+- Drizzle-ORM: A Typescript ORM for PostgreSQL
+- TailwindCSS: A utility-first CSS framework for rapid and modern website design
+- Typescript: A typed superset of Javascript that compiles to vanilla JS
+
+### Package Managers
+
+The project uses the following package managers:
+
+- npm: A package manager for Javascript and Node.js
+- yarn: A package manager for Javascript and Node.js, similar to npm but with improved performance and features
+- pnpm: A fast, disk-space-efficient package manager for Javascript and Node.js
+- bun: A fast, all-in-one Javascript runtime for Node.js
+
+### Scripts
+
+The project includes the following scripts:
+
+- `dev`: Starts the Next.js development server
+- `build`: Builds the Next.js application for production
+- `start`: Starts the Next.js production server
+- `lint`: Lints the codebase using ESLint following config from `.eslintrc.json`
+- `ngrok`: Sets up an ngrok tunnel to expose the local development server to the internet
+- `db:studio`: Starts the drizzle-kit studio for managing and visualizing database schema
+- `db:push`: Pushes Schema changes to hosted database
+
+### Changelog
+
+The project maintains a detailed changelog in the `changelogs` directory, which contains a series of changelog files. Each file represents a specific version of the application and includes a list of changes, bug fixes, and new features introduced in respective version.
+
+### License
+
+Fraudit is licensed under the MIT License. You can find the full license text in the `LICENSE` file in the root directoy of the project.
