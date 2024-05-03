@@ -61,7 +61,7 @@ export const getUserFraudits = async () => {
       userFraudits.push(data!);
     }
 
-    return fraudits;
+    return userFraudits;
   } catch (err) {
     console.error(err);
     throw new Error("Could not fetch user fraudits, please try again later.");
