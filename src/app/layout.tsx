@@ -21,16 +21,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!}
-      afterSignOutUrl={"/"}
-    >
-      <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <ClerkProvider
+        publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!}
+        afterSignOutUrl={"/"}
+      >
         <body className={inter.className}>
           <Toaster />
           <div className="flex h-full w-full flex-col">{children}</div>
         </body>
-      </html>
-    </ClerkProvider>
+      </ClerkProvider>
+    </html>
   );
 }
