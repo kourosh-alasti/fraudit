@@ -91,7 +91,7 @@ export const SideDrawer = () => {
           <p className="text-sm font-semibold uppercase">SubFraudits</p>
         </div>
         <DrawerItems />
-        <div className="mt-3 text-center ">
+        <div className="mt-3 text-center">
           <p>Copyright &copy; Fraudit 2024</p>
         </div>
       </Menu>
