@@ -6,7 +6,13 @@ import { StickyWrapper } from "@/components/sticky-wrapper";
 
 import React from "react";
 
-const FrauditPage = ({ params: { slug } }: { params: { slug: string } }) => {
+const FrauditPage = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
+  const { slug } = await params;
+
   return (
     <div className="flex flex-col gap-[48px] px-6 md:flex-row-reverse">
       <StickyWrapper>
