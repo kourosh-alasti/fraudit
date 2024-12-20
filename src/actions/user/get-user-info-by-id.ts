@@ -1,13 +1,14 @@
 "use server";
 
 import { getUser } from "@/db/queries/user";
-import { clerkClient } from "@clerk/nextjs";
+import { clerkClient } from "@clerk/nextjs/server";
 
 export const getUserInfoById = async (id: string) => {
+  const client = await clerkClient();
   /**
    * Get Clerk info By Id
    */
-  const clerkInfo = await clerkClient.users.getUser(id);
+  const clerkInfo = await client.users.getUser(id);
 
   /**
    * Get Database Info By Id

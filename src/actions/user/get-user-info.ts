@@ -1,9 +1,10 @@
 "use server";
 
 import { getUserByUsername } from "@/db/queries/user";
-import { clerkClient } from "@clerk/nextjs";
+import { clerkClient } from "@clerk/nextjs/server";
 
 export const getUserInfo = async (username: string) => {
+  const client = await clerkClient();
   /**
    * Get Database Info By Username
    */
@@ -12,7 +13,7 @@ export const getUserInfo = async (username: string) => {
   /**
    * Get Clerk info by id
    */
-  const clerkInfo = await clerkClient.users.getUser(data.id);
+  const clerkInfo = await client.users.getUser(data.id);
 
   return {
     clerk: {
