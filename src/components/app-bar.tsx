@@ -26,9 +26,9 @@ export const AppBar = () => {
   const router = useRouter();
 
   return (
-    <nav className=" z-[999] mb-2 w-full border-b">
-      <div className="mx-auto max-w-screen-xl items-center px-4 md:flex md:justify-between  md:px-8">
-        <div className="flex items-center justify-between py-3 md:py-5  ">
+    <nav className="z-[999] mb-2 w-full border-b">
+      <div className="mx-auto max-w-screen-xl items-center px-4 md:flex md:justify-between md:px-8">
+        <div className="flex items-center justify-between py-3 md:py-5">
           <PanelLeftOpenIcon
             onClick={() => open()}
             className="hover:cursor-pointer"
@@ -71,7 +71,7 @@ export const AppBar = () => {
             />
             <div className="ml-2 flex items-center gap-x-1 md:ml-0 md:gap-4 md:self-end">
               <SignedOut>
-                <SignInButton afterSignInUrl="/" afterSignUpUrl="/">
+                <SignInButton>
                   <Button>Sign In</Button>
                 </SignInButton>
               </SignedOut>
@@ -94,7 +94,7 @@ export const AppBar = () => {
 
               <div className="hidden md:block">
                 <ClerkLoaded>
-                  <UserButton afterSignOutUrl="/" />
+                  <UserButton />
                 </ClerkLoaded>
                 <ClerkLoading>
                   <Skeleton className="h-12 w-12 rounded-full" />

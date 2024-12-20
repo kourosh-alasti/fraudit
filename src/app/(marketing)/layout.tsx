@@ -3,7 +3,6 @@ import {
   ClerkLoaded,
   ClerkLoading,
   SignInButton,
-  SignOutButton,
   SignedIn,
   SignedOut,
   UserButton,
@@ -41,14 +40,10 @@ const LayoutHeader = () => {
         </ClerkLoading>
         <ClerkLoaded>
           <SignedIn>
-            <UserButton afterSignOutUrl="/" />
+            <UserButton />
           </SignedIn>
           <SignedOut>
-            <SignInButton
-              mode="modal"
-              afterSignInUrl="/app"
-              afterSignUpUrl="/app"
-            >
+            <SignInButton mode="modal">
               <Button size="lg" variant="ghost">
                 Login
               </Button>

@@ -30,20 +30,12 @@ const MarketingPage = () => {
             </ClerkLoading>
             <ClerkLoaded>
               <SignedOut>
-                <SignUpButton
-                  mode="modal"
-                  afterSignInUrl="/app"
-                  afterSignUpUrl="/app"
-                >
+                <SignUpButton mode="modal">
                   <Button size="lg" variant={"default"} className="w-full">
                     Get Started
                   </Button>
                 </SignUpButton>
-                <SignInButton
-                  mode="modal"
-                  afterSignInUrl="/app"
-                  afterSignUpUrl="/app"
-                >
+                <SignInButton mode="modal">
                   <Button size="lg" variant={"ghost"} className="w-full">
                     Already have an account?
                   </Button>
