@@ -1,6 +1,6 @@
 import { SearchBar } from "@/components/rmp/search-bar";
 import { Button } from "@/components/ui/button";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
 
 const RateMyProfessorHomePage = async () => {

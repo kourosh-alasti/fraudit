@@ -1,7 +1,7 @@
 "use server";
 
 import { getProfessorsByQuery } from "@/db/queries/professors/get-professors-by-query";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 
 export const searchProfessor = async (query: string) => {
   /**

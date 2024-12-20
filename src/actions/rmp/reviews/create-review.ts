@@ -3,7 +3,7 @@
 import db from "@/db/drizzle";
 import { getProfessorById } from "@/db/queries/professors/get-professor-by-id";
 import { professors, reviews } from "@/db/schema";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 
 interface Props {
   profId: string;

@@ -3,7 +3,7 @@
 import db from "@/db/drizzle";
 import { getFrauditBySlug } from "@/db/queries/fraudit";
 import { threads } from "@/db/schema";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 
 interface Props {
   title: string;

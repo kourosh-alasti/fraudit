@@ -1,7 +1,7 @@
 "use server";
 
 import { getFrauditBySlug } from "@/db/queries/fraudit";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 
 export const isOwnerOfFraudit = async (slug: string) => {
   /**

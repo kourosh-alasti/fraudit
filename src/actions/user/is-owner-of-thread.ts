@@ -1,7 +1,7 @@
 "use server";
 
 import { getThreadById } from "@/db/queries/thread";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 
 export const isOwnerOfThread = async (threadId: string) => {
   /**

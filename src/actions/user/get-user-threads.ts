@@ -3,7 +3,7 @@
 import db from "@/db/drizzle";
 import { getUser } from "@/db/queries/user";
 import { threads } from "@/db/schema";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 import { User } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 

@@ -1,7 +1,7 @@
 "use server";
 
 import { getCommentById } from "@/db/queries/comment/get-comment-by-id";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 
 export const isOwnerOfComment = async (commentId: string) => {
   /**
