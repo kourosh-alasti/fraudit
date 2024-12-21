@@ -37,7 +37,6 @@
     "react": "^19",
     "react-dom": "^19",
     "react-hook-form": "^7.54.2",
-    "react-infinite-scroll-component": "^6.1.0",
     "react-markdown": "^9.0.1",
     "react-pro-sidebar": "^1.1.0",
     "react-star-ratings": "^2.3.0",
