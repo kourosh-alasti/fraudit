@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useRouter } from "next/navigation";
 import { v4 as uuid } from "uuid";
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 export const InfiniteScroller = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,6 +22,8 @@ export const InfiniteScroller = () => {
       getLimitedFraudits(0)
         .then((res) => setData(res))
         .catch((err) => console.log(err));
+
+      console.log(data);
 
       setIsLoading(false);
     };
@@ -78,7 +82,7 @@ export const InfiniteScroller = () => {
                 onClick={() => router.push(`/app/f/${fraudit.slug}`)}
               >
                 <div className="w-1/2 overflow-ellipsis">
-                  <h3 className="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-bold ">{`f/${fraudit.slug}`}</h3>
+                  <h3 className="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-bold">{`f/${fraudit.slug}`}</h3>
                   <p className="overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground">
                     {fraudit.descripton}
                   </p>
@@ -90,6 +94,20 @@ export const InfiniteScroller = () => {
             );
           })}
         </InfiniteScroll>
+      )}
+      {!isLoading && data && data.length === 0 && (
+        <div className="mt-14 flex flex-col items-center justify-center gap-6">
+          <h1 className="text-lg font-semibold md:text-3xl">
+            No Sub-Fraudits Found!
+          </h1>
+          <Button
+            variant={"outline"}
+            className="text-base font-light tracking-tighter md:text-lg"
+            asChild
+          >
+            <Link href="/app/create/fraudit">Create a New One!</Link>
+          </Button>
+        </div>
       )}
     </>
   );
