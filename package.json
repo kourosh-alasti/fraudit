@@ -7,14 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:studio": "bunx drizzle-kit studio",
-    "db:push": "bunx drizzle-kit push:pg",
-    "db:reset": "bun ./src/db/reset.ts"
+    "db:studio": "pnpm drizzle-kit studio",
+    "db:push": "pnpm drizzle-kit push:pg",
+    "db:reset": "pnpm ./src/db/reset.ts"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.9.5",
+    "@clerk/nextjs": "^6.9.6",
     "@hookform/resolvers": "^3.9.1",
     "@neondatabase/serverless": "^0.10.4",
+    "@next/env": "^15.1.2",
     "@radix-ui/react-alert-dialog": "^1.1.4",
     "@radix-ui/react-avatar": "^1.1.2",
     "@radix-ui/react-dialog": "^1.1.4",
@@ -31,11 +32,11 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.38.2",
-    "lucide-react": "^0.468.0",
+    "lucide-react": "^0.469.0",
     "next": "15.1.2",
     "react": "^19",
     "react-dom": "^19",
-    "react-hook-form": "^7.54.1",
+    "react-hook-form": "^7.54.2",
     "react-infinite-scroll-component": "^6.1.0",
     "react-markdown": "^9.0.1",
     "react-pro-sidebar": "^1.1.0",
@@ -65,5 +66,6 @@
     "prettier-plugin-tailwindcss": "^0.6.9",
     "tailwindcss": "^3.4.17",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "pnpm@9.15.1+sha512.1acb565e6193efbebda772702950469150cf12bcc764262e7587e71d19dc98a423dff9536e57ea44c49bdf790ff694e83c27be5faa23d67e0c033b583be4bfcf"
 }
