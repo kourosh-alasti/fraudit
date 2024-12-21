@@ -11,14 +11,16 @@ import {
   universities,
 } from "@/db/schema";
 import { Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use} from "react";
 import StarRatings from "react-star-ratings";
 
 const CoursePage = ({
-  params: { id, abbr, number },
+  params,
 }: {
-  params: { id: string; abbr: string; number: string };
+  params: Promise<{ id: string; abbr: string; number: string }>;
 }) => {
+  const { id, abbr, number } = use(params);
+
   const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState<typeof courses.$inferSelect>();
   const [university, setUniversity] =
@@ -51,7 +53,7 @@ const CoursePage = ({
     };
 
     getData();
-  }, []);
+  }, [abbr, id, number]);
 
   return (
     <>

@@ -55,7 +55,7 @@ export const CreateThreadCard = ({ slug, className }: Props) => {
 
     getData();
     router.refresh();
-  }, []);
+  }, [slug]);
 
   const join = () => {
     addUserMembership({ slug: slug })

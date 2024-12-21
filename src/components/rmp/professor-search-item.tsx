@@ -34,7 +34,7 @@ export const ProfessorSearchItem = ({ professor }: Props) => {
     };
 
     getData();
-  }, []);
+  }, [professor.universityId]);
 
   return (
     <>

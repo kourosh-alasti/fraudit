@@ -34,7 +34,7 @@ export const UserThreadItem = ({ thread, className }: Props) => {
     };
 
     getData();
-  }, []);
+  }, [thread.frauditId]);
 
   return (
     <>

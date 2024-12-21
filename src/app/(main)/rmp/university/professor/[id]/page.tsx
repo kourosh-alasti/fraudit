@@ -12,11 +12,11 @@ import {
 } from "@/db/schema";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import StarRatings from "react-star-ratings";
 
-const ProfessorPage = ({ params: { id } }: { params: { id: string } }) => {
-  const professorId = id;
+const ProfessorPage = ({ params }: { params: Promise<{ id: string }> }) => {
+  const {id: professorId} = use(params);
 
   const [loading, setLoading] = useState(true);
   const [prof, setProf] = useState<typeof professors.$inferSelect>();
@@ -41,7 +41,7 @@ const ProfessorPage = ({ params: { id } }: { params: { id: string } }) => {
     };
 
     getData();
-  }, []);
+  }, [professorId]);
 
   return (
     <>

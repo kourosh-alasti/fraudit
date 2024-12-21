@@ -24,7 +24,7 @@ export const ReviewTabItem = ({ review }: Props) => {
     };
 
     getData();
-  }, []);
+  }, [review.courseId]);
 
   return (
     <>
