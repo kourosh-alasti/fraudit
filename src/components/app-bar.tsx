@@ -76,13 +76,11 @@ export const AppBar = () => {
                 </SignInButton>
               </SignedOut>
               <div>
-                <Button
-                  className="px-1"
-                  variant={"outline"}
-                  onClick={() => router.push("/app/create/fraudit")}
-                >
-                  <PlusIcon className="h-4 w-4" />
-                  Create Fraudit
+                <Button className="px-1" variant={"outline"} asChild>
+                  <Link href="/app/create/fraudit">
+                    <PlusIcon className="h-4 w-4" />
+                    Create Fraudit
+                  </Link>
                 </Button>
               </div>
 
