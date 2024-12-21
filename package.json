@@ -37,7 +37,6 @@
     "react": "^19",
     "react-dom": "^19",
     "react-hook-form": "^7.54.2",
-    "react-infinite-scroll-component": "^6.1.0",
     "react-markdown": "^9.0.1",
     "react-pro-sidebar": "^1.1.0",
     "react-star-ratings": "^2.3.0",
@@ -64,6 +63,7 @@
     "postcss": "^8",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.9",
+    "tailwind-scrollbar": "^3.1.0",
     "tailwindcss": "^3.4.17",
     "typescript": "^5"
   },

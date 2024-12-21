@@ -47,6 +47,7 @@ export const AppBar = () => {
           <Input
             type="text"
             placeholder="Search"
+            disabled
             className="hidden w-96 rounded-md border-slate-500 bg-transparent px-2 py-2 text-gray-500 md:block"
           />
           <div className="md:hidden">
@@ -67,6 +68,7 @@ export const AppBar = () => {
             <Input
               type="text"
               placeholder="Search"
+              disabled
               className="w-96 rounded-md border-slate-500 bg-transparent px-2 py-2 text-gray-500 md:hidden"
             />
             <div className="ml-2 flex items-center gap-x-1 md:ml-0 md:gap-4 md:self-end">
