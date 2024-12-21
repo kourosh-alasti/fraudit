@@ -4,17 +4,18 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ArrowDown, ArrowUp, Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import { threads } from "@/db/schema";
 import { UserThreadList } from "@/components/user-thread-list";
 import { getUserInfo, getUserThreadsById } from "@/actions/user";
 import { useRouter } from "next/navigation";
 import { useClerk } from "@clerk/nextjs";
 
-const ProfilePage = ({ params }: { params: { username: string } }) => {
-  const username = params.username;
+const ProfilePage = ({ params }: { params: Promise<{ username: string }> }) => {
+  const {username} = use(params);
+
   const router = useRouter();
-  const clerk = useClerk();
+  const { user: cUser } = useClerk();
 
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<any>();
@@ -23,13 +24,13 @@ const ProfilePage = ({ params }: { params: { username: string } }) => {
   >([]);
 
   useEffect(() => {
-    if (!clerk.user) {
+    if (!cUser) {
     } else {
-      if (clerk?.user.username === username) {
+      if (cUser?.username === username) {
         router.push("/app/u");
       }
     }
-  }, []);
+  }, [cUser, username]);
 
   useEffect(() => {
     const getData = async () => {
@@ -53,7 +54,7 @@ const ProfilePage = ({ params }: { params: { username: string } }) => {
     };
 
     getData();
-  }, []);
+  }, [username, cUser]);
 
   return (
     <>

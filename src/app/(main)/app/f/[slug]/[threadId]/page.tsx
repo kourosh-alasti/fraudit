@@ -8,17 +8,19 @@ import { Separator } from "@/components/ui/separator";
 import { getThreadById } from "@/db/queries/thread";
 import { threads, comments } from "@/db/schema";
 import { ArrowDownIcon, ArrowUpIcon, Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import { CommentModal } from "@/components/comment-modal";
 import { getUserInfoById } from "@/actions/user";
 import Link from "next/link";
 import { CommentList } from "@/components/comment-list";
 
 const FrauditThreadPage = ({
-  params: { threadId },
+  params,
 }: {
-  params: { threadId: string };
+  params: Promise<{ threadId: string }>;
 }) => {
+  const { threadId } = use(params);
+
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<any>();
   const [thread, setThread] = useState<typeof threads.$inferSelect>();
@@ -51,7 +53,7 @@ const FrauditThreadPage = ({
     };
 
     getData();
-  }, []);
+  }, [threadId]);
 
   return (
     <>

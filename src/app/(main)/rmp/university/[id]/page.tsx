@@ -4,14 +4,14 @@ import { Separator } from "@/components/ui/separator";
 import { UniversityTabs } from "@/components/rmp/university-tabs";
 import { universities, professors, courses, reviews } from "@/db/schema";
 import { Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 import StarRatings from "react-star-ratings";
 
-const UniversityPage = ({ params: { id } }: { params: { id: string } }) => {
-  const universityId = id;
+const UniversityPage = ({ params }: {params:  Promise<{id: string} >}) => {
+  const {id: universityId} = use(params);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); 
   const [uni, setUni] = useState<typeof universities.$inferSelect>();
 
   const [uniCourses, setUniCourses] =
@@ -38,7 +38,7 @@ const UniversityPage = ({ params: { id } }: { params: { id: string } }) => {
     };
 
     getData();
-  }, []);
+  }, [universityId]);
 
   // TODO: SKELETON
   return (
