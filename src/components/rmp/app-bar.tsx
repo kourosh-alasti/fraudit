@@ -54,11 +54,7 @@ export const AppBar = () => {
           <ul className="flex w-full flex-col items-center justify-center gap-y-3 md:space-x-6 md:space-y-0">
             <div className="ml-2 flex items-center gap-x-1 md:ml-0 md:gap-4 md:self-end">
               <SignedOut>
-                <SignInButton
-                  afterSignInUrl="/rmp"
-                  afterSignUpUrl="/rmp"
-                  mode="modal"
-                >
+                <SignInButton mode="modal">
                   <Button>Sign In</Button>
                 </SignInButton>
               </SignedOut>
@@ -82,7 +78,7 @@ export const AppBar = () => {
 
               <div className="hidden md:block">
                 <ClerkLoaded>
-                  <UserButton afterSignOutUrl="/" />
+                  <UserButton />
                 </ClerkLoaded>
                 <ClerkLoading>
                   <Skeleton className="h-12 w-12 rounded-full" />

@@ -67,7 +67,7 @@ const CreateFrauditPage = () => {
   };
 
   return (
-    <div className="mx-auto lg:max-w-[968px]">
+    <div className="mt:14 mx-auto lg:mt-20 lg:max-w-[968px]">
       <Card>
         <CardHeader>
           <h1 className="text-xl font-extrabold tracking-wide md:text-2xl lg:text-3xl">

@@ -2,7 +2,7 @@
 
 import db from "@/db/drizzle";
 import { comments } from "@/db/schema";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 
 interface Props {
   content: string;

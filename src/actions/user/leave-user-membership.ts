@@ -2,7 +2,7 @@
 
 import db from "@/db/drizzle";
 import { fraudits, userToFraudits } from "@/db/schema";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 
 interface Props {

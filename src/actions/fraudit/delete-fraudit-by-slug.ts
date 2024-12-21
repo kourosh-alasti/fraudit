@@ -1,6 +1,6 @@
 "use server";
 
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 import { getFrauditBySlug } from "@/db/queries/fraudit";
 import db from "@/db/drizzle";
 import { fraudits } from "@/db/schema";

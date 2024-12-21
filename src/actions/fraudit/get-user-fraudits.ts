@@ -2,7 +2,7 @@
 
 import db from "@/db/drizzle";
 import { fraudits, users } from "@/db/schema";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import { getFraudit } from "../../db/queries/fraudit";
 

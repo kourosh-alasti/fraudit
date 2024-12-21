@@ -4,7 +4,7 @@ import db from "@/db/drizzle";
 import { getFrauditBySlug } from "@/db/queries/fraudit";
 import { getUser } from "@/db/queries/user";
 import { fraudits, userToFraudits } from "@/db/schema";
-import { auth, currentUser } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 
 interface Props {

@@ -26,7 +26,7 @@ export const SearchBar = ({ className, value = "" }: Props) => {
         onChange={(e) => setSearchValue(e.target.value)}
         className="w-64 rounded-l-md rounded-r-none border-slate-500 bg-transparent px-3 py-2 text-gray-500 focus:outline-none active:outline-none"
       />
-      <Link href={`/rmp/search?q=${searchValue}`}>
+      <Link href={`/rmp/search?q=${encodeURIComponent(searchValue)}`}>
         <Button
           // disabled
           className="rounded-l-none hover:cursor-pointer hover:bg-gray-900 active:bg-gray-800"

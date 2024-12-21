@@ -45,10 +45,13 @@ export const SideDrawer = () => {
             <Link href="/app/u">
               <Image
                 className="cursor-pointer rounded-[50%]"
-                src={user.user?.imageUrl as string}
+                src={
+                  (user.user?.imageUrl as string) ||
+                  "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                }
                 width={100}
                 height={100}
-                alt="Fraudit Logo"
+                alt="User Profile"
               />
             </Link>
           </div>
@@ -91,7 +94,7 @@ export const SideDrawer = () => {
           <p className="text-sm font-semibold uppercase">SubFraudits</p>
         </div>
         <DrawerItems />
-        <div className="mt-3 text-center ">
+        <div className="mt-3 text-center">
           <p>Copyright &copy; Fraudit 2024</p>
         </div>
       </Menu>

@@ -2,7 +2,7 @@
 
 import db from "@/db/drizzle";
 import { fraudits } from "@/db/schema";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 import { addUserMembership } from "../user/add-user-membership";
 import { NeonDbError } from "@neondatabase/serverless";
 

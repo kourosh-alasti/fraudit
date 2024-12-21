@@ -1,7 +1,7 @@
 "use server";
 
 import db from "@/db/drizzle";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import { fraudits } from "@/db/schema";
 

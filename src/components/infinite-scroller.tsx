@@ -2,94 +2,139 @@
 
 import { getLimitedFraudits } from "@/db/queries/fraudit/get-limited-fraudits";
 import { fraudits } from "@/db/schema";
-import { Loader } from "lucide-react";
-import { useState, useEffect } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { ExternalLinkIcon, Loader, Loader2Icon } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { v4 as uuid } from "uuid";
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 export const InfiniteScroller = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<(typeof fraudits.$inferSelect)[] | null>([]);
+  const [hasMore, setHasMore] = useState(true);
+  const observer = useRef<IntersectionObserver | null>(null);
+  const loadingRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const getData = () => {
-      setIsLoading(true);
-
-      getLimitedFraudits(0)
-        .then((res) => setData(res))
-        .catch((err) => console.log(err));
-
-      setIsLoading(false);
-    };
-
-    getData();
+  const getData = useCallback(() => {
+    getLimitedFraudits(0)
+      .then((res) => {
+        setData(res);
+        setHasMore(res.length > 0);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   }, []);
 
-  const fetchMore = () => {
-    getLimitedFraudits(data?.length || 0).then((res) => {
-      setData((prev) => {
-        if (prev) {
-          return [...prev, ...res];
-        }
+  const fetchMore = useCallback(() => {
+    if (!data || !hasMore) return;
+    
+    getLimitedFraudits(data.length)
+      .then((res) => {
+        setData((prev) => {
+          if (prev) {
+            return [...prev, ...res];
+          }
+          return [...res];
+        });
+        setHasMore(res.length > 0);
+      })
+      .catch((err) => console.log(err));
+  }, [data, hasMore]);
 
-        return [...res];
-      });
-    });
-  };
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+  useEffect(() => {
+    const currentObserver = observer.current;
+    
+    if (currentObserver) {
+      currentObserver.disconnect();
+    }
+
+    observer.current = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          fetchMore();
+        }
+      },
+      { threshold: 1.0 }
+    );
+
+    if (loadingRef.current) {
+      observer.current.observe(loadingRef.current);
+    }
+
+    return () => {
+      if (currentObserver) {
+        currentObserver.disconnect();
+      }
+    };
+  }, [fetchMore, hasMore]);
 
   return (
     <>
-      {isLoading && <div>Loading...</div>}
+      {isLoading && (
+        <div className="mt-12 flex flex-col items-center justify-center gap-4">
+          <Loader2Icon className="h-12 w-12 animate-spin" />
+          <p className="text-base font-light tracking-tighter">
+            Loading Sub-Fraudits
+          </p>
+        </div>
+      )}
       {!isLoading && data && data.length > 0 && (
-        <InfiniteScroll
-          dataLength={data.length}
-          hasMore={true}
-          next={fetchMore}
-          loader={<Loader className="h-6 w-6 animate-spin" />}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>You have reached the end of the fraudits</b>
-            </p>
-          }
-          inverse={false}
-          initialScrollY={0}
-          pullDownToRefresh={false}
-          pullDownToRefreshThreshold={50}
-          pullDownToRefreshContent={
-            <h3 style={{ textAlign: "center" }}>
-              <b>&#8595; Pull down to refresh</b>
-            </h3>
-          }
-          releaseToRefreshContent={
-            <h3 style={{ textAlign: "center" }}>
-              <b>&#8593; Release to refresh</b>
-            </h3>
-          }
-        >
+        <div className="flex h-full max-h-[calc(100vh-12rem)] w-full flex-col gap-1 overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-300 hover:scrollbar-thumb-slate-400 dark:scrollbar-thumb-slate-700 dark:hover:scrollbar-thumb-slate-600">
           {data.map((fraudit) => {
             const id = uuid();
 
             return (
-              <div
+              <Button
                 key={`${fraudit.id}-${id}`}
-                className="mb-3 flex h-20 w-[320px] justify-between rounded-md border-2 border-slate-700 bg-white px-4 py-2 shadow-lg hover:cursor-pointer hover:shadow-2xl sm:w-[500px] md:w-[700px] lg:w-[988px]"
-                onClick={() => router.push(`/app/f/${fraudit.slug}`)}
+                variant={"outline"}
+                asChild
+                className="flex h-20 w-full justify-between rounded-md border-slate-700 bg-white px-4 py-2 text-black shadow-lg"
               >
-                <div className="w-1/2 overflow-ellipsis">
-                  <h3 className="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-bold ">{`f/${fraudit.slug}`}</h3>
-                  <p className="overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground">
-                    {fraudit.descripton}
-                  </p>
-                </div>
-                <div>
-                  <h4>{`${fraudit.memberCount} Members`}</h4>
-                </div>
-              </div>
+                <Link href={`/app/f/${fraudit.slug}`}>
+                  <div className="flex-1 overflow-ellipsis text-black">
+                    <h3 className="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-bold">{`f/${fraudit.slug}`}</h3>
+                    <p className="overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground">
+                      {fraudit.descripton}
+                    </p>
+                  </div>
+                  <div className="">
+                    <h4>{`${fraudit.memberCount} Members`}</h4>
+                  </div>
+                </Link>
+              </Button>
             );
           })}
-        </InfiniteScroll>
+          {hasMore && (
+            <div ref={loadingRef} className="flex justify-center py-4">
+              <Loader className="h-6 w-6 animate-spin" />
+            </div>
+          )}
+          {!hasMore && data.length > 0 && (
+            <p className="text-center py-4 text-muted-foreground">
+              You have reached the end of the fraudits
+            </p>
+          )}
+        </div>
+      )}
+      {!isLoading && data && data.length === 0 && (
+        <div className="mt-14 flex flex-col items-center justify-center gap-6">
+          <h1 className="text-lg font-semibold md:text-3xl">
+            No Sub-Fraudits Found!
+          </h1>
+          <Button
+            variant={"outline"}
+            className="text-base font-light tracking-tighter md:text-lg"
+            asChild
+          >
+            <Link href="/app/create/fraudit">Create a New One!</Link>
+          </Button>
+        </div>
       )}
     </>
   );

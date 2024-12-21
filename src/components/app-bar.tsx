@@ -26,9 +26,9 @@ export const AppBar = () => {
   const router = useRouter();
 
   return (
-    <nav className=" z-[999] mb-2 w-full border-b">
-      <div className="mx-auto max-w-screen-xl items-center px-4 md:flex md:justify-between  md:px-8">
-        <div className="flex items-center justify-between py-3 md:py-5  ">
+    <nav className="z-[999] mb-2 w-full border-b">
+      <div className="mx-auto max-w-screen-xl items-center px-4 md:flex md:justify-between md:px-8">
+        <div className="flex items-center justify-between py-3 md:py-5">
           <PanelLeftOpenIcon
             onClick={() => open()}
             className="hover:cursor-pointer"
@@ -47,6 +47,7 @@ export const AppBar = () => {
           <Input
             type="text"
             placeholder="Search"
+            disabled
             className="hidden w-96 rounded-md border-slate-500 bg-transparent px-2 py-2 text-gray-500 md:block"
           />
           <div className="md:hidden">
@@ -67,22 +68,21 @@ export const AppBar = () => {
             <Input
               type="text"
               placeholder="Search"
+              disabled
               className="w-96 rounded-md border-slate-500 bg-transparent px-2 py-2 text-gray-500 md:hidden"
             />
             <div className="ml-2 flex items-center gap-x-1 md:ml-0 md:gap-4 md:self-end">
               <SignedOut>
-                <SignInButton afterSignInUrl="/" afterSignUpUrl="/">
+                <SignInButton>
                   <Button>Sign In</Button>
                 </SignInButton>
               </SignedOut>
               <div>
-                <Button
-                  className="px-1"
-                  variant={"outline"}
-                  onClick={() => router.push("/app/create/fraudit")}
-                >
-                  <PlusIcon className="h-4 w-4" />
-                  Create Fraudit
+                <Button className="px-1" variant={"outline"} asChild>
+                  <Link href="/app/create/fraudit">
+                    <PlusIcon className="h-4 w-4" />
+                    Create Fraudit
+                  </Link>
                 </Button>
               </div>
 
@@ -94,7 +94,7 @@ export const AppBar = () => {
 
               <div className="hidden md:block">
                 <ClerkLoaded>
-                  <UserButton afterSignOutUrl="/" />
+                  <UserButton />
                 </ClerkLoaded>
                 <ClerkLoading>
                   <Skeleton className="h-12 w-12 rounded-full" />

@@ -1,7 +1,7 @@
 "use server";
 
 import { getUserByUsername } from "@/db/queries/user";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 import { getUserThreadsById } from "./get-user-threads-by-id";
 
 export const getUserThreadsByUsername = async (username: string) => {

@@ -1,5 +1,5 @@
 import { Changelog } from "@/components/changelog";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 
 export default async function Home() {
   const userPromise = currentUser();
