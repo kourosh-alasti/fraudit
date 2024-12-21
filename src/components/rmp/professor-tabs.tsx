@@ -42,7 +42,7 @@ export const ProfessorTabs = ({ university, reviews, courses }: Props) => {
     setProfCourses(arr);
 
     setLoading(false);
-  }, []);
+  }, [courses]);
 
   return (
     <>

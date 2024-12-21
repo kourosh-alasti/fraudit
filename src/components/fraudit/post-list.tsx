@@ -31,7 +31,7 @@ export const PostList = ({ slug }: Props) => {
     };
 
     getData();
-  }, []);
+  }, [slug]);
 
   return (
     <>

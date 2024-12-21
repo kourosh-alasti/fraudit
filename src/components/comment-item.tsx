@@ -26,7 +26,7 @@ export const CommentItem = ({ comment }: Props) => {
     };
 
     getData();
-  }, []);
+  }, [comment.userId]);
 
   return (
     <>

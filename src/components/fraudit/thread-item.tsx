@@ -39,7 +39,7 @@ export const ThreadItem = ({ thread, className }: Props) => {
     };
 
     getData();
-  }, []);
+  }, [thread.userId]);
 
   return (
     <>
