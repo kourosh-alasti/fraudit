@@ -26,8 +26,8 @@ export const AppBar = () => {
   const router = useRouter();
 
   return (
-    <nav className="z-[999] mb-2 w-full border-b">
-      <div className="mx-auto max-w-screen-xl items-center px-4 md:flex md:justify-between md:px-8">
+    <nav className="z-999 mb-2 w-full border-b">
+      <div className="mx-auto max-w-(--breakpoint-xl) items-center px-4 md:flex md:justify-between md:px-8">
         <div className="flex items-center justify-between py-3 md:py-5">
           <PanelLeftOpenIcon
             onClick={() => open()}
@@ -52,7 +52,7 @@ export const AppBar = () => {
           />
           <div className="md:hidden">
             <button
-              className="rounded-md p-2 text-gray-700 outline-none focus:border focus:border-gray-400"
+              className="rounded-md p-2 text-gray-700 outline-hidden focus:border focus:border-gray-400"
               onClick={() => setisMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <XIcon /> : <Menu />}

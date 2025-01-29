@@ -24,7 +24,7 @@ export const SearchBar = ({ className, value = "" }: Props) => {
         placeholder="Find a Professor"
         value={value || searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
-        className="w-64 rounded-l-md rounded-r-none border-slate-500 bg-transparent px-3 py-2 text-gray-500 focus:outline-none active:outline-none"
+        className="w-64 rounded-l-md rounded-r-none border-slate-500 bg-transparent px-3 py-2 text-gray-500 focus:outline-hidden active:outline-hidden"
       />
       <Link href={`/rmp/search?q=${encodeURIComponent(searchValue)}`}>
         <Button

@@ -36,7 +36,7 @@ export const FrauditInfo = ({ slug, className }: Props) => {
           className={cn(
             "h-40 flex-col justify-between rounded-md py-2  ",
             className &&
-              "sticky top-0 z-[10] flex w-[100vw] self-center border-b bg-white px-10 lg:hidden lg:px-3",
+              "sticky top-0 z-10 flex w-[100vw] self-center border-b bg-white px-10 lg:hidden lg:px-3",
             !className && "flex w-auto border px-4 shadow-lg",
           )}
         >

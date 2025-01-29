@@ -97,7 +97,7 @@ export const InfiniteScroller = () => {
                 className="flex h-20 w-full justify-between rounded-md border-slate-700 bg-white px-4 py-2 text-black shadow-lg"
               >
                 <Link href={`/app/f/${fraudit.slug}`}>
-                  <div className="flex-1 overflow-ellipsis text-black">
+                  <div className="flex-1 text-ellipsis text-black">
                     <h3 className="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-bold">{`f/${fraudit.slug}`}</h3>
                     <p className="overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground">
                       {fraudit.descripton}

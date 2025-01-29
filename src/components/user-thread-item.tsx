@@ -47,7 +47,7 @@ export const UserThreadItem = ({ thread, className }: Props) => {
           )}
           onClick={handleCardClick}
         >
-          <div className="flex w-full items-center justify-between overflow-ellipsis whitespace-nowrap ">
+          <div className="flex w-full items-center justify-between text-ellipsis whitespace-nowrap ">
             <p className="overflow-hidden text-ellipsis whitespace-nowrap sm:whitespace-normal">
               {thread.title}
             </p>

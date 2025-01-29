@@ -67,7 +67,7 @@ export const CommentModal = ({ children, threadId, frauditId }: Props) => {
               type="text"
               value={val}
               onChange={(e) => setVal(e.target.value)}
-              className="w-full border outline-none focus:outline-none active:outline-none "
+              className="w-full border outline-hidden focus:outline-hidden active:outline-hidden "
               placeholder="Nice Post!"
             />
             <Button onClick={postComment}>Post Now</Button>
